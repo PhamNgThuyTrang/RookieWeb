@@ -2,6 +2,7 @@ using AutoMapper;
 using RookieShop.Backend.Helpers;
 using RookieShop.Backend.Models;
 using RookieShop.BackEnd.Services;
+using RookieShop.Shared.Dto.Banner;
 using RookieShop.Shared.Dto.Brand;
 
 namespace RookieShop.Backend.Data.Mapping
@@ -15,7 +16,8 @@ namespace RookieShop.Backend.Data.Mapping
                            opts => opts
                                     .MapFrom(src => ImageHelper
                                                         .GetFileUrl(src.ImageName)
-                                            ));  
+                                            ));
+            CreateMap<Banner, BannerDto>();
         }  
     }
 }

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using RookieShop.Shared.Enum;
 
-namespace RookieShop.Shared
+namespace RookieShop.Shared.Request
 {
     public class BrandCreateRequest
     {

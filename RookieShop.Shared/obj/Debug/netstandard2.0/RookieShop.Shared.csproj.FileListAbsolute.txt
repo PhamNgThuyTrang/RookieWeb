@@ -1,0 +1,9 @@
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\RookieShop.Shared\bin\Debug\netstandard2.0\RookieShop.Shared.deps.json
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\RookieShop.Shared\bin\Debug\netstandard2.0\RookieShop.Shared.dll
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\RookieShop.Shared\bin\Debug\netstandard2.0\RookieShop.Shared.pdb
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\RookieShop.Shared\obj\Debug\netstandard2.0\RookieShop.Shared.csprojAssemblyReference.cache
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\RookieShop.Shared\obj\Debug\netstandard2.0\RookieShop.Shared.AssemblyInfoInputs.cache
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\RookieShop.Shared\obj\Debug\netstandard2.0\RookieShop.Shared.AssemblyInfo.cs
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\RookieShop.Shared\obj\Debug\netstandard2.0\RookieShop.Shared.csproj.CoreCompileInputs.cache
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\RookieShop.Shared\obj\Debug\netstandard2.0\RookieShop.Shared.dll
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\RookieShop.Shared\obj\Debug\netstandard2.0\RookieShop.Shared.pdb

@@ -1,13 +1,9 @@
 using System.Net.Http;
-using System.Text;
-using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using RookieShop.Shared;
 using RookieShop.Shared.Constants;
 using RookieShop.Shared.Dto;
 using RookieShop.Shared.Dto.Brand;
+using RookieShop.Shared.Request;
 
 public class BrandService : IBrandService
 {
