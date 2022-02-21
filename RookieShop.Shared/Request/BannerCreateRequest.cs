@@ -10,6 +10,7 @@ namespace RookieShop.Shared.Request
     {
         [Required]
         public string Name { get; set; }
+        [Required]
         public IFormFile ImageFile { get; set; }
     }
 }

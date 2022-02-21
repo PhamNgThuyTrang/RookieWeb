@@ -48,17 +48,17 @@ namespace RookieShop.Backend.Controllers
             [FromQuery]BrandCriteriaDto brandCriteriaDto,
             CancellationToken cancellationToken)
         {
-            var brandQuery = _context
+            var brands = _context
                                 .Brands
                                 .Where(x => !x.IsDeleted)
                                 .AsQueryable();
-            brandQuery = BrandFilter(brandQuery, brandCriteriaDto);
+            brands = BrandFilter(brands, brandCriteriaDto);
 
-            var pagedBrands = await brandQuery
+            var pagedBrands = await brands
                                 .AsNoTracking()
                                 .PaginateAsync(brandCriteriaDto, cancellationToken);
 
-            var brandDto = _mapper.Map<IEnumerable<BrandDto>>(pagedBrands.Items);
+            var brandDtos = _mapper.Map<IEnumerable<BrandDto>>(pagedBrands.Items);
             return new PagedResponseDto<BrandDto>
             {
                 CurrentPage = pagedBrands.CurrentPage,
@@ -68,7 +68,7 @@ namespace RookieShop.Backend.Controllers
                 SortColumn = brandCriteriaDto.SortColumn,
                 SortOrder = brandCriteriaDto.SortOrder,
                 Limit = brandCriteriaDto.Limit,
-                Items = brandDto
+                Items = brandDtos
             };
         }
 
@@ -78,7 +78,7 @@ namespace RookieShop.Backend.Controllers
         {
             var brand = await _context
                                 .Brands
-                                .Where(x => !x.IsDeleted && x.Id == id)
+                                .Where(x => !x.IsDeleted && x.BrandId == id)
                                 .FirstOrDefaultAsync();
 
             if (brand == null)
@@ -88,11 +88,15 @@ namespace RookieShop.Backend.Controllers
 
             var brandVm = new BrandVm
             {
-                Id = brand.Id,
+                BrandId = brand.BrandId,
                 Name = brand.Name,
                 Type = (int)brand.Type,
-                ImagePath = _fileStorageService.GetFileUrl(brand.ImageName)
             };
+
+            if (brand.ImagePath != null)
+            {
+                brandVm.ImagePath = _fileStorageService.GetFileUrl(brand.ImagePath);
+            }
 
             return brandVm;
         }
@@ -117,7 +121,7 @@ namespace RookieShop.Backend.Controllers
 
             if (brandCreateRequest.ImageFile != null)
             {
-                brand.ImageName = await _fileStorageService.SaveFileAsync(brandCreateRequest.ImageFile);
+                brand.ImagePath = await _fileStorageService.SaveFileAsync(brandCreateRequest.ImageFile);
             }
             
             _context.Brands.Update(brand);
@@ -134,18 +138,18 @@ namespace RookieShop.Backend.Controllers
             {
                 Name = brandCreateRequest.Name,
                 Type = (int)brandCreateRequest.Type,
-                ImageName = string.Empty
+                ImagePath = string.Empty
             };
 
             if (brandCreateRequest.ImageFile != null)
             {
-                brand.ImageName = await _fileStorageService.SaveFileAsync(brandCreateRequest.ImageFile);
+                brand.ImagePath = await _fileStorageService.SaveFileAsync(brandCreateRequest.ImageFile);
             }
 
             _context.Brands.Add(brand);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBrand", new { id = brand.Id }, new BrandVm { Id = brand.Id, Name = brand.Name });
+            return CreatedAtAction("GetBrand", new { id = brand.BrandId }, new BrandVm { BrandId = brand.BrandId, Name = brand.Name, ImagePath = brand.ImagePath });
         }
 
         [HttpDelete("{id}")]

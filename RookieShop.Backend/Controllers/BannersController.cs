@@ -23,7 +23,7 @@ namespace RookieShop.Backend.Controllers
     [EnableCors("AllowOrigins")]
     [ApiController]
     [Authorize("Bearer")]
-    public class BannersController : Controller
+    public class BannersController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -46,16 +46,16 @@ namespace RookieShop.Backend.Controllers
             [FromQuery] BannerCriteriaDto bannerCriteriaDto,
             CancellationToken cancellationToken)
         {
-            var bannerQuery =  _context
+            var banners =  _context
                                 .Banners
                                 .Where(x => !x.IsDeleted)
                                 .AsQueryable();
 
-            var pagedBanners = await bannerQuery
+            var pagedBanners = await banners
                                 .AsNoTracking()
                                 .PaginateAsync(bannerCriteriaDto, cancellationToken);
 
-            var bannerDto = _mapper.Map<IEnumerable<BannerDto>>(pagedBanners.Items);
+            var bannerDtos = _mapper.Map<IEnumerable<BannerDto>>(pagedBanners.Items);
             return new PagedResponseDto<BannerDto>
             {
                 CurrentPage = pagedBanners.CurrentPage,
@@ -65,7 +65,7 @@ namespace RookieShop.Backend.Controllers
                 SortColumn = bannerCriteriaDto.SortColumn,
                 SortOrder = bannerCriteriaDto.SortOrder,
                 Limit = bannerCriteriaDto.Limit,
-                Items = bannerDto
+                Items = bannerDtos
             };
         }
 
@@ -137,7 +137,7 @@ namespace RookieShop.Backend.Controllers
             _context.Banners.Add(banner);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBanners", new { id = banner.BannerId }, new BannerVm { BannerId = banner.BannerId, Name = banner.Name });
+            return CreatedAtAction("GetBanner", new { id = banner.BannerId }, new BannerVm { BannerId = banner.BannerId, Name = banner.Name, ImagePath = banner.ImagePath, DateUpload = banner.DateUpload });
         }
 
         [HttpDelete("{id}")]
@@ -150,7 +150,7 @@ namespace RookieShop.Backend.Controllers
                 return NotFound();
             }
 
-            //_context.Brands.Remove(brand);
+            //_context.Banners.Remove(brand);
             banner.IsDeleted = true;
             _context.Banners.Update(banner);
             await _context.SaveChangesAsync();

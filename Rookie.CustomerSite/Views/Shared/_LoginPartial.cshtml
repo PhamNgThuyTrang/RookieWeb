@@ -1,17 +1,47 @@
-﻿<ul class="navbar-nav">
-    @if (User.Identity.IsAuthenticated)
+﻿@if (User.Identity.IsAuthenticated)
+{
+    <div class="products-sort-by mt-2 mt-lg-0">
+        <a data-toggle="dropdown" data-hover="dropdown" data-delay="200" class="dropdown-toggle nav-link">
+            <strong>
+                Hello @User.Identity.Name !
+            </strong>
+            <b class="caret"></b>
+        </a>
+        <div class="dropdown-menu megamenu">
+            <div class="nav-item dropdown-item">
+                <a class="nav-link-custom" asp-action="ChangePassword" asp-controller="Client_Accounts"><i class="fa fa-key"></i>  Change password</a>
+            </div>
+            <div class="nav-item dropdown-item">
+                <a class="nav-link-custom" asp-action="Profile" asp-controller="Client_Accounts"><i class="fa fa-user"></i>  Your Profile</a>
+            </div>
+            <div class="nav-item dropdown-item">
+                <a class="nav-link-custom" asp-action="HistoryOrder" asp-controller="Client_Orders"><i class="fa fa-first-order"></i>  Order's History</a>
+            </div>
+            <div class="nav-item dropdown-item">
+                <a class="nav-link-custom" asp-action="ClientNotification" asp-controller="Notification"><i class="fa fa-bell"></i>   Your Notification <b>@ViewData["Notifications"]</b></a>
+            </div>
+            <!--if(User.Identity.AuthenticationType == ADMINISTRATION_ROLE && User.IsInRole("Admin"))
     {
+        <div class="nav-item dropdown-item">
+            <a class="nav-link-custom" asp-controller="Admin" asp-action="Index">
+                <i class="fa fa-briefcase"></i>
+                Admin DashBoard
+            </a>
+        </div>
+
+    }-->
+            <div class="nav-item dropdown-item">
+                <a class="nav-link-custom" asp-action="Signout" asp-controller="Client_Accounts"><i class="fa fa-power-off"></i>  Sign out</a>
+            </div>
+        </div>
+    </div>
+}
+else
+{<ul>
         <li class="nav-item">
-            <span class="navbar-text text-dark">Hello <a class="text-dark" asp-controller="Account" asp-action="MyProfile">@User.Identity.Name</a>!</span>
+        <li class="list-inline-item"><a asp-action="TrackOrder" asp-controller="Client_Orders">Track order</a></li>
+        <li class="list-inline-item"><a href="~/../Signin">Sign in</a></li>
+        <li class="list-inline-item"><a href="~/../Signup">Sign up</a></li>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Account" asp-action="SignOut">Logout</a>
-        </li>
-    }
-    else
-    {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Account" asp-action="SignIn">Login</a>
-        </li>
-    }
-</ul>
+    </ul>
+}
