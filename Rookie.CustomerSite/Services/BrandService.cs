@@ -50,7 +50,7 @@ public class BrandService : IBrandService
 
         var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
         var res = await client.PutAsync(
-                            $"{EndpointConstants.GET_BRANDS}\\{brand.Id}",
+                            $"{EndpointConstants.GET_BRANDS}\\{brand.BrandId}",
                             content);
 
         res.EnsureSuccessStatusCode();

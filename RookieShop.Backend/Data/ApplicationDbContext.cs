@@ -14,6 +14,8 @@ namespace RookieShop.Backend.Data
 
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Banner> Banners { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<SubCategory> SubCategories { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

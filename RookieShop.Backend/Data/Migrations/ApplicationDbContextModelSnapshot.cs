@@ -163,6 +163,9 @@ namespace RookieShop.Backend.Data.Migrations
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -173,12 +176,12 @@ namespace RookieShop.Backend.Data.Migrations
 
             modelBuilder.Entity("RookieShop.Backend.Models.Brand", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("BrandId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ImageName")
+                    b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -190,53 +193,100 @@ namespace RookieShop.Backend.Data.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("BrandId");
 
                     b.ToTable("Brands");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            BrandId = 1,
                             IsDeleted = false,
                             Name = "Test Brand 1",
                             Type = 1
                         },
                         new
                         {
-                            Id = 2,
+                            BrandId = 2,
                             IsDeleted = false,
                             Name = "Test Brand 2",
                             Type = 1
                         },
                         new
                         {
-                            Id = 3,
+                            BrandId = 3,
                             IsDeleted = false,
                             Name = "Test Brand 3",
                             Type = 1
                         },
                         new
                         {
-                            Id = 4,
+                            BrandId = 4,
                             IsDeleted = false,
                             Name = "Test Brand 4",
                             Type = 2
                         },
                         new
                         {
-                            Id = 5,
+                            BrandId = 5,
                             IsDeleted = false,
                             Name = "Test Brand 5",
                             Type = 2
                         },
                         new
                         {
-                            Id = 6,
+                            BrandId = 6,
                             IsDeleted = false,
                             Name = "Test Brand 6",
                             Type = 2
                         });
+                });
+
+            modelBuilder.Entity("RookieShop.Backend.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("RookieShop.Backend.Models.SubCategory", b =>
+                {
+                    b.Property<int>("SubCategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SubCategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("SubCategories");
                 });
 
             modelBuilder.Entity("RookieShop.Backend.Models.User", b =>
@@ -356,6 +406,22 @@ namespace RookieShop.Backend.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("RookieShop.Backend.Models.SubCategory", b =>
+                {
+                    b.HasOne("RookieShop.Backend.Models.Category", "Category")
+                        .WithMany("SubCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("RookieShop.Backend.Models.Category", b =>
+                {
+                    b.Navigation("SubCategories");
                 });
 #pragma warning restore 612, 618
         }
