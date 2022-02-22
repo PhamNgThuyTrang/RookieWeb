@@ -42,8 +42,8 @@ namespace RookieShop.Backend.Controllers
         }
 
         [HttpGet]
-        //[AllowAnonymous]
-        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
+        [AllowAnonymous]
+        //[Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult<PagedResponseDto<BrandDto>>> GetBrands(
             [FromQuery]BrandCriteriaDto brandCriteriaDto,
             CancellationToken cancellationToken)

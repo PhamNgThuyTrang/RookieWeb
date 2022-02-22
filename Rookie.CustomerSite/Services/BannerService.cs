@@ -17,7 +17,7 @@ public class BannerService : IBannerService
     {
         _clientFactory = clientFactory;
     }
-    public async Task<ActionResult<PagedResponseDto<BannerDto>>> GetBannerAsync(BannerCriteriaDto bannerCriteriaDto)
+    public async Task<PagedResponseDto<BannerDto>> GetBannerAsync(BannerCriteriaDto bannerCriteriaDto)
     {
         var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
         var getBannersEndpoint = string.IsNullOrEmpty(bannerCriteriaDto.Search) ?
@@ -29,7 +29,7 @@ public class BannerService : IBannerService
         var pagedBrands = await response.Content.ReadAsAsync<PagedResponseDto<BannerDto>>();
         return pagedBrands;
     }
-    public async Task<ActionResult<BannerDto>> GetBannerAsyncById(int id)
+    public async Task<BannerDto> GetBannerAsyncById(int id)
     {
         var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
         var response = await client.GetAsync($"{EndpointConstants.GET_BANNERS}\\{id}");

@@ -45,7 +45,6 @@ C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug
 C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
-C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\Shared\_LoginPartial.cshtml.g.cs
 C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\_ViewImports.cshtml.g.cs
 C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\_ViewStart.cshtml.g.cs
@@ -135,4 +134,5 @@ C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\bin\Debug
 C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\bin\Debug\net5.0\bundleconfig.json
 C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Pages\_ViewImports.cshtml.g.cs
 C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Pages\_ValidationScriptsPartial.cshtml.g.cs
-C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\Shared\_CategoryPath.cshtml.g.cs
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\Shared\_LoginPartial.cshtml.g.cs
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\Shared\Components\Category\default.cshtml.g.cs

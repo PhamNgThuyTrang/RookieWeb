@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 public interface ICategoryService
 {
-    Task<ActionResult<PagedResponseDto<CategoryDto>>> GetCategoryAsync(CategoryCriteriaDto categoryCriteriaDto);
-    Task<ActionResult<CategoryDto>> GetCategoryAsyncById(int id);
+    Task<PagedResponseDto<CategoryDto>> GetCategoryAsync(CategoryCriteriaDto categoryCriteriaDto);
+    Task<CategoryDto> GetCategoryAsyncById(int id);
 }

@@ -17,6 +17,7 @@ namespace Rookie.CustomerSite.Extensions.ServiceCollection
             services.AddTransient<IBrandService, BrandService>();
             services.AddTransient<IBannerService, BannerService>();
             services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<ISubCategoryService, SubCategoryService>();
 
         }
     }

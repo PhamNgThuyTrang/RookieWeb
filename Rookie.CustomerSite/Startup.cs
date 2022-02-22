@@ -61,7 +61,6 @@ namespace Rookie.CustomerSite
             services.AddRazorPages();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddControllersWithViews();
-            services.AddMvc();
 
         }
 

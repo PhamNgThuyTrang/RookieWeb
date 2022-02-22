@@ -14,7 +14,7 @@ public class CategoryService : ICategoryService
     {
         _clientFactory = clientFactory;
     }
-    public async Task<ActionResult<PagedResponseDto<CategoryDto>>> GetCategoryAsync(CategoryCriteriaDto categoryCriteriaDto)
+    public async Task<PagedResponseDto<CategoryDto>> GetCategoryAsync(CategoryCriteriaDto categoryCriteriaDto)
     {
         var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
         var getCategoriesEndpoint = string.IsNullOrEmpty(categoryCriteriaDto.Search) ?
@@ -26,7 +26,7 @@ public class CategoryService : ICategoryService
         var pagedCategories = await response.Content.ReadAsAsync<PagedResponseDto<CategoryDto>>();
         return pagedCategories;
     }
-    public async Task<ActionResult<CategoryDto>> GetCategoryAsyncById(int id)
+    public async Task<CategoryDto> GetCategoryAsyncById(int id)
     {
         var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
         var response = await client.GetAsync($"{EndpointConstants.GET_CATEGORIES}\\{id}");

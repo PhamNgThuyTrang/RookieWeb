@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 public interface IBannerService
 {
-    Task<ActionResult<PagedResponseDto<BannerDto>>> GetBannerAsync(BannerCriteriaDto bannerCriteriaDto);
-    Task<ActionResult<BannerDto>> GetBannerAsyncById(int id);
+    Task<PagedResponseDto<BannerDto>> GetBannerAsync(BannerCriteriaDto bannerCriteriaDto);
+    Task<BannerDto> GetBannerAsyncById(int id);
 
 }

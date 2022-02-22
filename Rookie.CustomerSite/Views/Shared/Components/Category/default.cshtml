@@ -1,0 +1,20 @@
+﻿@using Rookie.CustomerSite.ViewModel.Category;
+@using Rookie.CustomerSite.ViewModel;
+@model PagedResponseVM<CategoryVm>
+@{
+}
+
+@foreach (var i in Model.Items)
+{
+
+    <li class="nav-item dropdown menu-sidebar">
+        <a asp-action="" data-toggle="dropdown" data-hover="dropdown" data-delay="200" class="dropdown-toggle nav-link">@i.Name<b class="caret"></b></a>
+        <ul class="dropdown-menu megamenu">
+            <li class="nav-item">
+                <a asp-controller="" asp-action="" class="nav-link-custom">
+                    Name
+                </a>
+            </li>
+        </ul>
+    </li>
+}
