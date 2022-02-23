@@ -7,8 +7,10 @@ namespace Rookie.CustomerSite.ViewModel.Category
     public class CategoryVm
     {
         [Required]
+        public int CategoryId { get; set; }
+        [Required]
         public string Name { get; set; }
         public string ImagePath { get; set; }
-        public List<SubCategoryVm> SubCategories {get;set;}
+        public ICollection<SubCategoryVm> SubCategories { get; set; }
     }
 }

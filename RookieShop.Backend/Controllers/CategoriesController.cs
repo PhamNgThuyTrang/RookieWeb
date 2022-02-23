@@ -52,6 +52,8 @@ namespace RookieShop.Backend.Controllers
                                 .Categories
                                 .Where(x => !x.IsDeleted)
                                 .AsQueryable();
+            categories = CategoryFilter(categories, categoryCriteriaDto);
+
 
             var pagedCategories = await categories
                                 .AsNoTracking()
@@ -72,7 +74,8 @@ namespace RookieShop.Backend.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
+        [AllowAnonymous]
+        //[Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult<CategoryVm>> GetCategory(int id)
         {
             var category = await _context
@@ -162,5 +165,20 @@ namespace RookieShop.Backend.Controllers
 
             return Ok(true);
         }
+
+        #region Private Method
+        private IQueryable<Category> CategoryFilter(
+            IQueryable<Category> categories,
+            CategoryCriteriaDto categoryCriteriaDto)
+        {
+            if (!String.IsNullOrEmpty(categoryCriteriaDto.Search))
+            {
+                categories = categories.Where(b =>
+                    b.Name.Contains(categoryCriteriaDto.Search));
+            }
+
+            return categories;
+        }
+        #endregion
     }
 }

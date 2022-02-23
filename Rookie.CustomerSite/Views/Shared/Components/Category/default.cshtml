@@ -4,16 +4,19 @@
 @{
 }
 
-@foreach (var i in Model.Items)
+@foreach (var category in Model.Items)
 {
 
     <li class="nav-item dropdown menu-sidebar">
-        <a asp-action="" data-toggle="dropdown" data-hover="dropdown" data-delay="200" class="dropdown-toggle nav-link">@i.Name<b class="caret"></b></a>
+        <a asp-action="" data-toggle="dropdown" data-hover="dropdown" data-delay="200" class="dropdown-toggle nav-link">@category.Name<b class="caret"></b></a>
         <ul class="dropdown-menu megamenu">
             <li class="nav-item">
-                <a asp-controller="" asp-action="" class="nav-link-custom">
-                    Name
-                </a>
+                @foreach (var subcategory in category.SubCategories)
+                {
+                    <a asp-controller="" asp-action="" class="nav-link-custom">
+                        @subcategory.Name
+                    </a>
+                }
             </li>
         </ul>
     </li>

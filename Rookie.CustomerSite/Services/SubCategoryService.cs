@@ -23,6 +23,9 @@ public class SubCategoryService : ISubCategoryService
         var getSubCategoriesEndpoint = string.IsNullOrEmpty(subCategoryCriteriaDto.Search) ?
                                     EndpointConstants.GET_SUBCATEGORIES :
                                     $"{EndpointConstants.GET_SUBCATEGORIES}?Search={subCategoryCriteriaDto.Search}";
+        getSubCategoriesEndpoint = subCategoryCriteriaDto.CategoryId == 0 ?
+                                   getSubCategoriesEndpoint:
+                                   getSubCategoriesEndpoint + $"?CategoryId={subCategoryCriteriaDto.CategoryId}";
 
         var response = await client.GetAsync(getSubCategoriesEndpoint);
         response.EnsureSuccessStatusCode();

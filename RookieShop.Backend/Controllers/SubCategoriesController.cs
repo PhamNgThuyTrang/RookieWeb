@@ -40,9 +40,10 @@ namespace RookieShop.Backend.Controllers
             _mapper = mapper;
             _fileStorageService = fileStorageService;
         }
+
         [HttpGet]
-        //[AllowAnonymous]
-        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
+        [AllowAnonymous]
+        //[Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult<PagedResponseDto<SubCategoryDto>>> GetSubCategories(
             [FromQuery] SubCategoryCriteriaDto subCategoryCriteriaDto,
             CancellationToken cancellationToken)
@@ -51,6 +52,7 @@ namespace RookieShop.Backend.Controllers
                                 .SubCategories
                                 .Where(x => !x.IsDeleted)
                                 .AsQueryable();
+            subCategories = SubCategoryFilter(subCategories, subCategoryCriteriaDto);
 
             var pagedSubCategories = await subCategories
                                 .AsNoTracking()
@@ -71,7 +73,8 @@ namespace RookieShop.Backend.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
+        [AllowAnonymous]
+        //[Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult<SubCategoryVm>> GetSubCategory(int id)
         {
             var subCategory = await _context
@@ -114,13 +117,15 @@ namespace RookieShop.Backend.Controllers
             {
                 subCategory.Name = subCategoryCreateRequest.Name;
             }
+
+            if (subCategoryCreateRequest.CategoryId != 0)
+            {
+                subCategory.CategoryId = subCategoryCreateRequest.CategoryId;
+            }
+
             if (subCategoryCreateRequest.ImageFile != null)
             {
                 subCategory.ImagePath = await _fileStorageService.SaveFileAsync(subCategoryCreateRequest.ImageFile);
-            }
-            if (subCategoryCreateRequest.CategoryId != null)
-            {
-                subCategory.CategoryId = subCategoryCreateRequest.CategoryId;
             }
 
             _context.SubCategories.Update(subCategory);
@@ -136,8 +141,12 @@ namespace RookieShop.Backend.Controllers
             var subCategory = new SubCategory
             {
                 Name = subCategoryCreateRequest.Name,
-                CategoryId = subCategoryCreateRequest.CategoryId
             };
+
+            if (subCategoryCreateRequest.CategoryId != 0)
+            {
+                subCategory.CategoryId = subCategoryCreateRequest.CategoryId;
+            }
 
             if (subCategoryCreateRequest.ImageFile != null)
             {
@@ -167,5 +176,26 @@ namespace RookieShop.Backend.Controllers
 
             return Ok(true);
         }
+
+        #region Private Method
+        private IQueryable<SubCategory> SubCategoryFilter(
+            IQueryable<SubCategory> subCategories,
+            SubCategoryCriteriaDto subCategoryCriteriaDto)
+        {
+            if (!String.IsNullOrEmpty(subCategoryCriteriaDto.Search))
+            {
+                subCategories = subCategories.Where(b =>
+                    b.Name.Contains(subCategoryCriteriaDto.Search));
+            }
+
+            if (subCategoryCriteriaDto.CategoryId != 0)
+            {
+                subCategories = subCategories.Where(b =>
+                    b.CategoryId == subCategoryCriteriaDto.CategoryId);
+            }
+
+            return subCategories;
+        }
+        #endregion
     }
 }

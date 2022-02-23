@@ -6,5 +6,6 @@ namespace RookieShop.Shared.Dto.SubCategory
 {
     public class SubCategoryCriteriaDto : BaseQueryCriteriaDto
     {
+        public int CategoryId { get; set; }
     }
 }

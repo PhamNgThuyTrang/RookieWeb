@@ -9,7 +9,6 @@ namespace Rookie.CustomerSite.ViewModel.SubCategory
     {
         public string Name { get; set; }
         public string ImagePath { get; set; }
-
         public int CategoryId { get; set; }
     }
 }

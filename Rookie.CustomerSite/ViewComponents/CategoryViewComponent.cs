@@ -25,15 +25,17 @@ namespace Rookie.CustomerSite.ViewComponents
 
         public CategoryViewComponent(
             ICategoryService categoryService,
+            ISubCategoryService subCategoryService,
             IConfiguration config,
             IMapper mapper)
         {
             _categoryService = categoryService;
+            _subCategoryService = subCategoryService;
             _config = config;
             _mapper = mapper;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(int? category)
+        public async Task<IViewComponentResult> InvokeAsync()
         {
             var categoryCriteriaDto = new CategoryCriteriaDto()
             {
@@ -41,20 +43,21 @@ namespace Rookie.CustomerSite.ViewComponents
                 Limit = int.Parse(_config[ConfigurationConstants.PAGING_LIMIT])
             };
             var pagedCategories = await _categoryService.GetCategoryAsync(categoryCriteriaDto);
-            var categories = _mapper.Map<PagedResponseVM<CategoryVm>>(pagedCategories);
 
-            var subCategoryCriteriaDto = new SubCategoryCriteriaDto()
+            foreach (var category in pagedCategories.Items)
             {
-                SortOrder = SortOrderEnum.Accsending,
-                Limit = int.Parse(_config[ConfigurationConstants.PAGING_LIMIT])
-            };
-            var subCategories = await _subCategoryService.GetSubCategoryAsync(subCategoryCriteriaDto);
-
-            foreach (var item in subCategories.Items)
-            {
-                var index = item.CategoryId;
-                //categories.Items[index].
+                var subCategoryCriteriaDto = new SubCategoryCriteriaDto()
+                {
+                    CategoryId = category.CategoryId,
+                    SortOrder = SortOrderEnum.Accsending,
+                    Limit = int.Parse(_config[ConfigurationConstants.PAGING_LIMIT])
+                };
+                var pagedSubCategories = await _subCategoryService.GetSubCategoryAsync(subCategoryCriteriaDto);
+                foreach (var subCategory in pagedSubCategories.Items)
+                    category.SubCategories.Add(subCategory);
             }
+
+            var categories = _mapper.Map<PagedResponseVM<CategoryVm>>(pagedCategories);
             return View(categories);
         }
     }

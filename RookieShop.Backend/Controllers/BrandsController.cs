@@ -182,7 +182,7 @@ namespace RookieShop.Backend.Controllers
             }
 
             if (brandCriteriaDto.Types != null &&
-                brandCriteriaDto.Types.Count() > 0 &&
+                brandCriteriaDto.Types.Length > 0 &&
                !brandCriteriaDto.Types.Any(x => x == (int)BrandTypeEnum.All))
             {
                 brandQuery = brandQuery.Where(x => 
