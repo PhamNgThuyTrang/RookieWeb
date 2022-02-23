@@ -136,3 +136,6 @@ C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug
 C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Pages\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\Shared\_LoginPartial.cshtml.g.cs
 C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\Shared\Components\Category\default.cshtml.g.cs
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\Shared\_CartPartial.cshtml.g.cs
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\Shared\_Footer.cshtml.g.cs
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\Shared\Components\CategoryFooter\default.cshtml.g.cs

@@ -1,0 +1,26 @@
+﻿@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@inject IHttpContextAccessor HttpContextAccessor
+
+
+@{
+    @*var session = HttpContextAccessor.HttpContext.Session;
+        string jsoncart = session.GetString(HubbleSpace_Final.Controllers.Client_ProductCartsController.CARTKEY);
+        if (jsoncart != null)
+        {
+            var cart = JsonConvert.DeserializeObject<List<CartItemModel>>(jsoncart);
+            var totalitem = cart.Where(c => c.Discount == 0).Sum(c => c.Amount);
+            <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block">
+                <a asp-route="cart" class="btn btn-primary navbar-btn">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span>@totalitem item(s) in cart</span>
+                </a>
+            </div>
+        }
+        else
+        {
+            <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block"><a asp-route="cart" class="btn btn-primary navbar-btn"><i class="fa fa-shopping-cart"></i><span>0 item(s) in cart</span></a></div>
+        }*@
+    <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block"><a asp-route="cart" class="btn btn-primary navbar-btn"><i class="fa fa-shopping-cart"></i><span>0 item(s) in cart</span></a></div>
+
+}

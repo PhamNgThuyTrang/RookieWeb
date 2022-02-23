@@ -82,7 +82,7 @@
                     <div class="navbar-buttons d-flex justify-content-end">
                         <!-- /.nav-collapse-->
                         <div id="search-not-mobile" class="navbar-collapse collapse"></div><a data-toggle="collapse" href="#search" class="btn navbar-btn btn-primary d-none d-lg-inline-block"><span class="sr-only">Toggle search</span><i class="fa fa-search"></i></a>
-                        <!--<partial name="_CartInfo" />-->
+                        <partial name="_CartPartial" />
                     </div>
                 </div>
             </div>
@@ -106,7 +106,7 @@
             @RenderBody()
         </div>
     </div>
-    <!--await Html.PartialAsync("_Footer")-->
+    <partial name="_Footer" />
     @RenderSection("Scripts", required: false)
 </body>
 </html>
