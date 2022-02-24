@@ -58,6 +58,7 @@ namespace RookieShop.Backend.Controllers
                                 .PaginateAsync(bannerCriteriaDto, cancellationToken);
 
             var bannerDtos = _mapper.Map<IEnumerable<BannerDto>>(pagedBanners.Items);
+
             return new PagedResponseDto<BannerDto>
             {
                 CurrentPage = pagedBanners.CurrentPage,

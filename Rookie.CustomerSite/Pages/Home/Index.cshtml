@@ -1,0 +1,140 @@
+﻿@page
+@model Rookie.CustomerSite.Pages.Home.IndexModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "RookieShop";
+}
+<div class="container">
+    <!-- /#main-slider-->
+    <div id="banner" class="owl-carousel owl-theme">
+        @foreach (var item in Model.Banners.Items)
+        {
+            <div class="item">
+                <img src="@item.ImagePath">
+            </div>
+        }
+    </div>
+</div>
+    <!--
+    *** ADVANTAGES HOMEPAGE ***
+    _________________________________________________________
+    -->
+    <div id="advantages">
+        <!-- /.container-->
+        <div class="container">
+            <!-- /.row-->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="box clickable d-flex flex-column justify-content-center mb-0 h-100">
+                        <div class="icon"><i class="fa fa-heart"></i></div>
+                        <h3>We love our customers</h3>
+                        <p class="mb-0">We are known to provide best possible service ever</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="box clickable d-flex flex-column justify-content-center mb-0 h-100">
+                        <div class="icon"><i class="fa fa-tags"></i></div>
+                        <h3>Best prices</h3>
+                        <p class="mb-0">You can check that the height of the boxes adjust when longer text like this one is used in one of them.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="box clickable d-flex flex-column justify-content-center mb-0 h-100">
+                        <div class="icon"><i class="fa fa-thumbs-up"></i></div>
+                        <h3>100% satisfaction guaranteed</h3>
+                        <p class="mb-0">Free returns on everything for 3 months.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row-->
+        </div>
+        <!-- /.container-->
+    </div>
+    <!-- /#advantages-->
+    <!-- *** ADVANTAGES END ***-->
+    <!--
+    *** HOT PRODUCT SLIDESHOW ***
+    _________________________________________________________
+    -->
+    <div id="hot">
+    </div>
+    <!-- /#hot-->
+    <!--
+    *** BESTSALE PRODUCT SLIDESHOW ***
+    _________________________________________________________
+    -->
+    <div id="bestsale">
+
+    </div>
+    <!-- /#saleproduct-->
+    <!--
+    *** SALEPRODUCT PRODUCT SLIDESHOW ***
+    _________________________________________________________
+    -->
+    <div id="saleproduct">
+
+    </div>
+    <!-- /#SALEPRODUCT-->
+    @section ajax{
+        <script>
+            $(function () {
+                $(document).ready(function () {
+                    $("#banner").owlCarousel({
+                        autoplay: true,
+                        navigation: true,
+                        loop: true,
+                        items: 1,
+                        autoHeight: true,
+                    });
+                    $.ajax({
+                        url: "Home/GetNewProducts",
+                        success: function (response) {
+                            $("#hot").html(response);
+                            $(".owl-carousel").owlCarousel({
+                                center: true,
+                                loop: true,
+                                autoplay: true,
+                                margin: 15,
+                                items: 1,
+                                responsive: {
+                                    600: {
+                                        items: 2
+                                    },
+                                    900: {
+                                        items: 3
+                                    },
+                                    1200: {
+                                        items: 4
+                                    }
+                                }
+                            });
+                        }
+                    });
+                    $.ajax({
+                        url: "Home/GetBestSale",
+                        success: function (response) {
+                            $("#bestsale").html(response);
+                            $(".owl-carousel").owlCarousel({
+                                center: true,
+                                loop: true,
+                                autoplay: true,
+                                margin: 15,
+                                items: 1,
+                                responsive: {
+                                    600: {
+                                        items: 2
+                                    },
+                                    900: {
+                                        items: 3
+                                    },
+                                    1200: {
+                                        items: 4
+                                    }
+                                }
+                            });
+                        }
+                    });
+                });
+            });</script>
+    }

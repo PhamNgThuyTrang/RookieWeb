@@ -59,6 +59,10 @@ namespace Rookie.CustomerSite
             services.AddCustomHttpClient(Configuration);
             services.AddServices();
             services.AddRazorPages();
+            services.AddMvc().AddRazorPagesOptions(options =>
+            {
+                options.Conventions.AddPageRoute("/Home/Index", "");
+            });
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddControllersWithViews();
 
