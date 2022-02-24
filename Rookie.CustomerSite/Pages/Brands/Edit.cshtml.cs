@@ -50,20 +50,20 @@ namespace Rookie.CustomerSite.Pages.Brands
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int id)
-        {
-            if (!ModelState.IsValid || id < 0)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> OnPostAsync(int id)
+        //{
+        //    if (!ModelState.IsValid || id < 0)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var brandDto =_mapper.Map<BrandDto>(Brand);
-            if (await _brandService.UpdateBrand(brandDto))
-            {
-                return RedirectToPage("./Index");
-            }
+        //    var brandDto =_mapper.Map<BrandDto>(Brand);
+        //    if (await _brandService.UpdateBrand(brandDto))
+        //    {
+        //        return RedirectToPage("./Index");
+        //    }
 
-            return Page();
-        }
+        //    return Page();
+        //}
     }
 }

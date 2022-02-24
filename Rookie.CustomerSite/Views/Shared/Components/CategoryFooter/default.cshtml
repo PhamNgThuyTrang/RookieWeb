@@ -1,0 +1,19 @@
+﻿@using Rookie.CustomerSite.ViewModel
+@using Rookie.CustomerSite.ViewModel.Category
+@model PagedResponseVM<CategoryVm>
+
+@{
+}
+
+@foreach (var category in Model.Items)
+{
+<div class="col-lg-4 col-md-6">
+    <h5>@category.Name</h5>
+    @foreach (var subcategory in category.SubCategories)
+    {
+        <ul class="list-unstyled">
+            <li><a>@subcategory.Name</a></li>
+        </ul>
+    }
+</div>
+}

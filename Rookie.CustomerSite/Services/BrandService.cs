@@ -36,25 +36,25 @@ public class BrandService : IBrandService
         return Brand;
     }
 
-    public async Task<bool> UpdateBrand(BrandDto brand)
-    {
-        var brandCreateRequest = new BrandCreateRequest
-        {
-             Name = brand.Name
-        };
+    //public async Task<bool> UpdateBrand(BrandDto brand)
+    //{
+    //    var brandCreateRequest = new BrandCreateRequest
+    //    {
+    //         Name = brand.Name
+    //    };
 
-        //var json = JsonConvert.SerializeObject(brandCreateRequest);
-        //var data = new StringContent(json, Encoding.UTF8, "application/json");
-        var content = new MultipartFormDataContent();
-        content.Add(new StringContent(brand.Name), "Name");
+    //    //var json = JsonConvert.SerializeObject(brandCreateRequest);
+    //    //var data = new StringContent(json, Encoding.UTF8, "application/json");
+    //    var content = new MultipartFormDataContent();
+    //    content.Add(new StringContent(brand.Name), "Name");
 
-        var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
-        var res = await client.PutAsync(
-                            $"{EndpointConstants.GET_BRANDS}\\{brand.BrandId}",
-                            content);
+    //    var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
+    //    var res = await client.PutAsync(
+    //                        $"{EndpointConstants.GET_BRANDS}\\{brand.BrandId}",
+    //                        content);
 
-        res.EnsureSuccessStatusCode();
+    //    res.EnsureSuccessStatusCode();
 
-        return await Task.FromResult(true);
-    }
+    //    return await Task.FromResult(true);
+    //}
 }

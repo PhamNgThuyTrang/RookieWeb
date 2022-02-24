@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using RookieShop.Backend.Models;
 using RookieShop.Shared.ViewModels;
 using RookieShop.Shared.Request;
+using System;
 
 namespace RookieShop.Backend.Controllers
 {
@@ -40,8 +41,8 @@ namespace RookieShop.Backend.Controllers
         }
 
         [HttpGet]
-        //[AllowAnonymous]
-        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
+        [AllowAnonymous]
+        //[Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult<PagedResponseDto<BannerDto>>> GetBanners(
             [FromQuery] BannerCriteriaDto bannerCriteriaDto,
             CancellationToken cancellationToken)
@@ -50,6 +51,7 @@ namespace RookieShop.Backend.Controllers
                                 .Banners
                                 .Where(x => !x.IsDeleted)
                                 .AsQueryable();
+            banners = BannerFilter(banners, bannerCriteriaDto);
 
             var pagedBanners = await banners
                                 .AsNoTracking()
@@ -70,7 +72,8 @@ namespace RookieShop.Backend.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
+        [AllowAnonymous]
+        //[Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult<BannerVm>> GetBanner(int id)
         {
             var banner = await _context
@@ -157,5 +160,20 @@ namespace RookieShop.Backend.Controllers
 
             return Ok(true);
         }
+
+        #region Private Method
+        private IQueryable<Banner> BannerFilter(
+            IQueryable<Banner> banners,
+            BannerCriteriaDto bannerCriteriaDto)
+        {
+            if (!String.IsNullOrEmpty(bannerCriteriaDto.Search))
+            {
+                banners = banners.Where(b =>
+                    b.Name.Contains(bannerCriteriaDto.Search));
+            }
+
+            return banners;
+        }
+        #endregion
     }
 }

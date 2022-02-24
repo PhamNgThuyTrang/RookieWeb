@@ -8,7 +8,6 @@ namespace RookieShop.Shared.Request
         [Required]
         public string Name { get; set; }
         public IFormFile ImageFile { get; set; }
-        [Required]
         public int CategoryId { get; set; }
     }
 }

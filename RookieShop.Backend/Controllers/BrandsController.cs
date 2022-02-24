@@ -42,8 +42,8 @@ namespace RookieShop.Backend.Controllers
         }
 
         [HttpGet]
-        //[AllowAnonymous]
-        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
+        [AllowAnonymous]
+        //[Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult<PagedResponseDto<BrandDto>>> GetBrands(
             [FromQuery]BrandCriteriaDto brandCriteriaDto,
             CancellationToken cancellationToken)
@@ -182,7 +182,7 @@ namespace RookieShop.Backend.Controllers
             }
 
             if (brandCriteriaDto.Types != null &&
-                brandCriteriaDto.Types.Count() > 0 &&
+                brandCriteriaDto.Types.Length > 0 &&
                !brandCriteriaDto.Types.Any(x => x == (int)BrandTypeEnum.All))
             {
                 brandQuery = brandQuery.Where(x => 
