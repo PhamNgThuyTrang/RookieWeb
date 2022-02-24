@@ -51,6 +51,7 @@ namespace RookieShop.Backend.Controllers
             var categories = _context
                                 .Categories
                                 .Where(x => !x.IsDeleted)
+                                .Include(x => x.SubCategories)
                                 .AsQueryable();
             categories = CategoryFilter(categories, categoryCriteriaDto);
 
@@ -81,6 +82,7 @@ namespace RookieShop.Backend.Controllers
             var category = await _context
                                 .Categories
                                 .Where(x => !x.IsDeleted && x.CategoryId == id)
+                                .Include(x => x.SubCategories)
                                 .FirstOrDefaultAsync();
 
             if (category == null)
@@ -92,6 +94,7 @@ namespace RookieShop.Backend.Controllers
             {
                 CategoryId = category.CategoryId,
                 Name = category.Name,
+                SubCategories = _mapper.Map<List<SubCategoryVm>>(category.SubCategories)
             };
 
             if(category.ImagePath != null)
