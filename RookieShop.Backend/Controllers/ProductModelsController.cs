@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,14 +22,16 @@ using System.Threading.Tasks;
 namespace RookieShop.Backend.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("AllowOrigins")]
+    [Authorize("Bearer")]
     [ApiController]
-    public class ProductModelController : ControllerBase
+    public class ProductModelsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly IFileStorageService _fileStorageService;
 
-        public ProductModelController(
+        public ProductModelsController(
             ApplicationDbContext context, 
             IMapper mapper,
             IFileStorageService fileStorageService)
@@ -154,7 +157,7 @@ namespace RookieShop.Backend.Controllers
                 return NotFound();
             }
 
-            //_context.Banners.Remove(brand);
+            //_context.ProductModels.Remove(productModel);
             productModel.IsDeleted = true;
             _context.ProductModels.Update(productModel);
             await _context.SaveChangesAsync();

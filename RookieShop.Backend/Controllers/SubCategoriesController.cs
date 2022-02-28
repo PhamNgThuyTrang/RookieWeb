@@ -169,7 +169,7 @@ namespace RookieShop.Backend.Controllers
                 return NotFound();
             }
 
-            //_context.SubCategories.Remove(brand);
+            //_context.SubCategories.Remove(subCategory);
             subCategory.IsDeleted = true;
             _context.SubCategories.Update(subCategory);
             await _context.SaveChangesAsync();

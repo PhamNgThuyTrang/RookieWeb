@@ -194,7 +194,8 @@ namespace RookieShop.Backend.Controllers
                                         ListedPrice = product.ListedPrice,
                                         SellingPrice = product.SellingPrice,
                                         ProductModelId = product.ProductModelId,
-                                        ImagePath = product.ImagePath
+                                        ImagePath = product.ImagePath,
+                                        DateUpload = product.DateUpload
                                     });
         }
 
@@ -208,7 +209,7 @@ namespace RookieShop.Backend.Controllers
                 return NotFound();
             }
 
-            //_context.Categories.Remove(brand);
+            //_context.Products.Remove(product);
             product.IsDeleted = true;
             _context.Products.Update(product);
             await _context.SaveChangesAsync();

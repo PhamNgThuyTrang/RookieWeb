@@ -41,20 +41,6 @@ namespace Rookie.CustomerSite.ViewComponents
                 Limit = int.Parse(_config[ConfigurationConstants.PAGING_LIMIT])
             };
             var pagedCategories = await _categoryService.GetCategoryAsync(categoryCriteriaDto);
-
-            foreach (var category in pagedCategories.Items)
-            {
-                var subCategoryCriteriaDto = new SubCategoryCriteriaDto()
-                {
-                    CategoryId = category.CategoryId,
-                    SortOrder = SortOrderEnum.Accsending,
-                    Limit = int.Parse(_config[ConfigurationConstants.PAGING_LIMIT])
-                };
-                var pagedSubCategories = await _subCategoryService.GetSubCategoryAsync(subCategoryCriteriaDto);
-                foreach (var subCategory in pagedSubCategories.Items)
-                    category.SubCategories.Add(subCategory);
-            }
-
             var categories = _mapper.Map<PagedResponseVM<CategoryVm>>(pagedCategories);
             return View(categories);
         }

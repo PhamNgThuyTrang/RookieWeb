@@ -154,7 +154,7 @@ namespace RookieShop.Backend.Controllers
                 return NotFound();
             }
 
-            //_context.Banners.Remove(brand);
+            //_context.Banners.Remove(banner);
             banner.IsDeleted = true;
             _context.Banners.Update(banner);
             await _context.SaveChangesAsync();

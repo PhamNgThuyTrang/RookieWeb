@@ -6,5 +6,6 @@ namespace RookieShop.Shared.Dto.ProductImage
 {
     public class ProductImageCriteriaDto : BaseQueryCriteriaDto
     {
+        public int ProductId { get; set; }
     }
 }

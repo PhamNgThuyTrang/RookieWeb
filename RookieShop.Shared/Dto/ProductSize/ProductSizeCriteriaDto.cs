@@ -6,5 +6,6 @@ namespace RookieShop.Shared.Dto.ProductSize
 {
     public class ProductSizeCriteriaDto : BaseQueryCriteriaDto
     {
+        public int ProductId { get; set; }
     }
 }

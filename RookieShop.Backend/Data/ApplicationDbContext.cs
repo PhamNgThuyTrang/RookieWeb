@@ -18,7 +18,7 @@ namespace RookieShop.Backend.Data
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<ProductModel> ProductModels { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductImage> productImages { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<ProductSize> ProductSizes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

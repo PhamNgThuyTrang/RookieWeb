@@ -177,7 +177,7 @@ namespace RookieShop.Backend.Data.Migrations
                         new
                         {
                             BannerId = 1,
-                            DateUpload = new DateTime(2022, 2, 24, 13, 56, 56, 27, DateTimeKind.Local).AddTicks(2134),
+                            DateUpload = new DateTime(2022, 2, 25, 14, 47, 59, 523, DateTimeKind.Local).AddTicks(4215),
                             ImagePath = "5ecc6547-f3c2-4b38-8528-c2e4dc5c0751.jpeg",
                             IsDeleted = false,
                             Name = "Women's Shoes, Clothing & Accessories"
@@ -185,7 +185,7 @@ namespace RookieShop.Backend.Data.Migrations
                         new
                         {
                             BannerId = 2,
-                            DateUpload = new DateTime(2022, 2, 24, 13, 56, 56, 27, DateTimeKind.Local).AddTicks(7465),
+                            DateUpload = new DateTime(2022, 2, 25, 14, 47, 59, 524, DateTimeKind.Local).AddTicks(197),
                             ImagePath = "f6a57e16-2956-435e-843a-4ebd1ce0fb1f.jpeg",
                             IsDeleted = false,
                             Name = "Everlasting Love Pack: Available from 18 February"
@@ -335,6 +335,9 @@ namespace RookieShop.Backend.Data.Migrations
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
@@ -342,7 +345,7 @@ namespace RookieShop.Backend.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("productImages");
+                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("RookieShop.Backend.Models.ProductModel", b =>
@@ -376,6 +379,9 @@ namespace RookieShop.Backend.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
