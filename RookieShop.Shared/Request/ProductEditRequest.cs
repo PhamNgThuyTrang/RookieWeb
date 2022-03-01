@@ -13,5 +13,12 @@ namespace RookieShop.Shared.Request
         public int ListedPrice { get; set; }
         public int SellingPrice { get; set; }
         public int ProductModelId { get; set; }
+
+        public ProductEditRequest()
+        {
+            ListedPrice = 0;
+            SellingPrice = 0;
+            ProductModelId = 0;
+        }
     }
 }

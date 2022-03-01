@@ -10,6 +10,8 @@ using RookieShop.Shared.Dto.ProductImage;
 using RookieShop.Shared.Dto.ProductModel;
 using RookieShop.Shared.Dto.ProductSize;
 using RookieShop.Shared.Dto.SubCategory;
+using RookieShop.Shared.ViewModels;
+using System.Collections.Generic;
 
 namespace RookieShop.Backend.Data.Mapping
 {
@@ -39,16 +41,24 @@ namespace RookieShop.Backend.Data.Mapping
                                                         .GetFileUrl(src.ImagePath)
                                             ));
             CreateMap<ProductModel, ProductModelDto>();
+
             CreateMap<Product, ProductDto>().ForMember(src => src.ImagePath,
                            opts => opts
                                     .MapFrom(src => ImageHelper
                                                         .GetFileUrl(src.ImagePath)
                                             ));
+
             CreateMap<ProductImage, ProductImageDto>().ForMember(src => src.ImagePath,
                            opts => opts
                                     .MapFrom(src => ImageHelper
                                                         .GetFileUrl(src.ImagePath)
                                             ));
+            CreateMap<ProductImage, ProductImageVm>().ForMember(src => src.ImagePath,
+                           opts => opts
+                                    .MapFrom(src => ImageHelper
+                                                        .GetFileUrl(src.ImagePath)
+                                                ));
+            CreateMap<List<ProductImage>, List<ProductImageVm>>();
             CreateMap<ProductSize, ProductSizeDto>();
 
         }

@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 
 namespace RookieShop.Backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [EnableCors("AllowOrigins")]
     [Authorize("Bearer")]
     [ApiController]
@@ -81,6 +81,8 @@ namespace RookieShop.Backend.Controllers
             var product = await _context
                                 .Products
                                 .Where(x => !x.IsDeleted && x.ProductId == id)
+                                .Include(x => x.ProductImages)
+                                .Include(x => x.ProductSizes)
                                 .FirstOrDefaultAsync();
 
             if (product == null)
@@ -102,16 +104,6 @@ namespace RookieShop.Backend.Controllers
             if (product.ImagePath != null)
             {
                 productVm.ImagePath = _fileStorageService.GetFileUrl(product.ImagePath);
-            }
-
-            if (product.ProductImages != null)
-            {
-                productVm.ProductImages = _mapper.Map<List<ProductImageVm>>(product.ProductImages);
-            }
-
-            if (product.ProductSizes != null)
-            {
-                productVm.ProductSizes = _mapper.Map<List<ProductSizeVm>>(product.ProductSizes);
             }
 
             return productVm;
@@ -222,22 +214,11 @@ namespace RookieShop.Backend.Controllers
             IQueryable<Product> products,
             ProductCriteriaDto productCriteriaDto)
         {
-            if (productCriteriaDto.GetProductImage == true)
-            {
-                products = products.Include(x => x.ProductImages);
-            }
-
-            if (productCriteriaDto.GetProductSize == true)
-            {
-                products = products.Include(x => x.ProductSizes);
-            }
-
             if (!String.IsNullOrEmpty(productCriteriaDto.Search))
             {
                 products = products.Where(b =>
                     b.Name.Contains(productCriteriaDto.Search));
             }
-
             return products;
         }
         #endregion

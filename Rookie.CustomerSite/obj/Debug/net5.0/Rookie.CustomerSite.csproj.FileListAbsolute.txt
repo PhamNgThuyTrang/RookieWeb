@@ -141,3 +141,4 @@ C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug
 C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\Shared\Components\CategoryFooter\default.cshtml.g.cs
 C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\Shared\Components\Banner\default.cshtml.g.cs
 C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Pages\Home\Index.cshtml.g.cs
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Pages\ProductDetail\Index.cshtml.g.cs

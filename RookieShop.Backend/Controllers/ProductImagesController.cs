@@ -52,6 +52,7 @@ namespace RookieShop.Backend.Controllers
                                 .ProductImages
                                 .Where(x => !x.IsDeleted)
                                 .AsQueryable();
+            productImages = ProductImageFilter(productImages, productImageCriteriaDto);
 
             var pagedProductImages = await productImages
                                 .AsNoTracking()
@@ -81,7 +82,6 @@ namespace RookieShop.Backend.Controllers
                                 .ProductImages
                                 .Where(x => !x.IsDeleted && x.ProductImageId == id)
                                 .FirstOrDefaultAsync();
-
             if (productImage == null)
             {
                 return NotFound();

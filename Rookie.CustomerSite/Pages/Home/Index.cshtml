@@ -58,8 +58,90 @@
     _________________________________________________________
     -->
     <div id="hot">
+        <div class="box py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="mb-0"><strong>New Arrivals</strong></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div  class="owl-carousel owl-theme">
+                @foreach (var newproduct in Model.Products.Items.OrderBy(x => x.DateUpload).TakeLast(8))
+                {
+                    <div class="item">
+                        <div class="product">
+                            <div class="flip-container">
+                                <div class="flipper">
+                                    <div class="front">
+                                        <a asp-action="Product_Detail" asp-route-name="@newproduct.Name.Replace(" ", "-")" asp-route-color="@newproduct.Color.Replace(" ","").Replace("/", "-")">
+                                            <img src="@newproduct.ImagePath" alt="@newproduct.Name">
+                                        </a>
+                                    </div>
+                                    <div class="back">
+                                        <a asp-action="Product_Detail" asp-route-name="@newproduct.Name.Replace(" ", "-")" asp-route-color="@newproduct.Color.Replace(" ","").Replace("/", "-")">
+                                            <img src="@newproduct.ImagePath">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <a asp-action="Product_Detail" asp-route-name="@newproduct.Name.Replace(" ", "-")" asp-route-color="@newproduct.Color.Replace(" ","").Replace("/", "-")" class="invisible">
+                                <img src="@newproduct.ImagePath" alt="@newproduct.Name">
+                            </a>
+                            <div class="text">
+                                <h3>
+                                    <a asp-action="Product_Detail" asp-route-name="@newproduct.Name.Replace(" ", "-")" asp-route-color="@newproduct.Color.Replace(" ","").Replace("/", "-")">
+                                        @newproduct.Name.ToUpper()
+                                    </a>
+                                </h3>
+
+                                @if (newproduct.SellingPrice < newproduct.ListedPrice)
+                                {
+                                    <p class="price">
+                                        <del>
+                                            <text> @String.Format("{0:0,0}", newproduct.ListedPrice) VNĐ </text>
+                                            
+                                        </del>
+                                    </p>
+                                }
+                                <p class="price-sale">
+                                    <text> @String.Format("{0:0,0}", newproduct.SellingPrice) VNĐ </text>
+                                </p>
+                                <p class="buttons">
+                                    <a class="btn btn-primary">
+                                        View detail
+                                    </a>
+                                    <!--<a asp-action="Cart" asp-route-id="item.ID_Color_Product" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to cart</a>-->
+                                </p>
+                            </div>
+                            <!-- /.text-->
+                            <!-- /.ribbon-->
+                            <div class="ribbon new">
+                                <div class="theribbon">NEW</div>
+                                <div class="ribbon-background"></div>
+                            </div>
+                            <!-- /.ribbon-->
+                            <!-- /.ribbon-->
+                            @if (newproduct.SellingPrice < newproduct.ListedPrice)
+                            {
+                                <div class="ribbon sale">
+                                    <div class="theribbon">SALE</div>
+                                    <div class="ribbon-background"></div>
+                                </div>
+                            }
+                            <!-- /.ribbon-->
+                        </div>
+                        <!-- /.product-->
+                    </div>
+                    <!-- /.products-->
+                }
+            </div>
+            <!-- /.product-slider-->
+        </div>
+        <!-- /#hot-->
     </div>
-    <!-- /#hot-->
     <!--
     *** BESTSALE PRODUCT SLIDESHOW ***
     _________________________________________________________
@@ -87,52 +169,23 @@
                         items: 1,
                         autoHeight: true,
                     });
-                    $.ajax({
-                        url: "Home/GetNewProducts",
-                        success: function (response) {
-                            $("#hot").html(response);
-                            $(".owl-carousel").owlCarousel({
-                                center: true,
-                                loop: true,
-                                autoplay: true,
-                                margin: 15,
-                                items: 1,
-                                responsive: {
-                                    600: {
-                                        items: 2
-                                    },
-                                    900: {
-                                        items: 3
-                                    },
-                                    1200: {
-                                        items: 4
-                                    }
-                                }
-                            });
-                        }
-                    });
-                    $.ajax({
-                        url: "Home/GetBestSale",
-                        success: function (response) {
-                            $("#bestsale").html(response);
-                            $(".owl-carousel").owlCarousel({
-                                center: true,
-                                loop: true,
-                                autoplay: true,
-                                margin: 15,
-                                items: 1,
-                                responsive: {
-                                    600: {
-                                        items: 2
-                                    },
-                                    900: {
-                                        items: 3
-                                    },
-                                    1200: {
-                                        items: 4
-                                    }
-                                }
-                            });
+                    $("#hot .owl-carousel").owlCarousel({
+                        center: true,
+                        loop: true,
+                        autoplay: true,
+                        margin: 15,
+                        items: 1,
+                        autoHeight: true,
+                        responsive: {
+                            600: {
+                                items: 2
+                            },
+                            900: {
+                                items: 3
+                            },
+                            1200: {
+                                items: 4
+                            }
                         }
                     });
                 });

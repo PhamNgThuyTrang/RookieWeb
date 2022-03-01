@@ -17,8 +17,5 @@ namespace RookieShop.Shared.Dto.Product
         public DateTime DateUpload { get; set; }
 
         public int ProductModelId { get; set; }
-
-        public List<ProductImageDto> ProductImages { get; set; }
-        public List<ProductSizeDto> ProductSizes { get; set; }
     }
 }

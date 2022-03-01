@@ -1,0 +1,114 @@
+﻿@page
+@model Rookie.CustomerSite.Pages.ProductDetail.IndexModel
+@{
+}
+
+@section SocialSeo{
+    <meta property="og:title" content="@Model.Product.Name" />
+    @*<meta property="og:description" content="@Model.Product.Description" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="@hostName@Context.Request.Path" />
+    <meta property="og:image" content="@hostName/@Model.Product.ImagePath" />*@
+}
+
+<div id="all">
+    <div id="content">
+        <div class="container">
+            <div class="row">
+                <!-- breadcrumb-->
+                <div class="col-12" style="padding-right: 0">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a asp-page="Home">Home</a></li>
+                                @*if (breadcrumbItem != null)
+                                {
+                                    <li class="breadcrumb-item"><a>@breadcrumbItem.</a></li>
+                                    <li class="breadcrumb-item"><a>@breadcrumbItem.</a></li>
+                                    <li aria-current="page" class="breadcrumb-item active">@product.Name</li>
+                                }*@
+                        </ol>
+                    </nav>
+                </div>
+
+                <!--ProductMain-->
+                <div class="col-12" itemscope itemtype="http://schema.org/Product">
+                    <div id="productMain" class="row">
+                        <!--product_slider-->
+                        <div class="col-lg-8 col-md-6">
+                            <div id="main-slider" class="owl-carousel owl-theme" itemprop="image">
+                                <div class="item">
+                                    <img src="@Model.Product.ImagePath" class="img-fluid owl-height" alt="@Model.Product.Name">
+                                </div>
+                            </div>
+                            @if (Model.Product.SellingPrice < Model.Product.ListedPrice)
+                            {
+                                <!-- /.ribbon-->
+                                <div class="ribbon sale">
+                                    <div class="theribbon">SALE</div>
+                                    <div class="ribbon-background"></div>
+                                </div>
+                            }
+                            <!-- /.ribbon-->
+                            @if (Model.Product.DateUpload > DateTime.Today.AddDays(-14))
+                            {
+                            <!-- /.ribbon-->
+                            <div class="ribbon new">
+                                <div class="theribbon">NEW</div>
+                                <div class="ribbon-background"></div>
+                            </div>
+                            <!-- /.ribbon-->
+                            }
+                            <!--product_color-->
+                            @*<div id="getcolor">
+                                @{
+                                    var color = context.Color_Product.Where(c => c.ID_Product == product.color_Product.ID_Product);
+                                    if (color.Count() > 1)
+                                    {
+                                        @foreach (var item in color)
+                                        {
+                                            <a asp-action="Product_Detail" asp-route-name="@item.product.Product_Name.Replace(" ", "-")" asp-route-color="@item.Color_Name.Replace(" ","").Replace("/", "-")">
+                                                <img src="~/Images/Color_Product_Avatar/@Html.DisplayFor(modelItem => item.Image)" />
+                                            </a>
+                                        }
+                                    }
+                                }
+                            </div>*@
+                        </div>
+
+                        <!--product_details-->
+                        <div class="col-lg-4 col-md-6 box">
+                                <h1 itemprop="name">@Model.Product.Name)</h1>
+                                <h3><i>@Model.Product.Color)</i></h3>
+                                @*<i itemprop="description">@Model.Product.Description)</i>*@
+                                <p class="price">
+                                    <del>
+                                        @if (Model.Product.SellingPrice < Model.Product.ListedPrice)
+                                        {
+                                            <text>@String.Format("{0:0,0}", Model.Product.ListedPrice) VNĐ </text>
+                                        }
+                                    </del>
+                                </p>
+                                <p class="price-sale" itemprop="price">
+                                    <text> @String.Format("{0:0,0}", Model.Product.SellingPrice) VNĐ </text>
+                                </p>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- /.Recommend 4 product-->
+                    <div class="box py-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2 class="mb-0"><strong>Recommend</strong></h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="getRecommendProducts" class="row">
+
+                    </div>
+                    <!-- /.col-md-9-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

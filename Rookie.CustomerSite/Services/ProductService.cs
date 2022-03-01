@@ -17,7 +17,7 @@ public class ProductService : IProductService
         _clientFactory = clientFactory;
     }
 
-    public async Task<ActionResult<PagedResponseDto<ProductDto>>> GetProductAsync(ProductCriteriaDto productCriteriaDto)
+    public async Task<PagedResponseDto<ProductDto>> GetProductAsync(ProductCriteriaDto productCriteriaDto)
     {
         var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
         var getProductsEndpoint = string.IsNullOrEmpty(productCriteriaDto.Search) ?
@@ -29,7 +29,7 @@ public class ProductService : IProductService
         var pagedProducts = await response.Content.ReadAsAsync<PagedResponseDto<ProductDto>>();
         return pagedProducts;
     }
-    public async Task<ActionResult<ProductDto>> GetProductAsyncById(int id)
+    public async Task<ProductDto> GetProductAsyncById(int? id)
     {
         var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
         var response = await client.GetAsync($"{EndpointConstants.GET_PRODUCTS}\\{id}");

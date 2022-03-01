@@ -57,6 +57,7 @@ center {
     text-align: center;
     
 }
+
 .box .row .col-md-12 h2 {
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -201,4 +202,8 @@ div.dropdown-item:hover a.nav-link-custom {
 
 div.dropdown-item:hover a.nav-link-custom i {
     color: white;
+}
+
+#content{
+    min-height: 180px;
 }

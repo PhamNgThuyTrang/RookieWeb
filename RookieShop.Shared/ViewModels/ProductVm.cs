@@ -17,8 +17,5 @@ namespace RookieShop.Shared.ViewModels
         public DateTime DateUpload { get; set; }
 
         public int ProductModelId { get; set; }
-
-        public List<ProductImageVm> ProductImages { get; set; }
-        public List<ProductSizeVm> ProductSizes { get; set; }
     }
 }

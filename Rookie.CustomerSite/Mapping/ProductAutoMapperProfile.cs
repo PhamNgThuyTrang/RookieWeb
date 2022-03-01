@@ -3,10 +3,6 @@ using Rookie.CustomerSite.ViewModel;
 using Rookie.CustomerSite.ViewModel.Product;
 using RookieShop.Shared.Dto;
 using RookieShop.Shared.Dto.Product;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Rookie.CustomerSite.Mapping
 {

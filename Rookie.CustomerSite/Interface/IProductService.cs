@@ -7,6 +7,6 @@ using System.Linq;
 using System.Threading.Tasks;
 public interface IProductService
 {
-    Task<ActionResult<PagedResponseDto<ProductDto>>> GetProductAsync(ProductCriteriaDto productCriteriaDto);
-    Task<ActionResult<ProductDto>> GetProductAsyncById(int id);
+    Task<PagedResponseDto<ProductDto>> GetProductAsync(ProductCriteriaDto productCriteriaDto);
+    Task<ProductDto> GetProductAsyncById(int? id);
 }
