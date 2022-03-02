@@ -29,10 +29,20 @@ public class ProductService : IProductService
         var pagedProducts = await response.Content.ReadAsAsync<PagedResponseDto<ProductDto>>();
         return pagedProducts;
     }
+
+    public async Task<PagedResponseDto<ProductDto>> GetProductsAsyncByProductModelId(int productModelId)
+    {
+        var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
+        var response = await client.GetAsync($"{EndpointConstants.GET_PRODUCTS_BY_PRODUCTMODELID}\\{productModelId}");
+        response.EnsureSuccessStatusCode();
+        var pagedProducts = await response.Content.ReadAsAsync<PagedResponseDto<ProductDto>>();
+        return pagedProducts;
+    }
+
     public async Task<ProductDto> GetProductAsyncById(int? id)
     {
         var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
-        var response = await client.GetAsync($"{EndpointConstants.GET_PRODUCTS}\\{id}");
+        var response = await client.GetAsync($"{EndpointConstants.GET_PRODUCT_BY_ID}\\{id}");
         response.EnsureSuccessStatusCode();
         var product = await response.Content.ReadAsAsync<ProductDto>();
         return product;

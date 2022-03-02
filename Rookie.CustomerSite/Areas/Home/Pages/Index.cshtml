@@ -4,6 +4,7 @@
 
 @{
     ViewData["Title"] = "RookieShop";
+    Layout = "_Layout";
 }
 <div class="container">
     <!-- /#main-slider-->
@@ -76,23 +77,23 @@
                             <div class="flip-container">
                                 <div class="flipper">
                                     <div class="front">
-                                        <a asp-action="Product_Detail" asp-route-name="@newproduct.Name.Replace(" ", "-")" asp-route-color="@newproduct.Color.Replace(" ","").Replace("/", "-")">
+                                        <a asp-area="ProductDetail" asp-page="./Index" asp-route-id="@newproduct.ProductId">
                                             <img src="@newproduct.ImagePath" alt="@newproduct.Name">
                                         </a>
                                     </div>
                                     <div class="back">
-                                        <a asp-action="Product_Detail" asp-route-name="@newproduct.Name.Replace(" ", "-")" asp-route-color="@newproduct.Color.Replace(" ","").Replace("/", "-")">
+                                        <a asp-area="ProductDetail" asp-page="./Index" asp-route-id="@newproduct.ProductId">
                                             <img src="@newproduct.ImagePath">
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                            <a asp-action="Product_Detail" asp-route-name="@newproduct.Name.Replace(" ", "-")" asp-route-color="@newproduct.Color.Replace(" ","").Replace("/", "-")" class="invisible">
+                            <a class="invisible" asp-area="ProductDetail" asp-page="./Index" asp-route-id="@newproduct.ProductId">
                                 <img src="@newproduct.ImagePath" alt="@newproduct.Name">
                             </a>
                             <div class="text">
                                 <h3>
-                                    <a asp-action="Product_Detail" asp-route-name="@newproduct.Name.Replace(" ", "-")" asp-route-color="@newproduct.Color.Replace(" ","").Replace("/", "-")">
+                                    <a asp-area="ProductDetail" asp-page="./Index" asp-route-id="@newproduct.ProductId">
                                         @newproduct.Name.ToUpper()
                                     </a>
                                 </h3>
@@ -110,7 +111,7 @@
                                     <text> @String.Format("{0:0,0}", newproduct.SellingPrice) VNĐ </text>
                                 </p>
                                 <p class="buttons">
-                                    <a class="btn btn-primary">
+                                    <a class="btn btn-primary" asp-area="ProductDetail" asp-page="./Index" asp-route-id="@newproduct.ProductId">
                                         View detail
                                     </a>
                                     <!--<a asp-action="Cart" asp-route-id="item.ID_Color_Product" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to cart</a>-->

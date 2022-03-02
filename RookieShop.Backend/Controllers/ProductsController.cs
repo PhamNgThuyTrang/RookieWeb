@@ -73,6 +73,39 @@ namespace RookieShop.Backend.Controllers
             };
         }
 
+        [HttpGet("{productModelId}")]
+        [AllowAnonymous]
+        //[Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
+        public async Task<ActionResult<PagedResponseDto<ProductDto>>> GetProductsByProductModelId(
+            int productModelId,
+            [FromQuery] ProductCriteriaDto productCriteriaDto,
+            CancellationToken cancellationToken)
+        {
+            var products = _context
+                                .Products
+                                .Where(x => !x.IsDeleted)
+                                .Where(x => x.ProductModelId == productModelId)
+                                .AsQueryable();
+
+            var pagedProducts = await products
+                                .AsNoTracking()
+                                .PaginateAsync(productCriteriaDto, cancellationToken);
+
+            var productDtos = _mapper.Map<IEnumerable<ProductDto>>(pagedProducts.Items);
+
+            return new PagedResponseDto<ProductDto>
+            {
+                CurrentPage = pagedProducts.CurrentPage,
+                TotalPages = pagedProducts.TotalPages,
+                TotalItems = pagedProducts.TotalItems,
+                Search = productCriteriaDto.Search,
+                SortColumn = productCriteriaDto.SortColumn,
+                SortOrder = productCriteriaDto.SortOrder,
+                Limit = productCriteriaDto.Limit,
+                Items = productDtos
+            };
+        }
+
         [HttpGet("{id}")]
         [AllowAnonymous]
         //[Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
@@ -130,19 +163,19 @@ namespace RookieShop.Backend.Controllers
                 product.Color = productCreateRequest.Color;
             }
 
-            if (productCreateRequest.ListedPrice != 0)
+            if (productCreateRequest.ListedPrice != null)
             {
-                product.ListedPrice = productCreateRequest.ListedPrice;
+                product.ListedPrice = (int)productCreateRequest.ListedPrice;
             }
 
-            if (productCreateRequest.SellingPrice != 0)
+            if (productCreateRequest.SellingPrice != null)
             {
-                product.SellingPrice = productCreateRequest.SellingPrice;
+                product.SellingPrice = (int)productCreateRequest.SellingPrice;
             }
 
-            if (productCreateRequest.ProductModelId != 0)
+            if (productCreateRequest.ProductModelId != null)
             {
-                product.ProductModelId = productCreateRequest.ProductModelId;
+                product.ProductModelId = (int)productCreateRequest.ProductModelId;
             }
 
             if (productCreateRequest.ImageFile != null)

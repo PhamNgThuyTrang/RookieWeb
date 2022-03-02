@@ -61,7 +61,7 @@ namespace Rookie.CustomerSite
             services.AddRazorPages();
             services.AddMvc().AddRazorPagesOptions(options =>
             {
-                options.Conventions.AddPageRoute("/Home/Index", "");
+                options.Conventions.AddAreaPageRoute("Home", "/Index", "");
             });
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddControllersWithViews();
