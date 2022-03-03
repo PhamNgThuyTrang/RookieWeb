@@ -8,7 +8,7 @@ namespace RookieShop.Shared.ViewModels
     {
         public int ProductModelId { get; set; }
         public int SubCategoryId { get; set; }
+        public SubCategoryVm SubCategory { get; set; }
         public int BrandId { get; set; }
-        public List<ProductVm> Products { get; set; }
     }
 }

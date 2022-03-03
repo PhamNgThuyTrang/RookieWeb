@@ -105,6 +105,40 @@ namespace RookieShop.Backend.Controllers
                 Items = productDtos
             };
         }
+        
+        [HttpGet("{subCategoryId}")]
+        [AllowAnonymous]
+        //[Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
+        public async Task<ActionResult<PagedResponseDto<ProductDto>>> GetProductsBySubCategoryId(
+            int subCategoryId,
+            [FromQuery] ProductCriteriaDto productCriteriaDto,
+            CancellationToken cancellationToken)
+        {
+            var products = _context
+                                .Products
+                                .Where(x => !x.IsDeleted)
+                                .Where(x => x.ProductModel.SubCategoryId == subCategoryId)
+                                .Include(x => x.ProductModel.SubCategory.Category)
+                                .AsQueryable();
+
+            var pagedProducts = await products
+                                .AsNoTracking()
+                                .PaginateAsync(productCriteriaDto, cancellationToken);
+
+            var productDtos = _mapper.Map<IEnumerable<ProductDto>>(pagedProducts.Items);
+
+            return new PagedResponseDto<ProductDto>
+            {
+                CurrentPage = pagedProducts.CurrentPage,
+                TotalPages = pagedProducts.TotalPages,
+                TotalItems = pagedProducts.TotalItems,
+                Search = productCriteriaDto.Search,
+                SortColumn = productCriteriaDto.SortColumn,
+                SortOrder = productCriteriaDto.SortOrder,
+                Limit = productCriteriaDto.Limit,
+                Items = productDtos
+            };
+        }
 
         [HttpGet("{id}")]
         [AllowAnonymous]
@@ -114,8 +148,7 @@ namespace RookieShop.Backend.Controllers
             var product = await _context
                                 .Products
                                 .Where(x => !x.IsDeleted && x.ProductId == id)
-                                .Include(x => x.ProductImages)
-                                .Include(x => x.ProductSizes)
+                                .Include(x => x.ProductModel.SubCategory.Category)
                                 .FirstOrDefaultAsync();
 
             if (product == null)
@@ -131,7 +164,8 @@ namespace RookieShop.Backend.Controllers
                 ListedPrice = product.ListedPrice,
                 SellingPrice = product.SellingPrice,
                 DateUpload = product.DateUpload,
-                ProductModelId = product.ProductModelId
+                ProductModelId = product.ProductModelId,
+                ProductModel = _mapper.Map<ProductModelVm>(product.ProductModel)
             };
 
             if (product.ImagePath != null)

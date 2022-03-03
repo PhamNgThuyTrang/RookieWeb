@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 
 namespace RookieShop.Backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     [EnableCors("AllowOrigins")]
     [Authorize("Bearer")]
@@ -52,6 +52,7 @@ namespace RookieShop.Backend.Controllers
                                 .SubCategories
                                 .Where(x => !x.IsDeleted)
                                 .AsQueryable();
+
             subCategories = SubCategoryFilter(subCategories, subCategoryCriteriaDto);
 
             var pagedSubCategories = await subCategories
@@ -100,6 +101,40 @@ namespace RookieShop.Backend.Controllers
             }
 
             return subCategoryVm;
+        }
+
+        [HttpGet("{categoryId}")]
+        [AllowAnonymous]
+        //[Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
+        public async Task<ActionResult<PagedResponseDto<SubCategoryDto>>> GetSubCategoriesByCategoryId(
+            int categoryId,
+            [FromQuery] SubCategoryCriteriaDto subCategoryCriteriaDto,
+            CancellationToken cancellationToken)
+        {
+            var subCategories = _context
+                                .SubCategories
+                                .Where(x => !x.IsDeleted)
+                                .Where(x => x.CategoryId == categoryId)
+                                .AsQueryable();
+
+            subCategories = SubCategoryFilter(subCategories, subCategoryCriteriaDto);
+
+            var pagedSubCategories = await subCategories
+                                .AsNoTracking()
+                                .PaginateAsync(subCategoryCriteriaDto, cancellationToken);
+
+            var subCategoryDtos = _mapper.Map<IEnumerable<SubCategoryDto>>(pagedSubCategories.Items);
+            return new PagedResponseDto<SubCategoryDto>
+            {
+                CurrentPage = pagedSubCategories.CurrentPage,
+                TotalPages = pagedSubCategories.TotalPages,
+                TotalItems = pagedSubCategories.TotalItems,
+                Search = subCategoryCriteriaDto.Search,
+                SortColumn = subCategoryCriteriaDto.SortColumn,
+                SortOrder = subCategoryCriteriaDto.SortOrder,
+                Limit = subCategoryCriteriaDto.Limit,
+                Items = subCategoryDtos
+            };
         }
 
         [HttpPut("{id}")]
@@ -156,7 +191,15 @@ namespace RookieShop.Backend.Controllers
             _context.SubCategories.Add(subCategory);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetSubCategory", new { id = subCategory.SubCategoryId }, new SubCategoryVm { SubCategoryId = subCategory.SubCategoryId, Name = subCategory.Name, ImagePath = subCategory.ImagePath, CategoryId = subCategory.CategoryId });
+            return CreatedAtAction(
+                "GetSubCategory", 
+                new { id = subCategory.SubCategoryId }, 
+                new SubCategoryVm { 
+                    SubCategoryId = subCategory.SubCategoryId, 
+                    Name = subCategory.Name, 
+                    ImagePath = subCategory.ImagePath, 
+                    CategoryId = subCategory.CategoryId
+                });
         }
 
         [HttpDelete("{id}")]
@@ -187,13 +230,6 @@ namespace RookieShop.Backend.Controllers
                 subCategories = subCategories.Where(b =>
                     b.Name.Contains(subCategoryCriteriaDto.Search));
             }
-
-            if (subCategoryCriteriaDto.CategoryId != 0)
-            {
-                subCategories = subCategories.Where(b =>
-                    b.CategoryId == subCategoryCriteriaDto.CategoryId);
-            }
-
             return subCategories;
         }
         #endregion

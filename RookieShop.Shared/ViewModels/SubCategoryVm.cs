@@ -10,6 +10,7 @@ namespace RookieShop.Shared.ViewModels
         public string Name { get; set; }
         public string ImagePath { get; set; }
 
+        public CategoryVm Category { get; set; }
         public int CategoryId { get; set; }
     }
 }

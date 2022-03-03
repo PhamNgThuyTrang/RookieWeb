@@ -92,7 +92,6 @@ namespace RookieShop.Backend.Controllers
                 ProductModelId = productModel.ProductModelId,
                 BrandId = productModel.BrandId,
                 SubCategoryId = productModel.SubCategoryId,
-                Products = _mapper.Map<List<ProductVm>>(productModel.Products)
             };
 
             return productModelVm;

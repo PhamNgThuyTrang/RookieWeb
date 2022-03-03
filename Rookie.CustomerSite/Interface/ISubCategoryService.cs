@@ -11,4 +11,6 @@ public interface ISubCategoryService
 {
     Task<PagedResponseDto<SubCategoryDto>> GetSubCategoryAsync(SubCategoryCriteriaDto subCategoryCriteriaDto);
     Task<SubCategoryDto> GetSubCategoryAsyncById(int id);
+    Task<PagedResponseDto<SubCategoryDto>> GetSubCategoryAsyncByCategoryId(int categoryId);
+    
 }

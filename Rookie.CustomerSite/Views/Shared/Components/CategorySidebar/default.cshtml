@@ -1,0 +1,26 @@
+﻿@using Rookie.CustomerSite.ViewModel.Category
+@using Rookie.CustomerSite.ViewModel
+@model PagedResponseVM<CategoryVm>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<ul class="nav nav-pills flex-column category-menu">
+    @foreach (var category in Model.Items)
+    {
+        <li>
+            <a class="nav-link">@category.Name</a>
+            @foreach (var subcategory in category.SubCategories.Items)
+            {
+                <ul class="list-unstyled">
+                    <li>
+                        <a asp-area="ProductByCategory" asp-page="./Index" asp-route-subCategoryId="@subcategory.SubCategoryId"> @subcategory.Name</a>
+                    </li>
+                </ul>
+            }
+        </li>
+    }
+</ul>

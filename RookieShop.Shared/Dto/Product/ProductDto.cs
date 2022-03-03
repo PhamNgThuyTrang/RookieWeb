@@ -1,4 +1,5 @@
 ﻿using RookieShop.Shared.Dto.ProductImage;
+using RookieShop.Shared.Dto.ProductModel;
 using RookieShop.Shared.Dto.ProductSize;
 using System;
 using System.Collections.Generic;
@@ -17,5 +18,6 @@ namespace RookieShop.Shared.Dto.Product
         public DateTime DateUpload { get; set; }
 
         public int ProductModelId { get; set; }
+        public ProductModelDto ProductModel { get; set; }
     }
 }

@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +8,6 @@ using Rookie.CustomerSite.ViewModel.Product;
 using Rookie.CustomerSite.ViewModel.ProductImage;
 using Rookie.CustomerSite.ViewModel.ProductSize;
 using RookieShop.Shared.Constants;
-using RookieShop.Shared.Dto.Product;
 using RookieShop.Shared.Dto.ProductImage;
 using RookieShop.Shared.Dto.ProductSize;
 using RookieShop.Shared.Enum;
@@ -23,6 +19,8 @@ namespace Rookie.CustomerSite.Pages.ProductDetail
         private readonly IProductService _productService;
         private readonly IProductImageService _productImageService;
         private readonly IProductSizeService _productSizeService;
+        private readonly ICategoryService _categoryService;
+        private readonly ISubCategoryService _subCategoryService;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
@@ -30,12 +28,16 @@ namespace Rookie.CustomerSite.Pages.ProductDetail
             IProductService productService,
             IProductImageService productImageService,
             IProductSizeService productSizeService,
+            ICategoryService categoryService,
+            ISubCategoryService subCategoryService,
             IConfiguration config,
             IMapper mapper)
         {
             _productService = productService;
             _productImageService = productImageService;
             _productSizeService = productSizeService;
+            _categoryService = categoryService;
+            _subCategoryService = subCategoryService;
             _config = config;
             _mapper = mapper;
         }
@@ -54,6 +56,22 @@ namespace Rookie.CustomerSite.Pages.ProductDetail
             }
             Product = _mapper.Map<ProductVm>(productDto);
             #endregion
+
+            //#region Breadcum
+            //var productModelDto = await _productModelService.GetProductModelAsyncById(Product.ProductModelId);
+            //if (productDto == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //var category = await _subCategoryService.Ge(Product.ProductModelId);
+            //if (productDto == null)
+            //{
+            //    return NotFound();
+            //}
+            //Product = _mapper.Map<ProductVm>(productDto);
+            //#endregion
+
 
             #region ProductColor
             var productColorDto = await _productService.GetProductsAsyncByProductModelId(Product.ProductModelId);

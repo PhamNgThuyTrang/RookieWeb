@@ -35,12 +35,25 @@ namespace RookieShop.Backend.Data.Mapping
                                     .MapFrom(src => ImageHelper
                                                         .GetFileUrl(src.ImagePath)
                                             ));
+            CreateMap<Category, CategoryVm>().ForMember(src => src.ImagePath,
+                           opts => opts
+                                    .MapFrom(src => ImageHelper
+                                                        .GetFileUrl(src.ImagePath)
+                                            ));
+
             CreateMap<SubCategory, SubCategoryDto>().ForMember(src => src.ImagePath,
                            opts => opts
                                     .MapFrom(src => ImageHelper
                                                         .GetFileUrl(src.ImagePath)
                                             ));
+            CreateMap<SubCategory, SubCategoryVm>().ForMember(src => src.ImagePath,
+                           opts => opts
+                                    .MapFrom(src => ImageHelper
+                                                        .GetFileUrl(src.ImagePath)
+                                            ));
+
             CreateMap<ProductModel, ProductModelDto>();
+            CreateMap<ProductModel, ProductModelVm>();
 
             CreateMap<Product, ProductDto>().ForMember(src => src.ImagePath,
                            opts => opts
@@ -59,6 +72,7 @@ namespace RookieShop.Backend.Data.Mapping
                                                         .GetFileUrl(src.ImagePath)
                                                 ));
             CreateMap<List<ProductImage>, List<ProductImageVm>>();
+
             CreateMap<ProductSize, ProductSizeDto>();
 
         }

@@ -7,14 +7,6 @@
     Layout = "_Layout";
 }
 
-@section SocialSeo{
-    <meta property="og:title" content="@Model.Product.Name" />
-    @*<meta property="og:description" content="@Model.Product.Description" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="@hostName@Context.Request.Path" />
-        <meta property="og:image" content="@hostName/@Model.Product.ImagePath" />*@
-}
-
 <div id="all">
     <div id="content">
         <div class="container">
@@ -23,13 +15,18 @@
                 <div class="col-12" style="padding-right: 0">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a asp-page="Home">Home</a></li>
-                            @*if (breadcrumbItem != null)
-                                {
-                                    <li class="breadcrumb-item"><a>@breadcrumbItem.</a></li>
-                                    <li class="breadcrumb-item"><a>@breadcrumbItem.</a></li>
-                                    <li aria-current="page" class="breadcrumb-item active">@product.Name</li>
-                                }*@
+                            <li class="breadcrumb-item"><a asp-area="Home">Home</a></li>
+                            <li class="breadcrumb-item">
+                                @Model.Product.ProductModel.SubCategory.Category.Name
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a asp-area="ProductByCategory" 
+                                   asp-page="./Index" 
+                                   asp-route-subCategoryId="@Model.Product.ProductModel.SubCategory.Category.CategoryId">
+                                    @Model.Product.ProductModel.SubCategory.Name
+                                </a>
+                            </li>
+                            <li aria-current="page" class="breadcrumb-item active">@Model.Product.Name</li>
                         </ol>
                     </nav>
                 </div>

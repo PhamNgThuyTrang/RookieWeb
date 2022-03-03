@@ -17,5 +17,6 @@ namespace RookieShop.Shared.ViewModels
         public DateTime DateUpload { get; set; }
 
         public int ProductModelId { get; set; }
+        public ProductModelVm ProductModel { get; set; }
     }
 }

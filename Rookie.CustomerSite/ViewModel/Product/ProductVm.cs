@@ -1,4 +1,5 @@
 ﻿using Rookie.CustomerSite.ViewModel.ProductImage;
+using Rookie.CustomerSite.ViewModel.ProductModel;
 using Rookie.CustomerSite.ViewModel.ProductSize;
 using System;
 using System.Collections.Generic;
@@ -18,5 +19,6 @@ namespace Rookie.CustomerSite.ViewModel.Product
         public DateTime DateUpload { get; set; }
 
         public int ProductModelId { get; set; }
+        public ProductModelVm ProductModel { get; set; }
     }
 }

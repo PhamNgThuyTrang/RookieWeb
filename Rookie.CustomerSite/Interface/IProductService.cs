@@ -7,5 +7,7 @@ public interface IProductService
 
     Task<PagedResponseDto<ProductDto>> GetProductsAsyncByProductModelId(int productModelId);
 
+    Task<PagedResponseDto<ProductDto>> GetProductsBySubCategoryId(int subCategoryId);
+
     Task<ProductDto> GetProductAsyncById(int? id);
 }
