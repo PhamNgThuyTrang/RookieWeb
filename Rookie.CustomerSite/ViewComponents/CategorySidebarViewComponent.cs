@@ -33,7 +33,7 @@ namespace Rookie.CustomerSite.ViewComponents
             _mapper = mapper;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(string? search)
         {
             var categoryCriteriaDto = new CategoryCriteriaDto()
             {
@@ -49,6 +49,10 @@ namespace Rookie.CustomerSite.ViewComponents
                 category.SubCategories = _mapper.Map<PagedResponseVM<SubCategoryVm>>(subCategories);
             }
 
+            if (!String.IsNullOrEmpty(search))
+            {
+                ViewData["Search"] = search;
+            }
             return View(categories);
         }
     }

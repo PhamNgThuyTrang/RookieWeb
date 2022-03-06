@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -9,8 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Rookie.CustomerSite.ViewModel;
 using Rookie.CustomerSite.ViewModel.Product;
 using RookieShop.Shared.Constants;
+using RookieShop.Shared.Dto;
 using RookieShop.Shared.Dto.Product;
-using RookieShop.Shared.Dto.ProductModel;
 using RookieShop.Shared.Enum;
 
 namespace Rookie.CustomerSite.Areas.ProductByCategory.Pages
@@ -34,15 +32,22 @@ namespace Rookie.CustomerSite.Areas.ProductByCategory.Pages
         }
 
         public PagedResponseVM<ProductVm> Products { get; set; }
+        public string Search { get; set; }
 
-        public async Task OnGetAsync(int subcategoryId)
+        public async Task OnGetAsync(int subcategoryId, string search)
         {
-            var productModelCriteriaDto = new ProductModelCriteriaDto()
+            var productCriteriaDto = new ProductCriteriaDto()
             {
                 SortOrder = SortOrderEnum.Accsending,
                 Limit = int.Parse(_config[ConfigurationConstants.PAGING_LIMIT])
             };
-            var pagedProducts = await _productService.GetProductsBySubCategoryId(subcategoryId);
+
+            if (!String.IsNullOrEmpty(search))
+            {
+                productCriteriaDto.Search = search;
+                Search = search;
+            }
+            var pagedProducts = await _productService.GetProductAsyncByCategory(subcategoryId, productCriteriaDto);
             Products = _mapper.Map<PagedResponseVM<ProductVm>>(pagedProducts);
         }
     }

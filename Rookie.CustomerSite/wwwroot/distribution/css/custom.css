@@ -225,3 +225,7 @@ div.dropdown-item:hover a.nav-link-custom i {
 #content{
     min-height: 180px;
 }
+
+#not-found-img{
+    width: inherit;
+}

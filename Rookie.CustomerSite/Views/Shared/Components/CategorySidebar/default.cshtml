@@ -6,21 +6,31 @@
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
-}
-<ul class="nav nav-pills flex-column category-menu">
-    @foreach (var category in Model.Items)
-    {
-        <li>
-            <a class="nav-link">@category.Name</a>
-            @foreach (var subcategory in category.SubCategories.Items)
+<div class="card sidebar-menu mb-4">
+    <div class="card-header">
+        <h3 class="h4 card-title">Categories</h3>
+    </div>
+    <div class="card-body">
+        <ul class="nav nav-pills flex-column category-menu">
+            @foreach (var category in Model.Items)
             {
-                <ul class="list-unstyled">
-                    <li>
-                        <a asp-area="ProductByCategory" asp-page="./Index" asp-route-subCategoryId="@subcategory.SubCategoryId"> @subcategory.Name</a>
-                    </li>
-                </ul>
+                <li>
+                    <a class="nav-link">@category.Name</a>
+                    @foreach (var subcategory in category.SubCategories.Items)
+                    {
+                        <ul class="list-unstyled">
+                            <li>
+                                <a asp-area="ProductByCategory"
+                                   asp-page="./Index"
+                                   asp-route-subCategoryId="@subcategory.SubCategoryId"
+                                   asp-route-search="@ViewData["Search"]">
+                                    @subcategory.Name
+                                </a>
+                            </li>
+                        </ul>
+                    }
+                </li>
             }
-        </li>
-    }
-</ul>
+        </ul>
+    </div>
+</div>

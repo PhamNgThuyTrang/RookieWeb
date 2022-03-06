@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RookieShop.Shared.Request
+namespace RookieShop.Shared.Request.Product
 {
     public class ProductEditRequest
     {

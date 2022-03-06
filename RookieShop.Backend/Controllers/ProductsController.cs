@@ -12,6 +12,7 @@ using RookieShop.Shared.Constants;
 using RookieShop.Shared.Dto;
 using RookieShop.Shared.Dto.Product;
 using RookieShop.Shared.Request;
+using RookieShop.Shared.Request.Product;
 using RookieShop.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -106,20 +107,26 @@ namespace RookieShop.Backend.Controllers
             };
         }
         
-        [HttpGet("{subCategoryId}")]
+        [HttpGet]
         [AllowAnonymous]
         //[Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
-        public async Task<ActionResult<PagedResponseDto<ProductDto>>> GetProductsBySubCategoryId(
-            int subCategoryId,
+        public async Task<ActionResult<PagedResponseDto<ProductDto>>> GetProductsByCategory(
+            int? subCategoryId,
             [FromQuery] ProductCriteriaDto productCriteriaDto,
             CancellationToken cancellationToken)
         {
             var products = _context
                                 .Products
                                 .Where(x => !x.IsDeleted)
-                                .Where(x => x.ProductModel.SubCategoryId == subCategoryId)
                                 .Include(x => x.ProductModel.SubCategory.Category)
                                 .AsQueryable();
+
+            if(subCategoryId != null)
+            {
+                products = products.Where(x => x.ProductModel.SubCategoryId == subCategoryId);
+            }
+
+            products = ProductFilter(products, productCriteriaDto);
 
             var pagedProducts = await products
                                 .AsNoTracking()

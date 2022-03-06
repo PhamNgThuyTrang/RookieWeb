@@ -46,40 +46,30 @@
                             </div>
                             @if (Model.Product.SellingPrice < Model.Product.ListedPrice)
                             {
-                                <!-- /.ribbon-->
-                                <div class="ribbon sale">
-                                    <div class="theribbon">SALE</div>
-                                    <div class="ribbon-background"></div>
-                                </div>
+                                <partial name="_RibbonSalePartial" />
                             }
-                            <!-- /.ribbon-->
                             @if (Model.Product.DateUpload > DateTime.Today.AddDays(-14))
                             {
-                                <!-- /.ribbon-->
-                                <div class="ribbon new">
-                                    <div class="theribbon">NEW</div>
-                                    <div class="ribbon-background"></div>
-                                </div>
-                                <!-- /.ribbon-->
+                                <partial name="_RibbonNewPartial" />
                             }
                             <!--product_color-->
-                        <div id="getcolor" class="d-flex justify-content-center flex-wrap">
+                            <div id="getcolor" class="d-flex justify-content-center flex-wrap">
 
-                            @if (Model.Color.Items.Count() > 1)
-                            {
-                                <div>
-                                    <h4>@Model.Color.Items.Count() colors available</h4>
-                                </div>
-                                foreach (var color in Model.Color.Items)
+                                @if (Model.Color.Items.Count() > 1)
                                 {
                                     <div>
-                                        <a asp-area="ProductDetail" asp-page="./Index" asp-route-id="@color.ProductId">
-                                            <img src="@color.ImagePath" />
-                                        </a>
+                                        <h4>@Model.Color.Items.Count() colors available</h4>
                                     </div>
+                                    foreach (var color in Model.Color.Items)
+                                    {
+                                        <div>
+                                            <a asp-area="ProductDetail" asp-page="./Index" asp-route-id="@color.ProductId">
+                                                <img src="@color.ImagePath" />
+                                            </a>
+                                        </div>
+                                    }
                                 }
-                            }
-                        </div>
+                            </div>
                         </div>
 
                         <!--product_details-->

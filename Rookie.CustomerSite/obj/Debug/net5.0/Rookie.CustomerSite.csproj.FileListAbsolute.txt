@@ -144,3 +144,6 @@ C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug
 C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Areas\ProductDetail\Pages\Index.cshtml.g.cs
 C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Areas\ProductByCategory\Pages\Index.cshtml.g.cs
 C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\Shared\Components\CategorySidebar\default.cshtml.g.cs
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\Shared\_RibbonSalePartial.cshtml.g.cs
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\Shared\_RibbonNewPartial.cshtml.g.cs
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\Shared\_ProductNotFound.cshtml.g.cs

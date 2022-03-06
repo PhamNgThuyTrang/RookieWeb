@@ -39,16 +39,33 @@ public class ProductService : IProductService
         return pagedProducts;
     }
     
-    public async Task<PagedResponseDto<ProductDto>> GetProductsBySubCategoryId(int subCategoryId)
+    public async Task<PagedResponseDto<ProductDto>> GetProductAsyncByCategory(int subCategoryId, ProductCriteriaDto productCriteriaDto)
     {
         var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
-        var response = await client.GetAsync($"{EndpointConstants.GET_PRODUCTS_BY_SUBCATEGORYID}\\{subCategoryId}");
+        var getProductsEndpoint = EndpointConstants.GET_PRODUCTS_BY_CATEGORY;
+
+        if (subCategoryId != 0 && !string.IsNullOrEmpty(productCriteriaDto.Search))
+        {
+            getProductsEndpoint = getProductsEndpoint + $"?Search={productCriteriaDto.Search}&subCategoryId={subCategoryId}";
+        }
+        else
+        {
+            getProductsEndpoint = (subCategoryId == 0) ?
+                             getProductsEndpoint :
+                             getProductsEndpoint + $"?subCategoryId={subCategoryId}";
+
+            getProductsEndpoint = (string.IsNullOrEmpty(productCriteriaDto.Search)) ?
+                                  getProductsEndpoint :
+                                  getProductsEndpoint + $"?Search={productCriteriaDto.Search}";
+        }                  
+
+        var response = await client.GetAsync(getProductsEndpoint);
         response.EnsureSuccessStatusCode();
         var pagedProducts = await response.Content.ReadAsAsync<PagedResponseDto<ProductDto>>();
         return pagedProducts;
     }
 
-    public async Task<ProductDto> GetProductAsyncById(int? id)
+    public async Task<ProductDto> GetProductAsyncById(int id)
     {
         var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
         var response = await client.GetAsync($"{EndpointConstants.GET_PRODUCT_BY_ID}\\{id}");

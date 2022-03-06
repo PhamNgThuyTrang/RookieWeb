@@ -12,6 +12,7 @@ using RookieShop.Shared.Constants;
 using RookieShop.Shared.Dto;
 using RookieShop.Shared.Dto.ProductImage;
 using RookieShop.Shared.Request;
+using RookieShop.Shared.Request.ProductImage;
 using RookieShop.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -99,7 +100,7 @@ namespace RookieShop.Backend.Controllers
 
         [HttpPut("{id}")]
         [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
-        public async Task<ActionResult> PutProductImage([FromRoute] int id, [FromForm] ProductImageCreateRequest productImageCreateRequest)
+        public async Task<ActionResult> PutProductImage([FromRoute] int id, [FromForm] ProductImageEditRequest productImageCreateRequest)
         {
             var productImage = await _context.ProductImages.FindAsync(id);
 
@@ -108,9 +109,9 @@ namespace RookieShop.Backend.Controllers
                 return NotFound();
             }
 
-            if (productImageCreateRequest.ProductId != 0)
+            if (productImageCreateRequest.ProductId != null)
             {
-                productImage.ProductId = productImageCreateRequest.ProductId;
+                productImage.ProductId = (int)productImageCreateRequest.ProductId;
             }
             if (productImageCreateRequest.ImageFile != null)
             {

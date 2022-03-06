@@ -6,13 +6,42 @@
     ViewData["Title"] = "RookieShop";
     Layout = "_Layout";
     }
-
 <div id="all">
     <div id="content">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <!-- breadcrumb-->
+                    @if (Model.Products.Items.Count() == 0)
+                    {
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Product Not Found
+                                </li>
+                            </ol>
+                        </nav>
+                    }
+
+                    else if(Model.Search != null)
+                    {
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Search = "@Model.Search"
+                                </li>
+                            </ol>
+                        </nav>
+                    }
+
+                    else
+                    {
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
@@ -22,32 +51,26 @@
                                 @Model.Products.Items.FirstOrDefault().ProductModel.SubCategory.Category.Name
                             </li>
                             <li class="breadcrumb-item">
-                                <a asp-area="ProductByCategory" 
-                                   asp-page="./Index" 
+                                <a asp-area="ProductByCategory"
+                                   asp-page="./Index"
                                    asp-route-subCategoryId="@Model.Products.Items.FirstOrDefault().ProductModel.SubCategoryId">
                                     @Model.Products.Items.FirstOrDefault().ProductModel.SubCategory.Name
                                 </a>
                             </li>
                         </ol>
                     </nav>
+                    }
                 </div>
 
                 <!--*** MENUS AND FILTERS ***-->
                 <div class="col-lg-3">
-                    <div class="card sidebar-menu mb-4">
-                        <div class="card-header">
-                            <h3 class="h4 card-title">Categories</h3>
-                        </div>
-                        <div class="card-body">
-                            @await Component.InvokeAsync("CategorySidebar")
-                        </div>
-                    </div>
+                    @await Component.InvokeAsync("CategorySidebar", Model.Search)
                     <div class="card sidebar-menu mb-4">
                         <div class="card-header">
                             <h3 class="h4 card-title">
-                                Filter 
+                                Filter
                                 <a class="btn btn-sm btn-danger pull-right">
-                                    <i class="fa fa-times-circle"></i> 
+                                    <i class="fa fa-times-circle"></i>
                                     Clear
                                 </a>
                             </h3>
@@ -119,8 +142,13 @@
                 </div>
                 <!-- *** MENUS AND FILTERS END ***-->
 
-
-                <div class="col-lg-9">
+                @if (Model.Products.Items.Count() == 0)
+                {
+                    <partial name="_ProductNotFound" />
+                }
+                else
+                {
+                    <div class="col-lg-9">
                     <div class="box info-bar">
                         <div class="row">
                             <div class="col-md-12 col-lg-4 products-showing">
@@ -162,81 +190,67 @@
                             </div>
                         </div>
                     </div>
-                    @if (Model.Products.Items.Count() > 0)
-                    {
-                        <div class="row ">
-                            @foreach (var product in Model.Products.Items)
-                            {
-                                <div class="col-lg-4 col-md-6 ">
-                                    <div class="product">
-                                        <div class="flip-container">
-                                            <div class="flipper">
-                                                <div class="front">
-                                                    <a asp-area="ProductDetail" asp-route-id="@product.ProductId">
-                                                        <img src="@product.ImagePath" alt="@product.Name)" class="img-fluid">
-                                                    </a>
-                                                </div>
-                                                <div class="back">
-                                                    <a asp-area="ProductDetail" asp-route-id="@product.ProductId">
-                                                        <img src="@product.ImagePath" alt="@product.Name)" class="img-fluid">
-                                                    </a>
-                                                </div>
+                    <div class="row ">
+                        @foreach (var product in Model.Products.Items)
+                        {
+                            <div class="col-lg-4 col-md-6 ">
+                                <div class="product">
+                                    <div class="flip-container">
+                                        <div class="flipper">
+                                            <div class="front">
+                                                <a asp-area="ProductDetail" asp-route-id="@product.ProductId">
+                                                    <img src="@product.ImagePath" alt="@product.Name)" class="img-fluid">
+                                                </a>
+                                            </div>
+                                            <div class="back">
+                                                <a asp-area="ProductDetail" asp-route-id="@product.ProductId">
+                                                    <img src="@product.ImagePath" alt="@product.Name)" class="img-fluid">
+                                                </a>
                                             </div>
                                         </div>
-                                        <a asp-area="ProductDetail" asp-route-id="@product.ProductId">
-                                            <img src="@product.ImagePath" alt="@product.Name)" class="img-fluid">
-                                        </a>
-                                        <div class="text">
-                                            <h3>
-                                                <a asp-area="ProductDetail" asp-route-id="@product.ProductId">
-                                                    @product.Name
-                                                </a>
-                                            </h3>
-                                            @if (product.SellingPrice < product.ListedPrice)
-                                            {
-                                                <p class="price">
-                                                    <del>
-                                                        <text> @String.Format("{0:0,0}", product.ListedPrice) VNĐ </text>
-                                                    </del>
-                                                </p>
-                                            }
-                                            <p class="price-sale">
-                                                <text> @String.Format("{0:0,0}", product.SellingPrice) VNĐ </text>
-                                            </p>
-                                            <p class="buttons">
-                                                <a asp-area="ProductDetail" asp-route-id="@product.ProductId" class="btn btn-outline-secondary">View detail</a>
-                                            </p>
-                                        </div>
-                                        <!-- /.text-->
+                                    </div>
+                                    <a asp-area="ProductDetail" asp-route-id="@product.ProductId">
+                                        <img src="@product.ImagePath" alt="@product.Name)" class="img-fluid">
+                                    </a>
+                                    <div class="text">
+                                        <h3>
+                                            <a asp-area="ProductDetail" asp-route-id="@product.ProductId">
+                                                @product.Name.ToUpper()
+                                            </a>
+                                        </h3>
                                         @if (product.SellingPrice < product.ListedPrice)
                                         {
-                                            <!-- /.ribbon-->
-                                            <div class="ribbon sale">
-                                                <div class="theribbon">SALE</div>
-                                                <div class="ribbon-background"></div>
-                                            </div>
+                                            <p class="price">
+                                                <del>
+                                                    <text> @String.Format("{0:0,0}", product.ListedPrice) VNĐ </text>
+                                                </del>
+                                            </p>
                                         }
-                                        <!-- /.ribbon-->
-                                        @if (product.DateUpload > DateTime.Today.AddDays(-14))
-                                        {
-                                            <!-- /.ribbon-->
-                                            <div class="ribbon new">
-                                                <div class="theribbon">NEW</div>
-                                                <div class="ribbon-background"></div>
-                                            </div>
-                                            <!-- /.ribbon-->
-                                        }
+                                        <p class="price-sale">
+                                            <text> @String.Format("{0:0,0}", product.SellingPrice) VNĐ </text>
+                                        </p>
+                                        <p class="buttons">
+                                            <a asp-area="ProductDetail" asp-route-id="@product.ProductId" class="btn btn-outline-secondary">View detail</a>
+                                        </p>
                                     </div>
-                                    <!-- /.product-->
+                                    <!-- /.text-->
+                                    @if (product.SellingPrice < product.ListedPrice)
+                                    {
+                                        <partial name="_RibbonSalePartial" />
+                                    }
+                                    @if (product.DateUpload > DateTime.Today.AddDays(-14))
+                                    {
+                                        <partial name="_RibbonNewPartial" />
+                                    }
                                 </div>
-                                <!-- /.products-->
-                            }
-                        </div>
-                    }
+                                <!-- /.product-->
+                            </div>
+                            <!-- /.products-->
+                        }
+                    </div>
 
                     @{ var prevDisabled = !Model.Products.HasPreviousPage ? "disabled" : "";
-                                    var nextDisabled = !Model.Products.HasNextPage ? "disabled" : ""; }
-
+                        var nextDisabled = !Model.Products.HasNextPage ? "disabled" : ""; }
                     <div class="pages">
                         <nav aria-label="Page navigation example" class="d-flex justify-content-center">
                             <ul class="pagination">
@@ -245,7 +259,7 @@
                                        asp-route-sortOrder="@Model.Products.SortOrder"
                                        asp-route-pageIndex="@(Model.Products.Page - 1)"
                                        asp-route-currentFilter="@Model.Products.Search"
-                                       aria-label="Previous" 
+                                       aria-label="Previous"
                                        class="page-link">
                                         <span aria-hidden="true">«</span><span class="sr-only">Previous</span>
                                     </a>
@@ -256,7 +270,7 @@
                                        asp-route-sortOrder="@Model.Products.SortOrder"
                                        asp-route-pageIndex="@(Model.Products.Page + 1)"
                                        asp-route-currentFilter="@Model.Products.Search"
-                                       aria-label="Next" 
+                                       aria-label="Next"
                                        class="page-link">
                                         <span aria-hidden="true">»</span><span class="sr-only">Next</span>
                                     </a>
@@ -266,6 +280,7 @@
                     </div>
                 </div>
                 <!-- /.col-lg-9-->
+                }
             </div>
         </div>
     </div>

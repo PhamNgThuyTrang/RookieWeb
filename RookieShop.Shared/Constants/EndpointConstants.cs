@@ -14,7 +14,7 @@ namespace RookieShop.Shared.Constants
 
         public static string GET_PRODUCTS = "api/products/getproducts";
         public static string GET_PRODUCTS_BY_PRODUCTMODELID = "api/products/getproductsbyproductmodelid";
-        public static string GET_PRODUCTS_BY_SUBCATEGORYID = "api/products/getproductsbysubcategoryid";
+        public static string GET_PRODUCTS_BY_CATEGORY = "api/products/getproductsbycategory";
         public static string GET_PRODUCT_BY_ID = "api/products/getproduct";
 
         public static string GET_PRODUCT_IMAGES = "api/productimages";
