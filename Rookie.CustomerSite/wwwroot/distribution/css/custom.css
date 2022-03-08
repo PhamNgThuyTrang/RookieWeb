@@ -39,6 +39,14 @@ center {
     margin: 10px 0;
 }
 
+.navbar-buttons button{
+    border: none;
+}
+
+.navbar-buttons .btn{
+    border: none;
+}
+
 /*getcolor*/
 #getcolor {
     text-align: center;

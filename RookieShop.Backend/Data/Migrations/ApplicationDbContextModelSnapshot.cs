@@ -177,7 +177,7 @@ namespace RookieShop.Backend.Data.Migrations
                         new
                         {
                             BannerId = 1,
-                            DateUpload = new DateTime(2022, 2, 25, 14, 47, 59, 523, DateTimeKind.Local).AddTicks(4215),
+                            DateUpload = new DateTime(2022, 3, 7, 11, 20, 31, 926, DateTimeKind.Local).AddTicks(4132),
                             ImagePath = "5ecc6547-f3c2-4b38-8528-c2e4dc5c0751.jpeg",
                             IsDeleted = false,
                             Name = "Women's Shoes, Clothing & Accessories"
@@ -185,7 +185,7 @@ namespace RookieShop.Backend.Data.Migrations
                         new
                         {
                             BannerId = 2,
-                            DateUpload = new DateTime(2022, 2, 25, 14, 47, 59, 524, DateTimeKind.Local).AddTicks(197),
+                            DateUpload = new DateTime(2022, 3, 7, 11, 20, 31, 926, DateTimeKind.Local).AddTicks(9117),
                             ImagePath = "f6a57e16-2956-435e-843a-4ebd1ce0fb1f.jpeg",
                             IsDeleted = false,
                             Name = "Everlasting Love Pack: Available from 18 February"
@@ -397,6 +397,40 @@ namespace RookieShop.Backend.Data.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductSizes");
+                });
+
+            modelBuilder.Entity("RookieShop.Backend.Models.Review", b =>
+                {
+                    b.Property<int>("ReviewId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateUpload")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Stars")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ReviewId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("RookieShop.Backend.Models.SubCategory", b =>
@@ -654,6 +688,23 @@ namespace RookieShop.Backend.Data.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("RookieShop.Backend.Models.Review", b =>
+                {
+                    b.HasOne("RookieShop.Backend.Models.Product", "Product")
+                        .WithMany("Reviews")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RookieShop.Backend.Models.User", "User")
+                        .WithMany("Reviews")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("RookieShop.Backend.Models.SubCategory", b =>
                 {
                     b.HasOne("RookieShop.Backend.Models.Category", "Category")
@@ -680,6 +731,8 @@ namespace RookieShop.Backend.Data.Migrations
                     b.Navigation("ProductImages");
 
                     b.Navigation("ProductSizes");
+
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("RookieShop.Backend.Models.ProductModel", b =>
@@ -690,6 +743,11 @@ namespace RookieShop.Backend.Data.Migrations
             modelBuilder.Entity("RookieShop.Backend.Models.SubCategory", b =>
                 {
                     b.Navigation("ProductModels");
+                });
+
+            modelBuilder.Entity("RookieShop.Backend.Models.User", b =>
+                {
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

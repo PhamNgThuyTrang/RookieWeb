@@ -57,22 +57,6 @@ namespace Rookie.CustomerSite.Pages.ProductDetail
             Product = _mapper.Map<ProductVm>(productDto);
             #endregion
 
-            //#region Breadcum
-            //var productModelDto = await _productModelService.GetProductModelAsyncById(Product.ProductModelId);
-            //if (productDto == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //var category = await _subCategoryService.Ge(Product.ProductModelId);
-            //if (productDto == null)
-            //{
-            //    return NotFound();
-            //}
-            //Product = _mapper.Map<ProductVm>(productDto);
-            //#endregion
-
-
             #region ProductColor
             var productColorDto = await _productService.GetProductsAsyncByProductModelId(Product.ProductModelId);
             if (productColorDto == null)

@@ -12,27 +12,29 @@
         <div class="container">
             <div class="row">
                 <!-- breadcrumb-->
-                <div class="col-12" style="padding-right: 0">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a asp-area="Home">Home</a></li>
-                            <li class="breadcrumb-item">
-                                @Model.Product.ProductModel.SubCategory.Category.Name
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a asp-area="ProductByCategory" 
-                                   asp-page="./Index" 
-                                   asp-route-subCategoryId="@Model.Product.ProductModel.SubCategory.Category.CategoryId">
-                                    @Model.Product.ProductModel.SubCategory.Name
-                                </a>
-                            </li>
-                            <li aria-current="page" class="breadcrumb-item active">@Model.Product.Name</li>
-                        </ol>
-                    </nav>
-                </div>
+                @section breadcrumb{
+                    <div class="col-12" style="padding-right: 0">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a asp-area="Home">Home</a></li>
+                                <li class="breadcrumb-item">
+                                    @Model.Product.ProductModel.SubCategory.Category.Name
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a asp-area="ProductByCategory"
+                                       asp-page="./Index"
+                                       asp-route-subCategoryId="@Model.Product.ProductModel.SubCategory.Category.CategoryId">
+                                        @Model.Product.ProductModel.SubCategory.Name
+                                    </a>
+                                </li>
+                                <li aria-current="page" class="breadcrumb-item active">@Model.Product.Name</li>
+                            </ol>
+                        </nav>
+                    </div>
+                }
 
-                <!--ProductMain-->
                 <div class="col-12">
+                    <!--ProductMain-->
                     <div id="productMain" class="row">
                         <!--product_slider-->
                         <div class="col-lg-8 col-md-6">
@@ -104,29 +106,18 @@
                                 }
                             </div>
                             <p class="text-center buttons">
-                                <input type="submit" class="btn btn-primary" value="Add to cart" /><!--<i class="fa fa-shopping-cart"></i>-->
+                                
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add to cart</button>
                             </p>
                         </div>
                     </div>
-                    <!-- /.col-md-9-->
+
+                    <!--ProductRating-->
+                    <div id="productRating" class="box">
+                        @await Component.InvokeAsync("ProductRating", Model.Product.ProductId)
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-@section ajax{
-    <script>
-        $(function () {
-            $(document).ready(function () {
-                $(".owl-carousel").owlCarousel({
-                    autoplay: true,
-                    navigation: true,
-                    loop: true,
-                    items: 1,
-                    autoHeight: true,
-                });
-            });
-        });
-    </script>
-}

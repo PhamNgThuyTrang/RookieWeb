@@ -21,6 +21,8 @@ namespace RookieShop.Backend.Models
 
         public List<ProductImage> ProductImages { get; set; }
         public List<ProductSize> ProductSizes { get; set; }
+        public List<Review> Reviews { get; set; }
+
 
         public Product()
         {

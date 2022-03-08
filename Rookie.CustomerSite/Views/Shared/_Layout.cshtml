@@ -8,7 +8,7 @@
     <meta name="robots" content="all,follow">
     <!--Title Page-->
     <title>@ViewData["Title"]</title>
-    <link rel="shortcut icon" href="~/Images/HSlogo.png">
+    @*<link rel="shortcut icon" href="~/Images/HSlogo.png">*@
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="~/distribution/vendor/bootstrap/css/bootstrap.css">
     <!-- Font Awesome CSS-->
@@ -110,7 +110,7 @@
     </header>
     <div id="all">
         <div id="content">
-            @RenderSection("breadcum", required: false)
+            @RenderSection("breadcrumb", required: false)
             @RenderBody()
         </div>
     </div>

@@ -21,6 +21,7 @@ namespace Rookie.CustomerSite.Extensions.ServiceCollection
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IProductImageService, ProductImageService>();
             services.AddTransient<IProductSizeService, ProductSizeService>();
+            services.AddTransient<IReviewService, ReviewService>();
         }
     }
 }
