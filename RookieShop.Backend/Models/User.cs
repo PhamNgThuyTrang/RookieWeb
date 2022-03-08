@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 
 namespace RookieShop.Backend.Models
 {
@@ -14,5 +15,7 @@ namespace RookieShop.Backend.Models
 
         [PersonalData]
         public string FullName { get; set; }
+        public List<Review> Reviews { get; set; }
+
     }
 }

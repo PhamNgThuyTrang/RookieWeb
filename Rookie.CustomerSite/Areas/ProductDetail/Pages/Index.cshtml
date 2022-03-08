@@ -1,0 +1,123 @@
+﻿@page
+@model Rookie.CustomerSite.Pages.ProductDetail.IndexModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "RookieShop";
+    Layout = "_Layout";
+}
+
+<div id="all">
+    <div id="content">
+        <div class="container">
+            <div class="row">
+                <!-- breadcrumb-->
+                @section breadcrumb{
+                    <div class="col-12" style="padding-right: 0">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a asp-area="Home">Home</a></li>
+                                <li class="breadcrumb-item">
+                                    @Model.Product.ProductModel.SubCategory.Category.Name
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a asp-area="ProductByCategory"
+                                       asp-page="./Index"
+                                       asp-route-subCategoryId="@Model.Product.ProductModel.SubCategory.Category.CategoryId">
+                                        @Model.Product.ProductModel.SubCategory.Name
+                                    </a>
+                                </li>
+                                <li aria-current="page" class="breadcrumb-item active">@Model.Product.Name</li>
+                            </ol>
+                        </nav>
+                    </div>
+                }
+
+                <div class="col-12">
+                    <!--ProductMain-->
+                    <div id="productMain" class="row">
+                        <!--product_slider-->
+                        <div class="col-lg-8 col-md-6">
+                            <div id="main-slider" class="owl-carousel owl-theme" itemprop="image">
+                                @foreach (var image in Model.ProductImage.Items)
+                                {
+                                    <div class="item">
+                                        <img src="@image.ImagePath" class="img-fluid owl-height" alt="@Model.Product.Name">
+                                    </div>
+                                }
+                            </div>
+                            @if (Model.Product.SellingPrice < Model.Product.ListedPrice)
+                            {
+                                <partial name="_RibbonSalePartial" />
+                            }
+                            @if (Model.Product.DateUpload > DateTime.Today.AddDays(-14))
+                            {
+                                <partial name="_RibbonNewPartial" />
+                            }
+                            <!--product_color-->
+                            <div id="getcolor" class="d-flex justify-content-center flex-wrap">
+
+                                @if (Model.Color.Items.Count() > 1)
+                                {
+                                    <div>
+                                        <h4>@Model.Color.Items.Count() colors available</h4>
+                                    </div>
+                                    foreach (var color in Model.Color.Items)
+                                    {
+                                        <div>
+                                            <a asp-area="ProductDetail" asp-page="./Index" asp-route-id="@color.ProductId">
+                                                <img src="@color.ImagePath" />
+                                            </a>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+
+                        <!--product_details-->
+                        <div class="col-lg-4 col-md-6 box">
+                            <h2 itemprop="name">@Model.Product.Name</h2>
+                            <h4><i>@Model.Product.Color</i></h4>
+                            @*<i itemprop="description">@Model.Product.Description)</i>*@
+                            <p class="price">
+                                <del>
+                                    @if (Model.Product.SellingPrice < Model.Product.ListedPrice)
+                                    {
+                                        <text>@String.Format("{0:0,0}", Model.Product.ListedPrice) VNĐ </text>
+                                    }
+                                </del>
+                            </p>
+                            <p class="price-sale" itemprop="price">
+                                <text> @String.Format("{0:0,0}", Model.Product.SellingPrice) VNĐ </text>
+                            </p>
+                            <div id="getsize" class="sizes">
+                                @if (Model.ProductSizes.Items != null)
+                                {
+                                    foreach (var sizes in Model.ProductSizes.Items)
+                                    {
+                                        if (sizes.Quantity > 0)
+                                        {
+                                            <div class="gl-label">
+                                                <input id="size" name="size" type="radio" value="@sizes.Size" required />
+                                                <span> @sizes.Size </span>
+                                            </div>
+                                        }
+                                    }
+                                }
+                            </div>
+                            <p class="text-center buttons">
+                                
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add to cart</button>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!--ProductRating-->
+                    <div id="productRating" class="box">
+                        @await Component.InvokeAsync("ProductRating", Model.Product.ProductId)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

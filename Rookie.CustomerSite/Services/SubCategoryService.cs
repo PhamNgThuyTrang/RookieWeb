@@ -23,9 +23,6 @@ public class SubCategoryService : ISubCategoryService
         var getSubCategoriesEndpoint = string.IsNullOrEmpty(subCategoryCriteriaDto.Search) ?
                                     EndpointConstants.GET_SUBCATEGORIES :
                                     $"{EndpointConstants.GET_SUBCATEGORIES}?Search={subCategoryCriteriaDto.Search}";
-        getSubCategoriesEndpoint = subCategoryCriteriaDto.CategoryId == 0 ?
-                                   getSubCategoriesEndpoint:
-                                   getSubCategoriesEndpoint + $"?CategoryId={subCategoryCriteriaDto.CategoryId}";
 
         var response = await client.GetAsync(getSubCategoriesEndpoint);
         response.EnsureSuccessStatusCode();
@@ -36,9 +33,18 @@ public class SubCategoryService : ISubCategoryService
     public async Task<SubCategoryDto> GetSubCategoryAsyncById(int id)
     {
         var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
-        var response = await client.GetAsync($"{EndpointConstants.GET_SUBCATEGORIES}\\{id}");
+        var response = await client.GetAsync($"{EndpointConstants.GET_SUBCATEGORY_BY_ID}\\{id}");
         response.EnsureSuccessStatusCode();
         var subCategory = await response.Content.ReadAsAsync<SubCategoryDto>();
+        return subCategory;
+    }
+    
+    public async Task<PagedResponseDto<SubCategoryDto>> GetSubCategoryAsyncByCategoryId(int categoryId)
+    {
+        var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
+        var response = await client.GetAsync($"{EndpointConstants.GET_SUBCATEGORIES_BY_CATEGORYID}\\{categoryId}");
+        response.EnsureSuccessStatusCode();
+        var subCategory = await response.Content.ReadAsAsync<PagedResponseDto<SubCategoryDto>>();
         return subCategory;
     }
 }

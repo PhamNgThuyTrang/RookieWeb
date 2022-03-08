@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace RookieShop.Backend.Models
 {
@@ -9,5 +10,7 @@ namespace RookieShop.Backend.Models
         public int Type { get; set; }
         public string ImagePath { get; set; }
         public bool IsDeleted { get; set; }
+
+        public List<ProductModel> ProductModels { get; set; }
     }
 }

@@ -11,6 +11,6 @@ namespace Rookie.CustomerSite.ViewModel.Category
         [Required]
         public string Name { get; set; }
         public string ImagePath { get; set; }
-        public ICollection<SubCategoryVm> SubCategories { get; set; }
+        public PagedResponseVM<SubCategoryVm> SubCategories { get; set; }
     }
 }

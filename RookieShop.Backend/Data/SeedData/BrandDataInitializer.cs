@@ -12,38 +12,26 @@ namespace RookieShop.Backend.Data.SeedData
                 new Brand
                 {
                     BrandId = 1,
-                    Name = "Test Brand 1",
-                    Type = (int)BrandTypeEnum.Normal
+                    Name = "Nike",
+                    Type = (int)BrandTypeEnum.Luxury
                 },
                 new Brand
                 {
                     BrandId = 2,
-                    Name = "Test Brand 2",
-                    Type = (int)BrandTypeEnum.Normal
+                    Name = "Adidas",
+                    Type = (int)BrandTypeEnum.Luxury
                 },
                 new Brand
                 {
                     BrandId = 3,
-                    Name = "Test Brand 3",
+                    Name = "Puma",
                     Type = (int)BrandTypeEnum.Normal
                 },
                 new Brand
                 {
                     BrandId = 4,
-                    Name = "Test Brand 4",
-                    Type = (int)BrandTypeEnum.Luxury
-                },
-                new Brand
-                {
-                    BrandId = 5,
-                    Name = "Test Brand 5",
-                    Type = (int)BrandTypeEnum.Luxury
-                },
-                new Brand
-                {
-                    BrandId = 6,
-                    Name = "Test Brand 6",
-                    Type = (int)BrandTypeEnum.Luxury
+                    Name = "Bitis",
+                    Type = (int)BrandTypeEnum.All
                 }
             );
         }

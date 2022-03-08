@@ -8,5 +8,5 @@ public interface IBrandService
 {
     Task<PagedResponseDto<BrandDto>> GetBrandAsync(BrandCriteriaDto brandCriteriaDto);
     Task<BrandDto> GetBrandByIdAsync(int id);
-    //Task<bool> UpdateBrand(BrandDto brand);
+    Task<bool> UpdateBrand(BrandDto brand);
 }

@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using Rookie.CustomerSite.ViewModel;
 using Rookie.CustomerSite.ViewModel.Category;
 using Rookie.CustomerSite.ViewModel.SubCategory;
 using RookieShop.Shared.Constants;
 using RookieShop.Shared.Dto.Category;
-using RookieShop.Shared.Dto.SubCategory;
 using RookieShop.Shared.Enum;
 
 namespace Rookie.CustomerSite.ViewComponents
@@ -43,21 +38,14 @@ namespace Rookie.CustomerSite.ViewComponents
                 Limit = int.Parse(_config[ConfigurationConstants.PAGING_LIMIT])
             };
             var pagedCategories = await _categoryService.GetCategoryAsync(categoryCriteriaDto);
+            var categories = _mapper.Map<PagedResponseVM<CategoryVm>>(pagedCategories);
 
-            foreach (var category in pagedCategories.Items)
+            foreach (var category in categories.Items)
             {
-                var subCategoryCriteriaDto = new SubCategoryCriteriaDto()
-                {
-                    CategoryId = category.CategoryId,
-                    SortOrder = SortOrderEnum.Accsending,
-                    Limit = int.Parse(_config[ConfigurationConstants.PAGING_LIMIT])
-                };
-                var pagedSubCategories = await _subCategoryService.GetSubCategoryAsync(subCategoryCriteriaDto);
-                foreach (var subCategory in pagedSubCategories.Items)
-                    category.SubCategories.Add(subCategory);
+                var subCategories = await _subCategoryService.GetSubCategoryAsyncByCategoryId(category.CategoryId);
+                category.SubCategories = _mapper.Map<PagedResponseVM<SubCategoryVm>>(subCategories);
             }
 
-            var categories = _mapper.Map<PagedResponseVM<CategoryVm>>(pagedCategories);
             return View(categories);
         }
     }

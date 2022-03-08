@@ -172,6 +172,24 @@ namespace RookieShop.Backend.Data.Migrations
                     b.HasKey("BannerId");
 
                     b.ToTable("Banners");
+
+                    b.HasData(
+                        new
+                        {
+                            BannerId = 1,
+                            DateUpload = new DateTime(2022, 3, 7, 11, 20, 31, 926, DateTimeKind.Local).AddTicks(4132),
+                            ImagePath = "5ecc6547-f3c2-4b38-8528-c2e4dc5c0751.jpeg",
+                            IsDeleted = false,
+                            Name = "Women's Shoes, Clothing & Accessories"
+                        },
+                        new
+                        {
+                            BannerId = 2,
+                            DateUpload = new DateTime(2022, 3, 7, 11, 20, 31, 926, DateTimeKind.Local).AddTicks(9117),
+                            ImagePath = "f6a57e16-2956-435e-843a-4ebd1ce0fb1f.jpeg",
+                            IsDeleted = false,
+                            Name = "Everlasting Love Pack: Available from 18 February"
+                        });
                 });
 
             modelBuilder.Entity("RookieShop.Backend.Models.Brand", b =>
@@ -202,43 +220,29 @@ namespace RookieShop.Backend.Data.Migrations
                         {
                             BrandId = 1,
                             IsDeleted = false,
-                            Name = "Test Brand 1",
-                            Type = 1
+                            Name = "Nike",
+                            Type = 2
                         },
                         new
                         {
                             BrandId = 2,
                             IsDeleted = false,
-                            Name = "Test Brand 2",
-                            Type = 1
+                            Name = "Adidas",
+                            Type = 2
                         },
                         new
                         {
                             BrandId = 3,
                             IsDeleted = false,
-                            Name = "Test Brand 3",
+                            Name = "Puma",
                             Type = 1
                         },
                         new
                         {
                             BrandId = 4,
                             IsDeleted = false,
-                            Name = "Test Brand 4",
-                            Type = 2
-                        },
-                        new
-                        {
-                            BrandId = 5,
-                            IsDeleted = false,
-                            Name = "Test Brand 5",
-                            Type = 2
-                        },
-                        new
-                        {
-                            BrandId = 6,
-                            IsDeleted = false,
-                            Name = "Test Brand 6",
-                            Type = 2
+                            Name = "Bitis",
+                            Type = 0
                         });
                 });
 
@@ -261,6 +265,172 @@ namespace RookieShop.Backend.Data.Migrations
                     b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            IsDeleted = false,
+                            Name = "Men"
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            IsDeleted = false,
+                            Name = "Adidas"
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            IsDeleted = false,
+                            Name = "Kid"
+                        });
+                });
+
+            modelBuilder.Entity("RookieShop.Backend.Models.Product", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateUpload")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ListedPrice")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductModelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SellingPrice")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId");
+
+                    b.HasIndex("ProductModelId");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("RookieShop.Backend.Models.ProductImage", b =>
+                {
+                    b.Property<int>("ProductImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductImageId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductImages");
+                });
+
+            modelBuilder.Entity("RookieShop.Backend.Models.ProductModel", b =>
+                {
+                    b.Property<int>("ProductModelId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BrandId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("SubCategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductModelId");
+
+                    b.HasIndex("BrandId");
+
+                    b.HasIndex("SubCategoryId");
+
+                    b.ToTable("ProductModels");
+                });
+
+            modelBuilder.Entity("RookieShop.Backend.Models.ProductSize", b =>
+                {
+                    b.Property<int>("ProductSizeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Size")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProductSizeId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductSizes");
+                });
+
+            modelBuilder.Entity("RookieShop.Backend.Models.Review", b =>
+                {
+                    b.Property<int>("ReviewId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateUpload")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Stars")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ReviewId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("RookieShop.Backend.Models.SubCategory", b =>
@@ -287,6 +457,64 @@ namespace RookieShop.Backend.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("SubCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            SubCategoryId = 1,
+                            CategoryId = 1,
+                            IsDeleted = false,
+                            Name = "Running"
+                        },
+                        new
+                        {
+                            SubCategoryId = 2,
+                            CategoryId = 2,
+                            IsDeleted = false,
+                            Name = "Running"
+                        },
+                        new
+                        {
+                            SubCategoryId = 3,
+                            CategoryId = 1,
+                            IsDeleted = false,
+                            Name = "Basketball"
+                        },
+                        new
+                        {
+                            SubCategoryId = 4,
+                            CategoryId = 2,
+                            IsDeleted = false,
+                            Name = "Basketball"
+                        },
+                        new
+                        {
+                            SubCategoryId = 5,
+                            CategoryId = 1,
+                            IsDeleted = false,
+                            Name = "Tennis"
+                        },
+                        new
+                        {
+                            SubCategoryId = 6,
+                            CategoryId = 2,
+                            IsDeleted = false,
+                            Name = "Tennis"
+                        },
+                        new
+                        {
+                            SubCategoryId = 7,
+                            CategoryId = 1,
+                            IsDeleted = false,
+                            Name = "Sandals & Slides"
+                        },
+                        new
+                        {
+                            SubCategoryId = 8,
+                            CategoryId = 2,
+                            IsDeleted = false,
+                            Name = "Sandals & Slides"
+                        });
                 });
 
             modelBuilder.Entity("RookieShop.Backend.Models.User", b =>
@@ -408,6 +636,75 @@ namespace RookieShop.Backend.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("RookieShop.Backend.Models.Product", b =>
+                {
+                    b.HasOne("RookieShop.Backend.Models.ProductModel", "ProductModel")
+                        .WithMany("Products")
+                        .HasForeignKey("ProductModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProductModel");
+                });
+
+            modelBuilder.Entity("RookieShop.Backend.Models.ProductImage", b =>
+                {
+                    b.HasOne("RookieShop.Backend.Models.Product", "Product")
+                        .WithMany("ProductImages")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("RookieShop.Backend.Models.ProductModel", b =>
+                {
+                    b.HasOne("RookieShop.Backend.Models.Brand", "Brand")
+                        .WithMany("ProductModels")
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RookieShop.Backend.Models.SubCategory", "SubCategory")
+                        .WithMany("ProductModels")
+                        .HasForeignKey("SubCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Brand");
+
+                    b.Navigation("SubCategory");
+                });
+
+            modelBuilder.Entity("RookieShop.Backend.Models.ProductSize", b =>
+                {
+                    b.HasOne("RookieShop.Backend.Models.Product", "Product")
+                        .WithMany("ProductSizes")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("RookieShop.Backend.Models.Review", b =>
+                {
+                    b.HasOne("RookieShop.Backend.Models.Product", "Product")
+                        .WithMany("Reviews")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RookieShop.Backend.Models.User", "User")
+                        .WithMany("Reviews")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("RookieShop.Backend.Models.SubCategory", b =>
                 {
                     b.HasOne("RookieShop.Backend.Models.Category", "Category")
@@ -419,9 +716,38 @@ namespace RookieShop.Backend.Data.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("RookieShop.Backend.Models.Brand", b =>
+                {
+                    b.Navigation("ProductModels");
+                });
+
             modelBuilder.Entity("RookieShop.Backend.Models.Category", b =>
                 {
                     b.Navigation("SubCategories");
+                });
+
+            modelBuilder.Entity("RookieShop.Backend.Models.Product", b =>
+                {
+                    b.Navigation("ProductImages");
+
+                    b.Navigation("ProductSizes");
+
+                    b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("RookieShop.Backend.Models.ProductModel", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("RookieShop.Backend.Models.SubCategory", b =>
+                {
+                    b.Navigation("ProductModels");
+                });
+
+            modelBuilder.Entity("RookieShop.Backend.Models.User", b =>
+                {
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

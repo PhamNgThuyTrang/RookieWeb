@@ -1,19 +1,20 @@
 ﻿@using Rookie.CustomerSite.ViewModel
 @using Rookie.CustomerSite.ViewModel.Category
 @model PagedResponseVM<CategoryVm>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
 }
 
 @foreach (var category in Model.Items)
 {
-<div class="col-lg-4 col-md-6">
-    <h5>@category.Name</h5>
-    @foreach (var subcategory in category.SubCategories)
-    {
-        <ul class="list-unstyled">
-            <li><a>@subcategory.Name</a></li>
-        </ul>
-    }
-</div>
+    <div class="col-lg-4 col-md-6">
+        <h5>@category.Name</h5>
+        @foreach (var subcategory in category.SubCategories.Items)
+        {
+            <ul class="list-unstyled">
+                <li><a asp-area="ProductByCategory" asp-page="./Index" asp-route-subCategoryId="@subcategory.SubCategoryId">@subcategory.Name</a></li>
+            </ul>
+        }
+    </div>
 }

@@ -39,24 +39,47 @@ center {
     margin: 10px 0;
 }
 
+.navbar-buttons button{
+    border: none;
+}
+
+.navbar-buttons .btn{
+    border: none;
+}
+
+/*getcolor*/
 #getcolor {
     text-align: center;
     margin-bottom: 20px;
+    background: #fff;
 }
 
+#getcolor div {
+    margin: 10px;
+    align-self: center;
+}
+
+#getcolor div h4 {
+    font-size: 1.125rem;
+    font-weight: bold;
+    width: 80px;
+    color: #4fbfa8;
+}
 #getcolor a img {
     width: 80px;
+    height: 80px;
+    object-fit: cover;
     border-radius: 4px;
     border: 1px solid rgb(17, 17, 17);
-    padding: 0;
-    margin-left:20px
 }
+/*getcolor*/
 
 #getRecommendProducts{
     margin-bottom: 20px;
     text-align: center;
     
 }
+
 .box .row .col-md-12 h2 {
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -64,6 +87,10 @@ center {
     color: #4fbfa8;
     font-weight: 100;
     text-align: center;
+}
+
+#productMain .box {
+    margin: 0 0 20px;
 }
 
 .plflipper .front a img {
@@ -201,4 +228,12 @@ div.dropdown-item:hover a.nav-link-custom {
 
 div.dropdown-item:hover a.nav-link-custom i {
     color: white;
+}
+
+#content{
+    min-height: 180px;
+}
+
+#not-found-img{
+    width: inherit;
 }
