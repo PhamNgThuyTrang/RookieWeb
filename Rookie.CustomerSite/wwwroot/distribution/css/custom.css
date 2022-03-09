@@ -49,9 +49,7 @@ center {
 
 /*getcolor*/
 #getcolor {
-    text-align: center;
-    margin-bottom: 20px;
-    background: #fff;
+    padding: 10px 0;
 }
 
 #getcolor div {
@@ -236,4 +234,20 @@ div.dropdown-item:hover a.nav-link-custom i {
 
 #not-found-img{
     width: inherit;
+}
+
+#top {
+    text-align: right
+}
+
+@media (min-width: 768px) {
+    .product-slider-color {
+        padding-left: 0;
+    }
+}
+
+@media (max-width: 767px) {
+    .product-slider-color {
+        padding: 0;
+    }
 }

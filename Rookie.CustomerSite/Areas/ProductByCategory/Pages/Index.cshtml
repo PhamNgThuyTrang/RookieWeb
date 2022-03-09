@@ -10,58 +10,57 @@
     <div id="content">
         <div class="container">
             <div class="row">
-                @section breadcrumb{
-                    <div class="col-lg-12">
-                        @if (Model.Products.Items.Count() == 0)
-                        {
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a asp-controller="Home" asp-action="Index">Home</a>
-                                    </li>
-                                    <li class="breadcrumb-item">
-                                        Product Not Found
-                                    </li>
-                                </ol>
-                            </nav>
-                        }
+                <!-- breadcrumb-->
+                <div class="col-lg-12">
+                    @if (Model.Products.Items.Count() == 0)
+                    {
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Product Not Found
+                                </li>
+                            </ol>
+                        </nav>
+                    }
 
-                        else if (Model.Search != null)
-                        {
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a asp-controller="Home" asp-action="Index">Home</a>
-                                    </li>
-                                    <li class="breadcrumb-item">
-                                        Search = "@Model.Search"
-                                    </li>
-                                </ol>
-                            </nav>
-                        }
+                    else if (Model.Search != null)
+                    {
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Search = "@Model.Search"
+                                </li>
+                            </ol>
+                        </nav>
+                    }
 
-                        else
-                        {
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a asp-controller="Home" asp-action="Index">Home</a>
-                                    </li>
-                                    <li class="breadcrumb-item">
-                                        @Model.Products.Items.FirstOrDefault().ProductModel.SubCategory.Category.Name
-                                    </li>
-                                    <li class="breadcrumb-item">
-                                        <a asp-area="ProductByCategory"
-                                           asp-page="./Index"
-                                           asp-route-subCategoryId="@Model.Products.Items.FirstOrDefault().ProductModel.SubCategoryId">
-                                            @Model.Products.Items.FirstOrDefault().ProductModel.SubCategory.Name
-                                        </a>
-                                    </li>
-                                </ol>
-                            </nav>
-                        }
-                    </div>
-                }
+                    else
+                    {
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    @Model.Products.Items.FirstOrDefault().ProductModel.SubCategory.Category.Name
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a asp-area="ProductByCategory"
+                                       asp-page="./Index"
+                                       asp-route-subCategoryId="@Model.Products.Items.FirstOrDefault().ProductModel.SubCategoryId">
+                                        @Model.Products.Items.FirstOrDefault().ProductModel.SubCategory.Name
+                                    </a>
+                                </li>
+                            </ol>
+                        </nav>
+                    }
+                </div>
                 <!-- breadcrumb-->
                 <!--*** MENUS AND FILTERS ***-->
                 <div class="col-lg-3">
