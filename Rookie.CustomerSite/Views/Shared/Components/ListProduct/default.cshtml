@@ -1,0 +1,62 @@
+﻿@using Rookie.CustomerSite.ViewModel
+@using Rookie.CustomerSite.ViewModel.Product
+@model PagedResponseVM<ProductVm>
+
+<div class="row ">
+    @foreach (var product in Model.Items)
+    {
+        <div class="col-lg-4 col-md-6 ">
+            <div class="product">
+                <div class="flip-container">
+                    <div class="flipper">
+                        <div class="front">
+                            <a asp-area="ProductDetail" asp-route-id="@product.ProductId">
+                                <img src="@product.ImagePath" alt="@product.Name)" class="img-fluid">
+                            </a>
+                        </div>
+                        <div class="back">
+                            <a asp-area="ProductDetail" asp-route-id="@product.ProductId">
+                                <img src="@product.ImagePath" alt="@product.Name)" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <a asp-area="ProductDetail" asp-route-id="@product.ProductId">
+                    <img src="@product.ImagePath" alt="@product.Name)" class="img-fluid">
+                </a>
+                <div class="text">
+                    <h3>
+                        <a asp-area="ProductDetail" asp-route-id="@product.ProductId">
+                            @product.Name.ToUpper()
+                        </a>
+                    </h3>
+                    @if (product.SellingPrice < product.ListedPrice)
+                    {
+                        <p class="price">
+                            <del>
+                                <text> @String.Format("{0:0,0}", product.ListedPrice) VNĐ </text>
+                            </del>
+                        </p>
+                    }
+                    <p class="price-sale">
+                        <text> @String.Format("{0:0,0}", product.SellingPrice) VNĐ </text>
+                    </p>
+                    <p class="buttons">
+                        <a asp-area="ProductDetail" asp-route-id="@product.ProductId" class="btn btn-outline-secondary">View detail</a>
+                    </p>
+                </div>
+                <!-- /.text-->
+                @if (product.SellingPrice < product.ListedPrice)
+                {
+                    <partial name="_RibbonSalePartial" />
+                }
+                @if (product.DateUpload > DateTime.Today.AddDays(-14))
+                {
+                    <partial name="_RibbonNewPartial" />
+                }
+            </div>
+            <!-- /.product-->
+        </div>
+        <!-- /.products-->
+    }
+</div>
