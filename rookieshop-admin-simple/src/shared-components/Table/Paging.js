@@ -32,8 +32,8 @@ const Paging = ({ currentPage = 1, totalPage = 1, handleChange }) => {
     };
 
     return (
-        <div className="w-100 d-flex align-items-center mt-3">
-            <ul className="pagination">
+        <div className="w-100 mt-3">
+            <ul className="pagination d-flex justify-content-center">
                 <li className="intro-x">
                     <a onClick={onPrev} className={prePageStyle}>
                         Previous

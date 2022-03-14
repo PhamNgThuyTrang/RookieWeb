@@ -30,7 +30,7 @@ const Info = ({ brand, handleClose }) => {
           <div>
             <div className='row -intro-y'>
               <div className='col-4'>Id:</div>
-              <div>{brand.id}</div>
+              <div>{brand.brandId}</div>
             </div>
 
             <div className='row -intro-y'>

@@ -1,15 +1,16 @@
 import React, { lazy, Suspense, useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import HelloElement from "./HelloWorld";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
-import Contact from "./components/Contact";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import InLineLoader from "./shared-components/InlineLoader";
-import { BRAND } from "./Constants/pages";
+import { BRAND, CATEGORY, PRODUCT } from "./Constants/pages";
 
 const Brand = lazy(() => import('./components/Brand'));
+const Category = lazy(() => import('./components/Category'));
+const Product = lazy(() => import('./components/Product'));
+
 
 const SusspenseLoading = ({ children }) => (
   <Suspense fallback={<InLineLoader />}>
@@ -34,31 +35,6 @@ class App extends React.Component {
     console.log(e.target.value);
   }
 
-  /*
-  render() {
-    return (
-      <Router>
-        <div className="App">
-          <Navbar onSearchKey={(e) => this.handleSearchKey(e)} />
-
-          <Route exact path="/">
-            <Home bootcamp={this.state.bootcamp} />
-          </Route>
-          <Route exact path="/contact">
-            <Contact />
-          </Route>
-          <Route exact path="/hello">
-            <HelloElement />
-          </Route>
-          <Route path="/brand">
-            <Brand />
-          </Route>
-        </div>
-      </Router>
-    );
-  }
-  */
-
   render() {
     return (
       <Router>
@@ -70,15 +46,14 @@ class App extends React.Component {
               <Route exact path="/">
                 <Home bootcamp={this.state.bootcamp} />
               </Route>
-                <Route exact path="/contact">
-              <Contact />
-              </Route>
-                <Route exact path="/hello">
-              <HelloElement />
-              </Route>
-
               <Route path={BRAND}>
                 <Brand />
+              </Route>
+              <Route path={CATEGORY}>
+                <Category />
+              </Route>
+              <Route path={PRODUCT}>
+                <Product />
               </Route>
           </Switch>
          </SusspenseLoading>

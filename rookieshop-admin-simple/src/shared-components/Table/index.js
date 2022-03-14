@@ -22,7 +22,7 @@ const Table = ({ columns, children, page, sortState, handleSort }) => {
   return (
     <>
       <div className="table-container">
-        <table className="table">
+        <table className="table table-hover">
           <thead>
             <tr>
               {
@@ -35,6 +35,7 @@ const Table = ({ columns, children, page, sortState, handleSort }) => {
                   </th>
                 ))
               }
+              <th></th>
             </tr>
           </thead>
 

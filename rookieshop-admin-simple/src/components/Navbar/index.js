@@ -17,18 +17,19 @@ export default class Navbar extends Component {
               <Link to="/">
                 <li>Home</li>
               </Link>
-              <Link to="/contact">
-                <li>Contact</li>
-              </Link>
               <Link to="/about">
                 <li>About</li>
               </Link>
               <Link to="/brand">
                 <li>Brand</li>
               </Link>
+              <Link to="/category">
+                <li>Category</li>
+              </Link>
+              <Link to="/product">
+                <li>Product</li>
+              </Link>
             </ul>
-
-            <input type="text" onChange={(e) => this.props.onSearchKey(e)} />
 
             <div className="nav-details">
               <p className="nav-username"> {value.username} </p>

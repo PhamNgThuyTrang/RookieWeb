@@ -34,7 +34,7 @@ const FileUpload = (props) => {
                 {
                     review && (
                         <div className='overflow-hidden mx-auto'
-                            style={{ maxWidth: '300px', maxHeight: '330px' }}>
+                            style={{ maxWidth: '150px', maxHeight: '150px' }}>
                             <div className='col-span-4 relative'>
                                 <button onClick={handleRemove} 
                                         type='button'

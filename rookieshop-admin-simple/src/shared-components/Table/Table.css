@@ -2,10 +2,9 @@
     overflow-x: auto;
 }
 
-.table-container > table {
-    border-collapse: separate;
-    border-spacing: 1rem 0;
-}
+button{
+    margin: 5px;
+}  
 
 .table-container > .table {
     width: 100%;
@@ -14,6 +13,8 @@
 
 .table-container > .table > thead th {
     text-transform: capitalize;
+    text-align: center;
+    vertical-align: top;
 }
 
 .table-container > .table > thead th > a {
@@ -24,6 +25,11 @@
     border-bottom: 2px solid #dee2e6;
     padding: 0;
     border-top: none;
+}
+
+.table-container > .table img {
+    width: 150px;
+    height: 150px;
 }
     
 .table-container > .table > td:last-child {

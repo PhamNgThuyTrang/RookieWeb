@@ -5,10 +5,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-export const UserContext = React.createContext({ username: "Tuan" });
+export const UserContext = React.createContext({ username: "Admin" });
 
 ReactDOM.render(
-  <UserContext.Provider value={{ username: "T" }}>
+  <UserContext.Provider value={{ username: "Admin" }}>
     <App />
   </UserContext.Provider>,
   document.getElementById("root")

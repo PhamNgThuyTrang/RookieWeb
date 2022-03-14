@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import BrandTable from "./BrandTable";
 
 import { FilterBrandTypeOptions } from "../../../Constants/selectOptions";
-import { getBrandsRequest } from "../services/request"
+import { getBrandsRequest } from "../Services/request"
 import { 
   ACCSENDING, 
   DECSENDING, 
@@ -22,10 +22,8 @@ const ListBrand = () => {
     sortOrder: DECSENDING,
     sortColumn: DEFAULT_BRAND_SORT_COLUMN_NAME
   });
-
   const [search, setSearch] = useState("");
   const [brands, setBrands] = useState("");
-
   const [selectedType, setSelectedType] = useState([
     { id: 1, label: "All", value: 0 },
   ]);
@@ -42,7 +40,6 @@ const ListBrand = () => {
     }
 
     const selectedAll = selected.find((item) => item.id === 1);
-
     setSelectedType((prevSelected) => {
       if (!prevSelected.some((item) => item.id === 1) && selectedAll) {
         setQuery({
@@ -72,17 +69,17 @@ const ListBrand = () => {
     setSearch(search);
   };
 
-  const handlePage = (page) => {
-    setQuery({
-      ...query,
-      page,
-    });
-  };
-
   const handleSearch = () => {
     setQuery({
       ...query,
       search,
+    });
+  };
+
+  const handlePage = (page) => {
+    setQuery({
+      ...query,
+      page,
     });
   };
 
@@ -110,12 +107,11 @@ const ListBrand = () => {
     }
 
     fetchDataAsync();
-  }, [query, brands]);
+  }, [query]);
 
   return (
     <>
       <div className="primaryColor text-title intro-x">Brand List</div>
-
       <div>
         <div className="d-flex mb-5 intro-x">
           <div className="d-flex align-items-center w-md mr-5">
@@ -162,6 +158,7 @@ const ListBrand = () => {
             orderBy: query.sortOrder,
           }}
           fetchData={fetchDataCallbackAsync}
+          
         />
       </div>
     </>

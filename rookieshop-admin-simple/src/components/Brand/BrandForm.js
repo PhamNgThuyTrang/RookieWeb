@@ -10,7 +10,7 @@ import { BRAND } from '../../Constants/pages';
 import { NormalBrandType } from "../../Constants/Brand/BrandConstants";
 import { BrandTypeOptions } from "../../Constants/selectOptions";
 import FileUpload from '../../shared-components/FormInputs/FileUpload';
-import { createBrandRequest, UpdateBrandRequest } from "./services/request";
+import { createBrandRequest, UpdateBrandRequest } from "./Services/request";
 
 const initialFormValues = {
     name: '',

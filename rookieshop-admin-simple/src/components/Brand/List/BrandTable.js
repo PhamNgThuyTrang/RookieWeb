@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PencilFill, XCircle } from "react-bootstrap-icons";
+import { PencilFill, TicketDetailed, XCircle } from "react-bootstrap-icons";
 import { useHistory } from "react-router";
 import ButtonIcon from "../../../shared-components/ButtonIcon";
 import { NotificationManager } from 'react-notifications';
@@ -14,10 +14,10 @@ import {
   LuxuryBrandType, 
   LuxyryBrandTypeLabel 
 } from "../../../Constants/Brand/BrandConstants";
-import { DisableBrandRequest } from "../services/request"
+import { DisableBrandRequest } from "../Services/request"
 
 const columns= [
-  { columnName: "id", columnValue: "Id" },
+  { columnName: "brandid", columnValue: "brandId" },
   { columnName: "name", columnValue: "Name" },
   { columnName: "type", columnValue: "Type" }
 ];
@@ -40,7 +40,7 @@ const BrandTable = ({
   });
 
   const handleShowInfo = (id) => {
-    const brand = brands?.items.find((item) => item.id === id);
+    const brand = brands?.items.find((item) => item.brandId === id);
 
     if (brand) {
       setBrandDetail(brand);
@@ -104,7 +104,7 @@ const BrandTable = ({
 
   const history = useHistory();
   const handleEdit = (id) => {
-    const existBrand = brands?.items.find(item => item.id === Number(id));
+    const existBrand = brands?.items.find(item => item.brandId === Number(id));
     history.push(
       EDIT_BRAND_ID(id),
       {
@@ -124,20 +124,26 @@ const BrandTable = ({
           totalPage: brands?.totalPages,
           handleChange: handlePage,
         }}
+        
       >
         {brands && brands?.items?.map((data, index) => (
-          <tr key={index} className="" onClick={() => handleShowInfo(data.id)}>
-            <td>{data.id}</td>
+          <tr key={index} className="" onClick={() => handleShowInfo(data.brandId)}>
+            <td >{data.brandId}</td>
             <td>{data.name}</td>
             <td>{getBrandTypeName(data.type)}</td>
 
-            <td className="d-flex">
-              <ButtonIcon onClick={() => handleEdit(data.id)}>
-                <PencilFill className="text-black" />
-              </ButtonIcon>
-              <ButtonIcon onClick={() => handleShowDisable(data.id)}>
-                <XCircle className="text-danger mx-2" />
-              </ButtonIcon>
+            <td className="d-flex justify-content-center">
+              <button className="btn btn-primary" onClick={() => handleEdit(data.brandId)}>
+                <ButtonIcon onClick={() => handleEdit(data.brandId)}>
+                  <PencilFill className="text-black" />
+                </ButtonIcon>
+              </button>
+              
+              <button className="btn btn-danger" onClick={() => handleShowDisable(data.brandId)}>
+                <ButtonIcon onClick={() => handleShowDisable(data.brandId)}>
+                  <XCircle className="text-white" />
+                </ButtonIcon>
+              </button>
             </td>
           </tr>
         ))}
@@ -145,6 +151,7 @@ const BrandTable = ({
       {brandDetail && showDetail && (
         <Info brand={brandDetail} handleClose={handleCloseDetail} />
       )}
+
       <ConfirmModal
         title={disableState.title}
         isShow={disableState.isOpen}

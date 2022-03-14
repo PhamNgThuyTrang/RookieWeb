@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import BrandFormContainer from "../BrandForm";
+import BrandForm from "../BrandForm";
 
 const CreateBrandContainer = () => {
 
@@ -11,8 +11,7 @@ const CreateBrandContainer = () => {
       </div>
 
       <div className='row'>
-        <BrandFormContainer />
-
+        <BrandForm />
       </div>
 
     </div>
