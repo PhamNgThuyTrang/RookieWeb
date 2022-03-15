@@ -26,7 +26,7 @@ const UpdateBrandContainer = () => {
         Update Brand {existBrand?.name}
       </div>
 
-      <div className='row'>
+      <div className='row justify-content-center form-group'>
         {
           brand && (<BrandForm
             initialBrandForm={brand}

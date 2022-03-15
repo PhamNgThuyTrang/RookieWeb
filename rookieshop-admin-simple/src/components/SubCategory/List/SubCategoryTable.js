@@ -8,27 +8,23 @@ import Table, { SortType } from "../../../shared-components/Table";
 import Info from "../Info";
 import { EDIT_PRODUCT_ID } from "../../../Constants/pages";
 import ConfirmModal from "../../../shared-components/ConfirmModal";
-import { DisableProductRequest } from "../Services/request"
+import { DisableSubCategoryRequest } from "../Services/request"
 
 const columns= [
-  { columnName: "Product Id", columnValue: "ProductId" },
+  { columnName: "SubCategory Id", columnValue: "SubCategoryId" },
   { columnName: "Name", columnValue: "Name" },
-  { columnName: "Color", columnValue: "Color" },
-  { columnName: "Listed Price", columnValue: "ListedPrice" },
-  { columnName: "Selling Price", columnValue: "SellingPrice" },
-  { columnName: "Product Model Id", columnValue: "ProductModelId" },
-  { columnName: "Image", columnValue: '' },
+  { columnName: "Category", columnValue: "Category" },
 ];
 
-const ProductTable = ({
-  product,
+const SubCategoryTable = ({
+  subcategory,
   handlePage,
   handleSort,
   sortState,
   fetchData,
 }) => {
   const [showDetail, setShowDetail] = useState(false);
-  const [productDetail, setProductDetail] = useState(null);
+  const [subcategoryDetail, setSubCategoryDetail] = useState(null);
   const [disableState, setDisable] = useState({
     isOpen: false,
     id: 0,
@@ -38,10 +34,10 @@ const ProductTable = ({
   });
 
   const handleShowInfo = (id) => {
-    const productInfo = product?.items.find((item) => item.productId === id);
+    const subcategoryInfo = subcategory?.items.find((item) => item.subcategoryId === id);
 
-    if (productInfo) {
-      setProductDetail(productInfo);
+    if (subcategoryInfo) {
+      setSubCategoryDetail(subcategoryInfo);
       setShowDetail(true);
     }
   };
@@ -51,7 +47,7 @@ const ProductTable = ({
       id,
       isOpen: true,
       title: 'Are you sure',
-      message: 'Do you want to disable this Product?',
+      message: 'Do you want to disable this SubCategory?',
       isDisable: true,
     });
   };
@@ -71,14 +67,14 @@ const ProductTable = ({
       handleCloseDisable();
       await fetchData();
       NotificationManager.success(
-        `Remove Product Successful`,
+        `Remove SubCategory Successful`,
         `Remove Successful`,
         2000,
     );
     } else {
       setDisable({
         ...disableState,
-        title: 'Can not disable Product',
+        title: 'Can not disable SubCategory',
         message,
         isDisable: result
       });
@@ -86,7 +82,7 @@ const ProductTable = ({
   };
     
   const handleConfirmDisable = async () => {
-    let isSuccess = await DisableProductRequest(disableState.id);
+    let isSuccess = await DisableSubCategoryRequest(disableState.id);
     if (isSuccess) {
       await handleResult(true, '');
     }
@@ -98,11 +94,11 @@ const ProductTable = ({
 
   const history = useHistory();
   const handleEdit = (id) => {
-    const existProduct = product?.items.find(item => item.productId === Number(id));
+    const existSubCategory = subcategory?.items.find(item => item.subcategoryId === Number(id));
     history.push(
       EDIT_PRODUCT_ID(id),
       {
-        existProduct: existProduct
+        existSubCategory: existSubCategory
       }
     );
   };
@@ -114,30 +110,26 @@ const ProductTable = ({
         handleSort={handleSort}
         sortState={sortState}
         page={{
-          currentPage: product?.currentPage,
-          totalPage: product?.totalPages,
+          currentPage: subcategory?.currentPage,
+          totalPage: subcategory?.totalPages,
           handleChange: handlePage,
         }}
         
       >
-        {product && product?.items?.map((data, index) => (
-          <tr key={index} className="" onClick={() => handleShowInfo(data.productId)}>
-            <td className="text-center">{data.productId}</td>
+        {subcategory && subcategory?.items?.map((data, index) => (
+          <tr key={index} className="text-center" onClick={() => handleShowInfo(data.subcategoryId)}>
+            <td>{data.subCategoryId}</td>
             <td>{data.name}</td>
-            <td>{data.color}</td>
-            <td className="text-center">{data.listedPrice}</td>
-            <td className="text-center">{data.sellingPrice}</td>
-            <td className="text-center">{data.productModelId}</td>
-            <td><img src={data.imagePath}></img></td>
+            <td>{data.category.name}</td>
             <td>
-              <button className="btn btn-primary" onClick={() => handleEdit(data.productId)}>
-                <ButtonIcon onClick={() => handleEdit(data.productId)}>
+              <button className="btn btn-primary" onClick={() => handleEdit(data.subcategoryId)}>
+                <ButtonIcon onClick={() => handleEdit(data.subcategoryId)}>
                   <PencilFill className="text-black" />
                 </ButtonIcon>
               </button>
               
-              <button className="btn btn-danger" onClick={() => handleShowDisable(data.productId)}>
-                <ButtonIcon onClick={() => handleShowDisable(data.productId)}>
+              <button className="btn btn-danger" onClick={() => handleShowDisable(data.subcategoryId)}>
+                <ButtonIcon onClick={() => handleShowDisable(data.subcategoryId)}>
                   <XCircle className="text-white" />
                 </ButtonIcon>
               </button>
@@ -145,8 +137,8 @@ const ProductTable = ({
           </tr>
         ))}
       </Table>
-      {productDetail && showDetail && (
-        <Info product={productDetail} handleClose={handleCloseDetail} />
+      {subcategoryDetail && showDetail && (
+        <Info subcategory={subcategoryDetail} handleClose={handleCloseDetail} />
       )}
 
       <ConfirmModal
@@ -186,4 +178,4 @@ const ProductTable = ({
   );
 };
 
-export default ProductTable;
+export default SubCategoryTable;

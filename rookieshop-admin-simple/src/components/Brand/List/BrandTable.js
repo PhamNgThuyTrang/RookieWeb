@@ -127,8 +127,8 @@ const BrandTable = ({
         
       >
         {brands && brands?.items?.map((data, index) => (
-          <tr key={index} className="" onClick={() => handleShowInfo(data.brandId)}>
-            <td >{data.brandId}</td>
+          <tr key={index} className="text-center" onClick={() => handleShowInfo(data.brandId)}>
+            <td>{data.brandId}</td>
             <td>{data.name}</td>
             <td>{getBrandTypeName(data.type)}</td>
 

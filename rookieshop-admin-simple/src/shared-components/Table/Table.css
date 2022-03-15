@@ -2,7 +2,7 @@
     overflow-x: auto;
 }
 
-button{
+.table-container > .table button{
     margin: 5px;
 }  
 

@@ -25,7 +25,7 @@ const UpdateCategoryContainer = () => {
         Update Category {existCategory?.name}
       </div>
 
-      <div className='row'>
+      <div className='row justify-content-center form-group'>
         {
           category && (<CategoryForm
             initialCategoryForm={category}

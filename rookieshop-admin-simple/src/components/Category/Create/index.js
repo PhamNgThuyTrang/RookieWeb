@@ -9,7 +9,7 @@ const CreateCategoryForm = () => {
         Create New Category
       </div>
 
-      <div className='row'>
+      <div className='row justify-content-center form-group'>
         <CategoryForm />
       </div>
 

@@ -116,8 +116,8 @@ const CategoryTable = ({
         
       >
         {category && category?.items?.map((data, index) => (
-          <tr key={index} className="" onClick={() => handleShowInfo(data.categoryId)}>
-            <td >{data.categoryId}</td>
+          <tr key={index} className="text-center" onClick={() => handleShowInfo(data.categoryId)}>
+            <td>{data.categoryId}</td>
             <td>{data.name}</td>
 
             <td className="d-flex justify-content-center">

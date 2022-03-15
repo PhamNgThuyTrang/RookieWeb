@@ -2,25 +2,25 @@ import React, { useEffect, useState } from "react";
 import { Search } from "react-feather";
 
 import { Link } from "react-router-dom";
-import ProductTable from "./ProductTable";
-import { getProductRequest } from "../Services/request"
+import SubCategoryTable from "./SubCategoryTable";
+import { getSubCategoryRequest } from "../Services/request"
 
 import { 
   ACCSENDING, 
   DECSENDING, 
-  DEFAULT_PRODUCT_SORT_COLUMN_NAME,
+  DEFAULT_SUBCATEGORY_SORT_COLUMN_NAME,
   DEFAULT_PAGE_LIMIT
 } from "../../../Constants/paging"
 
-const ListProduct = () => {
+const ListSubCategory = () => {
   const [query, setQuery] = useState({
     page: 1,
     limit: DEFAULT_PAGE_LIMIT,
     sortOrder: DECSENDING,
-    sortColumn: DEFAULT_PRODUCT_SORT_COLUMN_NAME
+    sortColumn: DEFAULT_SUBCATEGORY_SORT_COLUMN_NAME
   });
   const [search, setSearch] = useState("");
-  const [product, setProduct] = useState("");
+  const [subcategory, setSubCategory] = useState("");
 
   const handleChangeSearch = (e) => {
     e.preventDefault();
@@ -54,16 +54,16 @@ const ListProduct = () => {
   };
 
   const fetchDataCallbackAsync = async () =>  {
-    let data = await getProductRequest(query);
+    let data = await getSubCategoryRequest(query);
     console.log('fetchDataCallbackAsync');
     console.log(data);
-    setProduct(data);
+    setSubCategory(data);
   }
 
   useEffect(() => {
     async function fetchDataAsync() {
-      let result = await getProductRequest(query);
-      setProduct(result.data);
+      let result = await getSubCategoryRequest(query);
+      setSubCategory(result.data);
     }
 
     fetchDataAsync();
@@ -71,7 +71,7 @@ const ListProduct = () => {
 
   return (
     <>
-      <div className="primaryColor text-title intro-x">Product List</div>
+      <div className="primaryColor text-title intro-x">SubCategory List</div>
       <div className="mx-auto mb-5 intro-x w-75">
         <div className="w-ld ml-auto">
           <div className="input-group">
@@ -88,14 +88,14 @@ const ListProduct = () => {
         </div>
 
         <div className="mt-3 d-flex flex-row-reverse">
-          <Link to="/product/create" type="button" className="btn btn-primary">
-            Create new Product
+          <Link to="/subcategory/create" type="button" className="btn btn-primary">
+            Create new SubCategory
           </Link>
         </div>
       </div>
 
-        <ProductTable
-          product={product}
+        <SubCategoryTable
+          subcategory={subcategory}
           handlePage={handlePage}
           handleSort={handleSort}
           sortState={{
@@ -109,4 +109,4 @@ const ListProduct = () => {
   );
 };
 
-export default ListProduct;
+export default ListSubCategory;

@@ -1,15 +1,16 @@
 import React, { lazy, Suspense, useEffect } from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import InLineLoader from "./shared-components/InlineLoader";
-import { BRAND, CATEGORY, PRODUCT } from "./Constants/pages";
+import { BRAND, CATEGORY, PRODUCT, SUBCATEGORY } from "./Constants/pages";
 
 const Brand = lazy(() => import('./components/Brand'));
 const Category = lazy(() => import('./components/Category'));
 const Product = lazy(() => import('./components/Product'));
+const SubCategory = lazy(() => import('./components/SubCategory'));
 
 
 const SusspenseLoading = ({ children }) => (
@@ -40,7 +41,7 @@ class App extends React.Component {
       <Router>
         <div className="App">
           <Navbar onSearchKey={(e) => this.handleSearchKey(e)} />
-
+          <div className="container">
           <SusspenseLoading>
             <Switch>
               <Route exact path="/">
@@ -55,8 +56,12 @@ class App extends React.Component {
               <Route path={PRODUCT}>
                 <Product />
               </Route>
+              <Route path={SUBCATEGORY}>
+                <SubCategory />
+              </Route>
           </Switch>
          </SusspenseLoading>
+         </div>
         </div>
       </Router>
     );

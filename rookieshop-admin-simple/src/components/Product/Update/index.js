@@ -29,7 +29,7 @@ const UpdateProductContainer = () => {
         Update Product {existProduct?.name}
       </div>
 
-      <div className='row'>
+      <div className='row justify-content-center form-group'>
         {
           product && (<ProductForm
             initialProductForm={product}

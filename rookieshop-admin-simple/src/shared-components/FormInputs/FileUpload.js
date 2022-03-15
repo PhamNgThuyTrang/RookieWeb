@@ -30,23 +30,22 @@ const FileUpload = (props) => {
                 <input  type="file" 
                         onChange={handleOnChange} 
                         formEncType='multipart/form-data' 
-                        name={props.name} />
+                        name={props.name} 
+                        className='w-100'
+                        />
                 {
                     review && (
-                        <div className='overflow-hidden mx-auto'
-                            style={{ maxWidth: '150px', maxHeight: '150px' }}>
-                            <div className='col-span-4 relative'>
-                                <button onClick={handleRemove} 
-                                        type='button'
-                                        className='absolute top-0 right-0 text-white'><X />
-                                </button>
-                                <img src={review} className='object-center w-full rounded-md' />
-                            </div>
+                        <div className='overflow-hidden mx-auto mt-1'>
+                            <button onClick={handleRemove} 
+                                    type='button'
+                                    className="btn btn-danger text-right absolute"><X />
+                            </button>
+                            <img src={review} className='object-center w-full rounded-md img-fluid' />
                         </div>
                     )
                 }
             </div>
-        </ div>
+        </div>
     );
 };
 

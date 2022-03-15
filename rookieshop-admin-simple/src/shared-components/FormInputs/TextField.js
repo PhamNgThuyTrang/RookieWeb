@@ -17,9 +17,9 @@ const TextField = (props) => {
         <>
             <div className="mb-3 row">
                 <label className="col-4 col-form-label d-flex">
-                    {label}
+                    {label} 
                     {isrequired && (
-                        <div className="invalid ml-1">(*)</div>
+                        <div className="invalid ml-1"> (*)</div>
                     )}
                 </label>
                 <div className="col">

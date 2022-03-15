@@ -105,18 +105,15 @@ const BrandFormContainer = ({ initialBrandForm = {
                         label="Image" 
                         image={actions.values.imagePath} />
                     
-                    <div className="d-flex">
-                        <div className="ml-auto">
-                            <button className="btn btn-danger"
-                                type="submit" disabled={loading}
-                            >
-                                Save {(loading) && <img src="/oval.svg" className='w-4 h-4 ml-2 inline-block' />}
-                            </button>
-
-                            <Link to={BRAND} className="btn btn-outline-secondary ml-2">
-                                Cancel
-                            </Link>
-                        </div>
+                    <div className="ml-auto mt-3 text-center">
+                        <Link to={BRAND} className="btn btn-outline-secondary ml-2">
+                            Cancel
+                        </Link>
+                        <button className="btn btn-primary"
+                            type="submit" disabled={loading}
+                        >
+                            Save {(loading) && <img src="/oval.svg" className='w-4 h-4 ml-2 inline-block' />}
+                        </button>
                     </div>
                 </Form>
             )}

@@ -112,55 +112,58 @@ const ListBrand = () => {
   return (
     <>
       <div className="primaryColor text-title intro-x">Brand List</div>
-      <div>
-        <div className="d-flex mb-5 intro-x">
-          <div className="d-flex align-items-center w-md mr-5">
-          <ReactMultiSelectCheckboxes
-              options={FilterBrandTypeOptions}
-              hideSearch={true}
-              placeholderButtonLabel="Type"
-              value={selectedType}
-              onChange={handleType}
+      <div className="mx-auto mb-5 intro-x w-75">
+        <div className="w-ld ml-auto">
+          <div className="input-group">
+            <input
+              onChange={handleChangeSearch}
+              value={search}
+              type="text"
+              className="form-control"
             />
+            <span onClick={handleSearch} className="border p-2 pointer">
+              <Search />
+            </span>
+          </div>
+        </div>
 
+        <div className="w-md mt-3 justify-content-between row">
+          <div className="col-4 d-flex flex-row ">
+              <ReactMultiSelectCheckboxes
+                  options={FilterBrandTypeOptions}
+                  hideSearch={true}
+                  placeholderButtonLabel="Type"
+                  value={selectedType}
+                  onChange={handleType}
+                />
             <div className="border p-2">
               <FunnelFill />
-            </div>
+            </div>              
           </div>
-
-          <div className="d-flex align-items-center w-ld ml-auto">
-            <div className="input-group">
-              <input
-                onChange={handleChangeSearch}
-                value={search}
-                type="text"
-                className="form-control"
-              />
-              <span onClick={handleSearch} className="border p-2 pointer">
-                <Search />
-              </span>
-            </div>
-          </div>
-
-          <div className="d-flex align-items-center ml-3">
-            <Link to="/brand/create" type="button" className="btn btn-danger">
+        
+          <div className="d-flex flex-row-reverse col-4">
+            <Link to="/brand/create" type="button" className="btn btn-primary">
               Create new Brand
             </Link>
           </div>
         </div>
-
-        <BrandTable
-          brands={brands}
-          handlePage={handlePage}
-          handleSort={handleSort}
-          sortState={{
-            columnValue: query.sortColumn,
-            orderBy: query.sortOrder,
-          }}
-          fetchData={fetchDataCallbackAsync}
-          
-        />
       </div>
+
+        <div className="row justify-content-center">
+          <div className="col-md-10">
+            <BrandTable
+              brands={brands}
+              handlePage={handlePage}
+              handleSort={handleSort}
+              sortState={{
+                columnValue: query.sortColumn,
+                orderBy: query.sortOrder,
+              }}
+              fetchData={fetchDataCallbackAsync}
+              
+            />
+          </div>
+        </div>
     </>
   );
 };

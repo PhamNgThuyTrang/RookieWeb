@@ -51,6 +51,7 @@ namespace RookieShop.Backend.Controllers
             var subCategories = _context
                                 .SubCategories
                                 .Where(x => !x.IsDeleted)
+                                .Include(x => x.Category)
                                 .AsQueryable();
 
             subCategories = SubCategoryFilter(subCategories, subCategoryCriteriaDto);

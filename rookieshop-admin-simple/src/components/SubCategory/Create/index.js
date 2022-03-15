@@ -1,21 +1,20 @@
 import React, { useState } from "react";
+import SubCategoryForm from "../SubCategoryForm";
 
-import BrandForm from "../BrandForm";
-
-const CreateBrandContainer = () => {
+const CreateSubCategoryForm = () => {
 
   return (
     <div className='ml-5'>
       <div className='primaryColor text-title intro-x'>
-        Create New Brand
+        Create New SubCategory
       </div>
 
       <div className='row justify-content-center form-group'>
-        <BrandForm />
+        <SubCategoryForm />
       </div>
 
     </div>
   );
 };
 
-export default CreateBrandContainer;
+export default CreateSubCategoryForm;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, } from "react-bootstrap";
 
-const Info = ({ product, handleClose }) => {
+const Info = ({ subcategory, handleClose }) => {
   return (
     <>
       <Modal
@@ -11,7 +11,7 @@ const Info = ({ product, handleClose }) => {
       >
         <Modal.Header closeButton>
           <Modal.Title id="login-modal">
-            Detailed Product Infomation
+            Detailed SubCategory Infomation
           </Modal.Title>
         </Modal.Header>
 
@@ -19,38 +19,23 @@ const Info = ({ product, handleClose }) => {
           <div className="row justify-content-center form-group">
             <div className='row -intro-y'>
               <div className='col-4'>Id:</div>
-              <div>{product.productId}</div>
+              <div>{subcategory.subcategoryId}</div>
             </div>
 
             <div className='row -intro-y'>
               <div className='col-4'>Name:</div>
-              <div>{product.name}</div>
+              <div>{subcategory.name}</div>
             </div>
 
             <div className='row -intro-y'>
-              <div className='col-4'>Color:</div>
-              <div>{product.color}</div>
-            </div>
-
-            <div className='row -intro-y'>
-              <div className='col-4'>Listed Price:</div>
-              <div>{product.listedPrice}</div>
-            </div>
-
-            <div className='row -intro-y'>
-              <div className='col-4'>Selling Price:</div>
-              <div>{product.sellingPrice}</div>
-            </div>
-
-            <div className='row -intro-y'>
-              <div className='col-4'>ProductModelId:</div>
-              <div>{product.productModelId}</div>
+              <div className='col-4'>Category Id:</div>
+              <div>{subcategory.categoryId}</div>
             </div>
 
             <div className='row -intro-y'>
               <div className='col-4'>Image:</div>
               <div>
-                <img src={product.imagePath} className='object-center w-full rounded-md img-fluid' />
+                <img src={subcategory.imagePath} className='object-center w-full rounded-md img-fluid' />
               </div>
             </div>
 

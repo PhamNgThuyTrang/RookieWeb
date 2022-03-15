@@ -9,7 +9,7 @@ const CreateProductForm = () => {
         Create New Product
       </div>
 
-      <div className='row'>
+      <div className='row justify-content-center form-group'>
         <ProductForm />
       </div>
 

@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.primaryColor {
+  color: rgb(17 17 98);
+}
+
+.text-title{
+  font-weight: 700;
+  text-align: center;
+  margin: 20px auto;
+  text-transform: uppercase;
+  font-size: larger;
+}

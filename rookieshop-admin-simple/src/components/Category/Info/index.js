@@ -30,7 +30,7 @@ const Info = ({ category, handleClose }) => {
             <div className='row -intro-y'>
               <div className='col-4'>Image:</div>
               <div>
-                <img src={category.imagePath} className='object-center w-full rounded-md' />
+                <img src={category.imagePath} className='object-center w-full rounded-md img-fluid' />
               </div>
             </div>
 

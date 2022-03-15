@@ -2,14 +2,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgb(17 17 98);
-  padding: 0px 40px;
+  padding: 0px 100px;
 }
 
 #navbar li {
   list-style: none;
   display: inline-block;
-  margin: 0px 40px;
   font-size: 22px;
   color: white;
 }
@@ -18,4 +16,8 @@ div.nav-details > * {
   display: inline-block;
   color: royalblue;
   font-size: 22px;
+}
+
+.navbar-toggler{
+  float: right;
 }

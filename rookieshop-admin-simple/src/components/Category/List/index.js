@@ -72,40 +72,42 @@ const ListCategory = () => {
   return (
     <>
       <div className="primaryColor text-title intro-x">Category List</div>
-      <div>
-        <div className="d-flex mb-5 intro-x">
-          <div className="d-flex align-items-center w-ld ml-auto">
-            <div className="input-group">
-              <input
-                onChange={handleChangeSearch}
-                value={search}
-                type="text"
-                className="form-control"
-              />
-              <span onClick={handleSearch} className="border p-2 pointer">
-                <Search />
-              </span>
-            </div>
-          </div>
-
-          <div className="d-flex align-items-center ml-3">
-            <Link to="/category/create" type="button" className="btn btn-danger">
-              Create new Category
-            </Link>
+      <div className="mx-auto mb-5 intro-x w-75">
+        <div className="w-ld ml-auto">
+          <div className="input-group">
+            <input
+              onChange={handleChangeSearch}
+              value={search}
+              type="text"
+              className="form-control"
+            />
+            <span onClick={handleSearch} className="border p-2 pointer">
+              <Search />
+            </span>
           </div>
         </div>
 
-        <CategoryTable
-          category={category}
-          handlePage={handlePage}
-          handleSort={handleSort}
-          sortState={{
-            columnValue: query.sortColumn,
-            orderBy: query.sortOrder,
-          }}
-          fetchData={fetchDataCallbackAsync}
-          
-        />
+        <div className="mt-3 d-flex flex-row-reverse">
+          <Link to="/category/create" type="button" className="btn btn-primary">
+            Create new Category
+          </Link>
+        </div>
+      </div>
+
+      <div className="row justify-content-center">
+        <div className="col-md-10">
+          <CategoryTable
+            category={category}
+            handlePage={handlePage}
+            handleSort={handleSort}
+            sortState={{
+              columnValue: query.sortColumn,
+              orderBy: query.sortOrder,
+            }}
+            fetchData={fetchDataCallbackAsync}
+            
+          />
+        </div>
       </div>
     </>
   );
