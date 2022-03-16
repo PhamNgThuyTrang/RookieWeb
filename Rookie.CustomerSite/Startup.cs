@@ -36,13 +36,13 @@ namespace Rookie.CustomerSite
                 {
                     options.Authority = "https://localhost:44341";
                     options.RequireHttpsMetadata = false;
-                    options.GetClaimsFromUserInfoEndpoint = true;
 
                     options.ClientId = "mvc";
                     options.ClientSecret = "secret";
                     options.ResponseType = "code";
 
                     options.SaveTokens = true;
+                    options.GetClaimsFromUserInfoEndpoint = true;
 
                     options.Scope.Add("openid");
                     options.Scope.Add("profile");

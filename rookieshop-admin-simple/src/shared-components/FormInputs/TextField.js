@@ -1,8 +1,8 @@
-import React, { InputHTMLAttributes } from 'react';
+import React from 'react';
 import { useField } from 'formik';
 
 const TextField = (props) => {
-    const [field, { error, touched }, meta] = useField(props);
+    const [field, { error, touched }] = useField(props);
     const { label, isrequired, notvalidate } = props;
 
     const validateClass = () => {

@@ -89,7 +89,7 @@ namespace RookieShop.Backend.IdentityServer
 
                     RedirectUris = new List<string>
                     {
-                        "http://localhost:3000/authentication/login-callback",
+                        "http://localhost:3000/authentication/signin",
                         "http://localhost:3000/silent-renew.html",
                         "http://localhost:3000"
                     },

@@ -1,4 +1,5 @@
-export const LOGIN = '/login';
+export const SIGNIN = '/authentication/signin';
+export const SIGNOUT = '/authentication/signout';
 export const AUTH = '/authentication/:action';
 export const HOME = '/';
 

@@ -1,11 +1,10 @@
-import React, { InputHTMLAttributes } from 'react';
+import React from 'react';
 import { useField } from 'formik';
-import { Form } from 'react-bootstrap';
 
 const SelectField = (props) => {
-    const [field, { error, touched, value }, { setValue }] = useField(props);
+    const [value , setValue] = useField(props);
 
-    const { name, options, label, isrequired } = props;
+    const { options, label, isrequired } = props;
 
     const handleChange = (e) => {
         setValue(e.target.value)

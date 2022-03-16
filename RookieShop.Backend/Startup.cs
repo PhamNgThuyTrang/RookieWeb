@@ -42,6 +42,13 @@ namespace RookieShop.Backend
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+            services.AddTransient<IFileStorageService, FileStorageService>();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddControllersWithViews();
+            services.AddRazorPages();
+
             services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -84,11 +91,6 @@ namespace RookieShop.Backend
             });
 
             services.AddSingleton<IAuthorizationHandler, AdminRoleHandler>();
-            services.AddTransient<IFileStorageService, FileStorageService>();
-
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());  
-
-            services.AddControllersWithViews();
 
             services.AddSwaggerGen(c =>
             {
@@ -117,8 +119,6 @@ namespace RookieShop.Backend
                     }
                 });
             });
-            services.AddRazorPages();
-
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowOrigins",
@@ -151,6 +151,7 @@ namespace RookieShop.Backend
             app.UseRouting();
 
             app.UseIdentityServer();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseSwagger();

@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, useState, useEffect } from 'react';
+import React, {useState} from 'react';
 import { useField } from 'formik';
 import { X } from 'react-feather';
 

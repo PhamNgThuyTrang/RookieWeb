@@ -147,7 +147,6 @@ const SubCategoryTable = ({
         onHide={handleCloseDisable}
       >
         <div>
-
           <div className="text-center">
             {disableState.message}
           </div>

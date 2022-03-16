@@ -1,4 +1,4 @@
-import React, { TextareaHTMLAttributes } from 'react';
+import React from 'react';
 import { useField } from 'formik';
 
 const TextAreaField = (props) => {

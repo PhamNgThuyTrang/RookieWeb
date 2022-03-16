@@ -1,11 +1,13 @@
-import React, { lazy, Suspense, useEffect } from "react";
+import React, { lazy, Suspense } from "react";
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import InLineLoader from "./shared-components/InlineLoader";
-import { BRAND, CATEGORY, PRODUCT, SUBCATEGORY } from "./Constants/pages";
+import { BRAND, CATEGORY, PRODUCT, SUBCATEGORY, SIGNIN, SIGNOUT } from "./Constants/pages";
+import { SigninOidc } from "./components/Authentication/signin";
+import { Signout } from "./components/Authentication/signout";
 
 const Brand = lazy(() => import('./components/Brand'));
 const Category = lazy(() => import('./components/Category'));
@@ -58,6 +60,12 @@ class App extends React.Component {
               </Route>
               <Route path={SUBCATEGORY}>
                 <SubCategory />
+              </Route>
+              <Route path={SIGNIN}>
+                <SigninOidc />
+              </Route>
+              <Route path={SIGNOUT}>
+                <Signout />
               </Route>
           </Switch>
          </SusspenseLoading>

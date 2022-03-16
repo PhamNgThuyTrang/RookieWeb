@@ -93,18 +93,21 @@ const ListSubCategory = () => {
           </Link>
         </div>
       </div>
-
-        <SubCategoryTable
-          subcategory={subcategory}
-          handlePage={handlePage}
-          handleSort={handleSort}
-          sortState={{
-            columnValue: query.sortColumn,
-            orderBy: query.sortOrder,
-          }}
-          fetchData={fetchDataCallbackAsync}
-          
-        />
+      
+      <div className="row justify-content-center">
+        <div className="col-md-10">
+          <SubCategoryTable
+            subcategory={subcategory}
+            handlePage={handlePage}
+            handleSort={handleSort}
+            sortState={{
+              columnValue: query.sortColumn,
+              orderBy: query.sortOrder,
+            }}
+            fetchData={fetchDataCallbackAsync}          
+          />
+        </div>
+      </div>
     </>
   );
 };
