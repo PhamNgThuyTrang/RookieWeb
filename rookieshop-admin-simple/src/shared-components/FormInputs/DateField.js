@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { InputHTMLAttributes } from 'react';
 import { useField } from 'formik';
 import { CalendarDateFill } from "react-bootstrap-icons";
 import DatePicker from 'react-datepicker';
@@ -8,6 +8,14 @@ const DateField = (props) => {
     const {
         label, isrequired, notvalidate, maxDate, minDate, filterDate,
     } = props;
+
+    const validateClass = () => {
+        if (touched && error) return 'is-invalid';
+        if (notvalidate) return '';
+        if (touched) return 'is-valid';
+
+        return '';
+    };
 
     const handleChangeAssignedDate = (assignDate) => {
         setValue(assignDate);

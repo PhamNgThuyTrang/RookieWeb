@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { PencilFill, TicketDetailed, XCircle } from "react-bootstrap-icons";
+import { PencilFill, XCircle } from "react-bootstrap-icons";
 import { useHistory } from "react-router";
 import ButtonIcon from "../../../shared-components/ButtonIcon";
 import { NotificationManager } from 'react-notifications';
 
-import Table, { SortType } from "../../../shared-components/Table";
+import Table from "../../../shared-components/Table";
 import Info from "../Info";
 import { EDIT_BRAND_ID } from "../../../Constants/pages";
 import ConfirmModal from "../../../shared-components/ConfirmModal";
@@ -49,7 +49,7 @@ const BrandTable = ({
   };
 
   const getBrandTypeName = (id) => {
-    return id == LuxuryBrandType ? LuxyryBrandTypeLabel : NormalBrandTypeLabel;
+    return id === LuxuryBrandType ? LuxyryBrandTypeLabel : NormalBrandTypeLabel;
   }
 
   const handleShowDisable = async (id) => {

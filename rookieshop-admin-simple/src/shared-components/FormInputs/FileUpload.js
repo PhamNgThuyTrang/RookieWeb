@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { InputHTMLAttributes, useState, useEffect } from 'react';
 import { useField } from 'formik';
 import { X } from 'react-feather';
 
@@ -30,22 +30,23 @@ const FileUpload = (props) => {
                 <input  type="file" 
                         onChange={handleOnChange} 
                         formEncType='multipart/form-data' 
-                        name={props.name} 
-                        className='w-100'
-                        />
+                        name={props.name} />
                 {
                     review && (
-                        <div className='overflow-hidden mx-auto mt-1'>
-                            <button onClick={handleRemove} 
-                                    type='button'
-                                    className="btn btn-danger text-right absolute"><X />
-                            </button>
-                            <img src={review} className='object-center w-full rounded-md img-fluid' />
+                        <div className='overflow-hidden mx-auto'
+                            style={{ maxWidth: '300px', maxHeight: '330px' }}>
+                            <div className='col-span-4 relative'>
+                                <button onClick={handleRemove} 
+                                        type='button'
+                                        className='absolute top-0 right-0 text-white'><X />
+                                </button>
+                                <img src={review} className='object-center w-full rounded-md' />
+                            </div>
                         </div>
                     )
                 }
             </div>
-        </div>
+        </ div>
     );
 };
 

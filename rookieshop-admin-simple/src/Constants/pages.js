@@ -1,4 +1,5 @@
 export const SIGNIN = '/authentication/signin';
+export const SIGNINCALLBACK = '/authentication/signin-oidc';
 export const SIGNOUT = '/authentication/signout';
 export const AUTH = '/authentication/:action';
 export const HOME = '/';

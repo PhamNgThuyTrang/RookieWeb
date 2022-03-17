@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { InputHTMLAttributes } from 'react';
 import { useField } from 'formik';
 
 const TextField = (props) => {
-    const [field, { error, touched }] = useField(props);
+    const [field, { error, touched }, meta] = useField(props);
     const { label, isrequired, notvalidate } = props;
 
     const validateClass = () => {
@@ -17,9 +17,9 @@ const TextField = (props) => {
         <>
             <div className="mb-3 row">
                 <label className="col-4 col-form-label d-flex">
-                    {label} 
+                    {label}
                     {isrequired && (
-                        <div className="invalid ml-1"> (*)</div>
+                        <div className="invalid ml-1">(*)</div>
                     )}
                 </label>
                 <div className="col">

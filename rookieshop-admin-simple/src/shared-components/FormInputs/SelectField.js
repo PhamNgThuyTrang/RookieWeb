@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { InputHTMLAttributes } from 'react';
 import { useField } from 'formik';
+import { Form } from 'react-bootstrap';
 
 const SelectField = (props) => {
-    const [value , setValue] = useField(props);
+    const [field, { error, touched, value }, { setValue }] = useField(props);
 
-    const { options, label, isrequired } = props;
+    const { name, options, label, isrequired } = props;
 
     const handleChange = (e) => {
         setValue(e.target.value)
@@ -16,7 +17,7 @@ const SelectField = (props) => {
                 <label className="col-4 col-form-label d-flex">
                     {label}
                     {isrequired && (
-                        <div className="invalid ml-1"> (*)</div>
+                        <div className="invalid ml-1">(*)</div>
                     )}
                 </label>
 

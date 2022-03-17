@@ -10,7 +10,7 @@ import {
 
 const Info = ({ brand, handleClose }) => {
   const getBrandTypeName = (id) => {
-    return id == LuxuryBrandType ? LuxyryBrandTypeLabel : NormalBrandTypeLabel;
+    return id === LuxuryBrandType ? LuxyryBrandTypeLabel : NormalBrandTypeLabel;
   }
 
   return (

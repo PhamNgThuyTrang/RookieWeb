@@ -5,8 +5,9 @@ import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import InLineLoader from "./shared-components/InlineLoader";
-import { BRAND, CATEGORY, PRODUCT, SUBCATEGORY, SIGNIN, SIGNOUT } from "./Constants/pages";
-import { SigninOidc } from "./components/Authentication/signin";
+import { BRAND, CATEGORY, PRODUCT, SUBCATEGORY, SIGNIN, SIGNOUT, SIGNINCALLBACK } from "./Constants/pages";
+import { Signin } from "./components/Authentication/signin";
+import { SigninOidc } from "./components/Authentication/signin-oidc";
 import { Signout } from "./components/Authentication/signout";
 
 const Brand = lazy(() => import('./components/Brand'));
@@ -62,11 +63,15 @@ class App extends React.Component {
                 <SubCategory />
               </Route>
               <Route path={SIGNIN}>
+                <Signin />
+              </Route>
+              <Route path={SIGNINCALLBACK}>
                 <SigninOidc />
               </Route>
               <Route path={SIGNOUT}>
                 <Signout />
               </Route>
+              
           </Switch>
          </SusspenseLoading>
          </div>

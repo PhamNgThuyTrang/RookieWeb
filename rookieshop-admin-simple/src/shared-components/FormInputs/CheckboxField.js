@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { InputHTMLAttributes } from 'react';
 import { useField } from 'formik';
+import { Form } from 'react-bootstrap';
 
 const CheckboxField = (props) => {
-    const [ value , setValue ] = useField(props);
+    const [field, { error, touched, value }, { setValue }] = useField(props);
 
     const { name, options, label, isrequired } = props;
 
@@ -16,7 +17,7 @@ const CheckboxField = (props) => {
                 <label className="col-4 col-form-label d-flex">
                     {label}
                     {isrequired && (
-                        <div className="invalid ml-1"> (*)</div>
+                        <div className="invalid ml-1">(*)</div>
                     )}
                 </label>
 
