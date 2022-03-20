@@ -15,7 +15,6 @@ namespace RookieShop.Shared.Request.Review
         [Required]
         public int ProductId { get; set; }
 
-        [Required]
         public string UserId { get; set; }
     }
 }
