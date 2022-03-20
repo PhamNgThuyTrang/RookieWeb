@@ -24,5 +24,6 @@ namespace RookieShop.Shared.Constants
         public static string GET_REVIEWS = "api/reviews/getreviews";
         public static string GET_REVIEW_BY_ID = "api/reviews/getreview";
         public static string GET_REVIEWS_BY_PRODUCTID = "api/reviews/getreviewsbyproductid";
+        public static string POST_REVIEW = "api/reviews/postreview";
     }
 }

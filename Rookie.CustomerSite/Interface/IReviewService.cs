@@ -11,4 +11,6 @@ public interface IReviewService
     Task<PagedResponseDto<ReviewDto>> GetReviewsAsync(ReviewCriteriaDto reviewCriteriaDto);
     Task<PagedResponseDto<ReviewDto>> GetReviewsAsyncByProductId(int productId, ReviewCriteriaDto reviewCriteriaDto);
     Task<ReviewDto> GetReviewAsyncById(int id);
+    Task<bool> PostReview(ReviewDto review);
+
 }

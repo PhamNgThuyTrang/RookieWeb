@@ -28,6 +28,14 @@ $(".star-review .star").on("click", function () {
     for (i = 0; i < onStar; i++) {
         $(stars[i]).addClass("selected");
     }
+
+    var container = document.getElementById("rating");
+    var input = document.createElement("input");
+    input.type = "hidden";
+    input.id = "Stars";
+    input.name = "Stars";
+    input.value = onStar;
+    container.appendChild(input);
 });
 
 $(".done").on("click", function () {
