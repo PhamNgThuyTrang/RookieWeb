@@ -102,46 +102,76 @@ namespace RookieShop.Backend.Controllers
         [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult> PutBanner([FromRoute] int id, [FromForm] BannerCreateRequest bannerCreateRequest)
         {
-            var banner = await _context.Banners.FindAsync(id);
+            if (ModelState.IsValid)
+                try
+                {
+                    var banner = await _context.Banners.FindAsync(id);
 
-            if (banner == null)
+                    if (banner == null)
+                    {
+                        return NotFound();
+                    }
+
+                    if (!string.IsNullOrEmpty(bannerCreateRequest.Name))
+                    {
+                        banner.Name = bannerCreateRequest.Name;
+                    }
+                    if (bannerCreateRequest.ImageFile != null)
+                    {
+                        banner.ImagePath = await _fileStorageService.SaveFileAsync(bannerCreateRequest.ImageFile);
+                    }
+
+                    _context.Banners.Update(banner);
+                    await _context.SaveChangesAsync();
+
+                    return Ok(banner);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            else
             {
-                return NotFound();
+                return null;
             }
-
-            if (!string.IsNullOrEmpty(bannerCreateRequest.Name))
-            {
-                banner.Name = bannerCreateRequest.Name;
-            }
-            if (bannerCreateRequest.ImageFile != null)
-            {
-                banner.ImagePath = await _fileStorageService.SaveFileAsync(bannerCreateRequest.ImageFile);
-            }
-
-            _context.Banners.Update(banner);
-            await _context.SaveChangesAsync();
-
-            return Ok(banner);
         }
 
         [HttpPost]
         [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult<BannerVm>> PostBanner([FromForm] BannerCreateRequest bannerCreateRequest)
         {
-            var banner = new Banner
-            {
-                Name = bannerCreateRequest.Name,
-            };
+            if(ModelState.IsValid)
+                try
+                {
+                    var banner = new Banner
+                    {
+                        Name = bannerCreateRequest.Name,
+                    };
 
-            if (bannerCreateRequest.ImageFile != null)
+                    if (bannerCreateRequest.ImageFile != null)
+                    {
+                        banner.ImagePath = await _fileStorageService.SaveFileAsync(bannerCreateRequest.ImageFile);
+                    }
+
+                    _context.Banners.Add(banner);
+                    await _context.SaveChangesAsync();
+                    return CreatedAtAction("GetBanner", 
+                        new { id = banner.BannerId }, 
+                        new BannerVm { 
+                            BannerId = banner.BannerId, 
+                            Name = banner.Name, 
+                            ImagePath = banner.ImagePath, 
+                            DateUpload = banner.DateUpload 
+                        });
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
+            else
             {
-                banner.ImagePath = await _fileStorageService.SaveFileAsync(bannerCreateRequest.ImageFile);
+                return null;
             }
-
-            _context.Banners.Add(banner);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetBanner", new { id = banner.BannerId }, new BannerVm { BannerId = banner.BannerId, Name = banner.Name, ImagePath = banner.ImagePath, DateUpload = banner.DateUpload });
         }
 
         [HttpDelete("{id}")]
