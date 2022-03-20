@@ -106,46 +106,75 @@ namespace RookieShop.Backend.Controllers
         [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult> PutCategory([FromRoute] int id, [FromForm] CategoryCreateRequest categoryCreateRequest)
         {
-            var category = await _context.Categories.FindAsync(id);
+            if (ModelState.IsValid)
+                try
+                {
+                    var category = await _context.Categories.FindAsync(id);
 
-            if (category == null)
+                    if (category == null)
+                    {
+                        return NotFound();
+                    }
+
+                    if (!string.IsNullOrEmpty(categoryCreateRequest.Name))
+                    {
+                        category.Name = categoryCreateRequest.Name;
+                    }
+                    if (categoryCreateRequest.ImageFile != null)
+                    {
+                        category.ImagePath = await _fileStorageService.SaveFileAsync(categoryCreateRequest.ImageFile);
+                    }
+
+                    _context.Categories.Update(category);
+                    await _context.SaveChangesAsync();
+
+                    return Ok(category);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            else
             {
-                return NotFound();
+                return null;
             }
-
-            if (!string.IsNullOrEmpty(categoryCreateRequest.Name))
-            {
-                category.Name = categoryCreateRequest.Name;
-            }
-            if (categoryCreateRequest.ImageFile != null)
-            {
-                category.ImagePath = await _fileStorageService.SaveFileAsync(categoryCreateRequest.ImageFile);
-            }
-
-            _context.Categories.Update(category);
-            await _context.SaveChangesAsync();
-
-            return Ok(category);
         }
 
         [HttpPost]
         [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult<BannerVm>> PostCategory([FromForm] CategoryCreateRequest categoryCreateRequest)
         {
-            var category = new Category
-            {
-                Name = categoryCreateRequest.Name,
-            };
+            if (ModelState.IsValid)
+                try
+                {
+                    var category = new Category
+                    {
+                        Name = categoryCreateRequest.Name,
+                    };
 
-            if (categoryCreateRequest.ImageFile != null)
+                    if (categoryCreateRequest.ImageFile != null)
+                    {
+                        category.ImagePath = await _fileStorageService.SaveFileAsync(categoryCreateRequest.ImageFile);
+                    }
+
+                    _context.Categories.Add(category);
+                    await _context.SaveChangesAsync();
+
+                    return CreatedAtAction("GetCategory", 
+                        new { id = category.CategoryId }, 
+                        new CategoryVm { 
+                            CategoryId = category.CategoryId, 
+                            Name = category.Name, 
+                            ImagePath = category.ImagePath });
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            else
             {
-                category.ImagePath = await _fileStorageService.SaveFileAsync(categoryCreateRequest.ImageFile);
+                return null;
             }
-
-            _context.Categories.Add(category);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCategory", new { id = category.CategoryId }, new CategoryVm { CategoryId = category.CategoryId, Name = category.Name, ImagePath = category.ImagePath });
         }
 
         [HttpDelete("{id}")]
