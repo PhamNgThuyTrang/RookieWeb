@@ -77,27 +77,31 @@ namespace RookieShop.Backend.IdentityServer
                new Client {
                     ClientName = "admin",
                     ClientId = "admin",
+
                     // AccessTokenType = AccessTokenType.Reference,
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
                     RequireClientSecret = false,
+                    
+
                     RequireConsent = false,
                     // RequirePkce = true,
+
                     AlwaysSendClientClaims = true,
                     AllowOfflineAccess = true,
                     AlwaysIncludeUserClaimsInIdToken = true,
 
                     RedirectUris = new List<string>
                     {
-                        "http://localhost:3000/authentication/login-callback",
+                        "http://localhost:3000/Authentication/signin-oidc",
                         "http://localhost:3000/silent-renew.html",
-                        "http://localhost:3000"
+                        "http://localhost:3000/"
                     },
                     PostLogoutRedirectUris = new List<string>
                     {
+                        "http://localhost:3000/Authentication/signout-oidc",
                         "http://localhost:3000/unauthorized",
-                        "http://localhost:3000/authentication/logout-callback",
-                        "http://localhost:3000"
+                        "http://localhost:3000/"
                     },
                     AllowedCorsOrigins = new List<string>
                     {

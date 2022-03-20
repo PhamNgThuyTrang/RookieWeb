@@ -15,6 +15,7 @@ namespace RookieShop.Backend.Models
 
         [PersonalData]
         public string FullName { get; set; }
+        public bool IsDeleted { get; set; }
         public List<Review> Reviews { get; set; }
 
     }

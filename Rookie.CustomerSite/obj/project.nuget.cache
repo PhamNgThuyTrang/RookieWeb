@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "6UhkTmFStAnSWLmvD3VUvTMSYf4GWv8EvQJ4c2LiasqwCtVaHNXTg8VTzpY+JwJIE+nNRVoZFsC+0px5V8sLSQ==",
+  "dgSpecHash": "ddeqM36UpbX9z8y5lfXkMOrz5fLL/xeHQGx04qi7h4prqnpXn2zXYkQem6LmJ4lLMqrbyRAJdY0Eu4SZmDoHlg==",
   "success": true,
   "projectFilePath": "C:\\Users\\kayke\\OneDrive\\Documents\\Rookie\\RookieWeb\\Rookie.CustomerSite\\Rookie.CustomerSite.csproj",
   "expectedPackageFiles": [
@@ -135,8 +135,7 @@
     "C:\\Users\\kayke\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\kayke\\.nuget\\packages\\microsoft.netcore.app.ref\\5.0.0\\microsoft.netcore.app.ref.5.0.0.nupkg.sha512"
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }
