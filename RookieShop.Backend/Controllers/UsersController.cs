@@ -40,7 +40,7 @@ namespace RookieShop.Backend.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [Authorize(Roles = "Administrator")]
         public async Task<ActionResult<PagedResponseDto<UserDto>>> GetUsers(
             [FromQuery] UserCritetiaDto userCriteriaDto,
