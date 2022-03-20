@@ -92,7 +92,16 @@
                 <div class="row">
                     <div class="col-lg-3 col-sm-4">
                         <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-                        <div class="review-block-name">@review.User.UserName</div>
+                        @if (review.User != null)
+                        {
+                            <div class="review-block-name">@review.User.UserName</div>
+
+                        }
+                        else
+                        {
+                            <div class="review-block-name">Guess</div>
+
+                        }
                         <div class="review-block-date">@review.DateUpload.ToString("dd MMMM, yyyy")</div>
                     </div>
                     <div class="col-lg-9 col-sm-8">
@@ -116,15 +125,16 @@
 
 <div class="review-form">
     <h3><strong>Your Review</strong></h3>
-    <form method="post">
+    <form id="rating" method="post" asp-controller="Review" asp-action="ProductReview">
         <div class="star-review">
-            <i class="fa fa-star star" data-value="1"></i>
-            <i class="fa fa-star star" data-value="2"></i>
-            <i class="fa fa-star star" data-value="3"></i>
-            <i class="fa fa-star star" data-value="4"></i>
-            <i class="fa fa-star star" data-value="5"></i>
+            <i id="Stars" name="Stars" class="fa fa-star star" data-value="1"></i>
+            <i id="Stars" name="Stars" class="fa fa-star star" data-value="2"></i>
+            <i id="Stars" name="Stars" class="fa fa-star star" data-value="3"></i>
+            <i id="Stars" name="Stars" class="fa fa-star star" data-value="4"></i>
+            <i id="Stars" name="Stars" class="fa fa-star star" data-value="5"></i>
         </div>
-        <textarea id="review" name="review" placeholder="Please enter your review"></textarea>
+        <textarea id="Content" name="Content" placeholder="Please enter your review"></textarea>
+        <input id="ProductId" name="ProductId" class="disabled" type="hidden" value="@ViewBag.ProductId"/>
         <div class="right">
             <button class="btn btn-success" type="submit">Save</button>
             <button class="btn btn-danger" type="reset">Cancel</button>

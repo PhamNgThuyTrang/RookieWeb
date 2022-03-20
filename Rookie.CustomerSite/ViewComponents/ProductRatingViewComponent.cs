@@ -39,6 +39,7 @@ namespace Rookie.CustomerSite.ViewComponents
             };
             var pagedReviews = await _reviewService.GetReviewsAsyncByProductId(productId, reviewCriteriaDto);
             var reviews = _mapper.Map<PagedResponseVM<ReviewVm>>(pagedReviews);
+            ViewBag.ProductId = productId;
             return View(reviews);
         }
     }

@@ -1,10 +1,14 @@
-﻿using RookieShop.Shared.Constants;
+﻿using Newtonsoft.Json;
+using RookieShop.Shared.Constants;
 using RookieShop.Shared.Dto;
 using RookieShop.Shared.Dto.Review;
+using RookieShop.Shared.Request.Review;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
+using System.Text;
 using System.Threading.Tasks;
 
 
@@ -46,5 +50,31 @@ public class ReviewService : IReviewService
         response.EnsureSuccessStatusCode();
         var review = await response.Content.ReadAsAsync<ReviewDto>();
         return review;
+    }
+
+    public async Task<bool> PostReview(ReviewDto review)
+    {
+        var reviewCreateRequest = new ReviewCreateRequest
+        {
+            Stars = review.Stars.ToString(),
+            Content = review.Content,
+            ProductId = review.ProductId.ToString(),
+        };
+
+        var json = JsonConvert.SerializeObject(reviewCreateRequest);
+        var data = new StringContent(json, Encoding.UTF8, "application/json");
+        var content = new MultipartFormDataContent();
+        content.Add(new StringContent(review.Stars.ToString()), "Stars");
+        content.Add(new StringContent(review.Content), "Content");
+        content.Add(new StringContent(review.ProductId.ToString()), "ProductId");
+
+        var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
+        var res = await client.PostAsync(
+                            $"{EndpointConstants.POST_REVIEW}",
+                            content);
+
+        res.EnsureSuccessStatusCode();
+
+        return await Task.FromResult(true);
     }
 }

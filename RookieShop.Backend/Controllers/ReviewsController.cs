@@ -178,7 +178,8 @@ namespace RookieShop.Backend.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
+        //[Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
+        [AllowAnonymous]
         public async Task<ActionResult<ReviewVm>> PostReview([FromForm] ReviewCreateRequest reviewCreateRequest)
             {
                 if (ModelState.IsValid)
@@ -186,9 +187,9 @@ namespace RookieShop.Backend.Controllers
                     {
                         var review = new Review
                         {
-                            Stars = reviewCreateRequest.Stars,
+                            Stars = Int32.Parse(reviewCreateRequest.Stars),
                             Content = reviewCreateRequest.Content,
-                            ProductId = reviewCreateRequest.ProductId,
+                            ProductId = Int32.Parse(reviewCreateRequest.ProductId),
                             UserId = reviewCreateRequest.UserId,
                         };
 
