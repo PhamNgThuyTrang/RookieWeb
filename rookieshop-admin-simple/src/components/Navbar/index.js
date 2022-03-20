@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Dropdown } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../index";
 import userService from "../../services/userService"
@@ -29,16 +30,27 @@ export default class Navbar extends Component {
     });
   }
 
+  Authenticate = () => {
+    userService.userManager.getUser().then((user) => {
+      if(user){
+        this.setState ({
+          username : user.profile.name,
+          isAuthenticated: true,
+        });          
+      }  
+    });
+  }
+
   render() {
     const show = (this.state.navbar) ? "show" : "" ;
     const manage = (!this.state.isAuthenticated) ? "d-none" : "";
     const signin = (this.state.isAuthenticated) ? "d-none" : "";
-    console.log(signin);
 
     return (
       <UserContext.Consumer>
         {(value) => (
-          <nav id="navbar" className="navbar navbar-expand-lg navbar-dark bg-dark">
+          <>
+          <nav id="navbar" className={"navbar navbar-expand-lg navbar-dark bg-dark " + manage }>
             <button className="navbar-toggler" type="button" onClick={ this.toggleNavbar }>
               <span className="navbar-toggler-icon"></span>
             </button>
@@ -61,27 +73,32 @@ export default class Navbar extends Component {
                 </Link>
               </ul>
             </div>
-            <Link to="/authentication/signin" className={signin}>
-                <li className={"nav-item nav-link px-lg-4 "+ signin}>Sign in</li>
-            </Link>
-                <Dropdown className={manage}>
-                  <Dropdown.Toggle variant="dark no-border" id="dropdown-basic">
-                    Hello {this.state.username}!
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item>
-                      <Link to="/User">
-                        <li className="nav-item nav-link text-dark">User Manager</li>
-                      </Link>
-                    </Dropdown.Item>
-                    <Dropdown.Item>
-                      <Link to="/authentication/signout">
-                        <li className="nav-item nav-link text-dark">Sign out</li>
-                      </Link>
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
+            <Dropdown className={manage}>
+              <Dropdown.Toggle variant="dark no-border" id="dropdown-basic">
+                Hello {this.state.username}!
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item>
+                  <Link to="/User">
+                    <li className="nav-item nav-link text-dark">User Manager</li>
+                  </Link>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <Link to="/authentication/signout">
+                    <li className="nav-item nav-link text-dark">Sign out</li>
+                  </Link>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </nav>
+          <div className={"bg-dark" + signin}>
+            <ul className="d-flex flex-row-reverse">
+              <li className="nav-link">
+                <Link to="/authentication/signin" className="signin">Sign in</Link>
+              </li>
+            </ul>
+          </div>
+          </>
         )}
       </UserContext.Consumer>
     );

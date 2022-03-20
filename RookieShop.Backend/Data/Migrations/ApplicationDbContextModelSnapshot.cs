@@ -177,7 +177,7 @@ namespace RookieShop.Backend.Data.Migrations
                         new
                         {
                             BannerId = 1,
-                            DateUpload = new DateTime(2022, 3, 7, 11, 20, 31, 926, DateTimeKind.Local).AddTicks(4132),
+                            DateUpload = new DateTime(2022, 3, 17, 20, 19, 16, 64, DateTimeKind.Local).AddTicks(2187),
                             ImagePath = "5ecc6547-f3c2-4b38-8528-c2e4dc5c0751.jpeg",
                             IsDeleted = false,
                             Name = "Women's Shoes, Clothing & Accessories"
@@ -185,7 +185,7 @@ namespace RookieShop.Backend.Data.Migrations
                         new
                         {
                             BannerId = 2,
-                            DateUpload = new DateTime(2022, 3, 7, 11, 20, 31, 926, DateTimeKind.Local).AddTicks(9117),
+                            DateUpload = new DateTime(2022, 3, 17, 20, 19, 16, 64, DateTimeKind.Local).AddTicks(8809),
                             ImagePath = "f6a57e16-2956-435e-843a-4ebd1ce0fb1f.jpeg",
                             IsDeleted = false,
                             Name = "Everlasting Love Pack: Available from 18 February"
@@ -538,6 +538,9 @@ namespace RookieShop.Backend.Data.Migrations
 
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");

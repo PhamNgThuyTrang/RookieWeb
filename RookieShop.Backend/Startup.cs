@@ -78,6 +78,7 @@ namespace RookieShop.Backend
                     option.ExpectedScope = "rookieshop.api";
                 });
 
+
             services.AddAuthorization(options =>
             {
                 options.AddPolicy(SecurityConstants.BEARER_POLICY, policy =>
@@ -88,6 +89,10 @@ namespace RookieShop.Backend
 
                 options.AddPolicy(SecurityConstants.ADMIN_ROLE_POLICY, policy =>
                     policy.Requirements.Add(new AdminRoleRequirement()));
+
+                options.AddPolicy(SecurityConstants.ADMINSTRATOR_ROLE_CONST, policy =>
+                    policy.Requirements.Add(new AdminRoleRequirement()));
+
             });
 
             services.AddSingleton<IAuthorizationHandler, AdminRoleHandler>();

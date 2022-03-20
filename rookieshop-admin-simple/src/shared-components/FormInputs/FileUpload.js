@@ -33,20 +33,19 @@ const FileUpload = (props) => {
                         name={props.name} />
                 {
                     review && (
-                        <div className='overflow-hidden mx-auto'
-                            style={{ maxWidth: '300px', maxHeight: '330px' }}>
-                            <div className='col-span-4 relative'>
+                        <div className='overflow-hidden mx-auto'>
+                            <div className='mt-2 d-flex flex-column align-items-end'>
                                 <button onClick={handleRemove} 
                                         type='button'
-                                        className='absolute top-0 right-0 text-white'><X />
+                                        className='btn btn-danger right-0 w-25'><X />
                                 </button>
-                                <img src={review} className='object-center w-full rounded-md' />
+                                <img src={review} className='img-fluid' />
                             </div>
                         </div>
                     )
                 }
             </div>
-        </ div>
+        </div>
     );
 };
 

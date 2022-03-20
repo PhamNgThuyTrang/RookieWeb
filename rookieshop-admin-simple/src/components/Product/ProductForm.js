@@ -135,10 +135,10 @@ const ProductFormContainer = ({ initialProductForm = {
                         image={actions.values.imagePath} />
 
                     <div className='mt-3 text-center'>
-                            <Link to={PRODUCT} className="btn btn-outline-secondary">
+                            <Link to={PRODUCT} className="btn btn-outline-secondary m-2">
                                 Cancel
                             </Link>
-                            <button className="btn btn-primary mx-3"
+                            <button className="btn btn-primary m-2"
                                 type="submit" disabled={loading}>
                                 Save
                             </button>

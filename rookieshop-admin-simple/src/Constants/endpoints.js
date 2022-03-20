@@ -1,6 +1,8 @@
 const Endpoints = {
     authorize: 'api/authorize',
     me: 'api/authorize/me',
+
+    user: 'api/users',
     
     brand: '/api/brands',
     brandId: (id) => `api/brands/${id}`,
@@ -9,7 +11,7 @@ const Endpoints = {
     categoryId: (id) => `api/categories/${id}`,
 
     getsubcategories: '/api/subcategories/getsubcategories',
-    createsubcategory: '/api/subcategories/postsubcategory',
+    postsubcategory: '/api/subcategories/postsubcategory',
     putsubcategory: (id) => `api/subcategories/putsubcategory/${id}`,
     deletesubcategory: (id) => `api/subcategories/deletesubcategory/${id}`,
 

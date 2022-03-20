@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import userService from '../../services/userService'
 import MessageModal from '../../shared-components/MessageModal'
-import { useHistory } from "react-router";
+import Roles from "../../Constants/roles";
+import { createBrowserHistory } from 'history';
+import { useCookies } from "react-cookie";
 
 export function SigninOidc() {
 
-  const history = useHistory();
+  const history = createBrowserHistory({forceRefresh:true});
+  const [cookies, setCookie] = useCookies(['Token']);
 
   const [signinSuccessfulState, setSigninSuccessful] = useState({
       isOpen: false,
@@ -21,11 +24,11 @@ export function SigninOidc() {
     isDisable: true,
   });
 
-  const handleShowSigninSuccessful =  () => {
+  const handleShowSigninSuccessful =  (name) => {
     setSigninSuccessful({
       isOpen: true,
       title: 'Sign in Successful',
-      message: 'Hi Admin!',
+      message: 'Hi ' + name + '!',
       isDisable: true,
     });
   };
@@ -62,13 +65,18 @@ export function SigninOidc() {
     userService.Signout();
   };
 
+  const cookieAuthentication = (token) => {
+    setCookie("Token", token, {path : '/'});
+  }
+
   useEffect(() => {
     userService.userManager.signinRedirectCallback().then(() => {
-      userService.userManager.getUser().then( (user) => {
-        if (user.profile.role === 'Administrator'){
+      userService.userManager.getUser().then( async (user) => {
+        console.log(user.expired, user.expires_at, user.expires_in);
+        if (user.profile.role === Roles.Admin){
           userService.IsAuthenticated();
-          userService.Api();
-          handleShowSigninSuccessful();
+          cookieAuthentication(user.token_type + " " + user.access_token);
+          handleShowSigninSuccessful(user.profile.name);
         }
         else{
           handleShowSigninFailed();

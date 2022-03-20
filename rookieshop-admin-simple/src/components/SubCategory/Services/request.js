@@ -15,6 +15,7 @@ export function createSubCategoryRequest(subCategoryForm) {
 }
 
 export function getSubCategoryRequest(query) {
+    console.log(RequestService.axios.defaults.headers)
     return RequestService.axios.get(EndPoints.getsubcategories, {
         params: query,
         paramsSerializer: params => qs.stringify(params),

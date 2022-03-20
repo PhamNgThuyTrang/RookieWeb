@@ -20,6 +20,7 @@ const ListCategory = () => {
     sortColumn: DEFAULT_CATEGORY_SORT_COLUMN_NAME
   });
   const [search, setSearch] = useState("");
+  const [canceled, setCanceled] = useState(false);
   const [category, setCategory] = useState("");
 
   const handleChangeSearch = (e) => {
@@ -57,17 +58,20 @@ const ListCategory = () => {
     let data = await getCategoryRequest(query);
     console.log('fetchDataCallbackAsync');
     console.log(data);
-    setCategory(data);
+    await setCategory(data);
+    await setCanceled(false);
+
   }
 
   useEffect(() => {
     async function fetchDataAsync() {
       let result = await getCategoryRequest(query);
-      setCategory(result.data);
+      await setCategory(result.data);
+      await setCanceled(true);
     }
 
     fetchDataAsync();
-  }, [query]);
+  }, [query, canceled]);
 
   return (
     <>

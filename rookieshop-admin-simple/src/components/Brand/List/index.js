@@ -24,6 +24,7 @@ const ListBrand = () => {
   });
   const [search, setSearch] = useState("");
   const [brands, setBrands] = useState("");
+  const [canceled, setCanceled] = useState(false);
   const [selectedType, setSelectedType] = useState([
     { id: 1, label: "All", value: 0 },
   ]);
@@ -97,17 +98,19 @@ const ListBrand = () => {
     let data = await getBrandsRequest(query);
     console.log('fetchDataCallbackAsync');
     console.log(data);
-    setBrands(data);
+    await setBrands(data);
+    await setCanceled(false);
   }
 
   useEffect(() => {
     async function fetchDataAsync() {
       let result = await getBrandsRequest(query);
-      setBrands(result.data);
+      await setBrands(result.data);
+      await setCanceled(true);
     }
 
     fetchDataAsync();
-  }, [query]);
+  }, [query, canceled]);
 
   return (
     <>
@@ -160,7 +163,7 @@ const ListBrand = () => {
                 orderBy: query.sortOrder,
               }}
               fetchData={fetchDataCallbackAsync}
-              
+              query = {query}
             />
           </div>
         </div>

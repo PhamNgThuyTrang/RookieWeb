@@ -10,46 +10,46 @@ const Info = ({ product, handleClose }) => {
         dialogClassName="modal-90w"
       >
         <Modal.Header closeButton>
-          <Modal.Title id="login-modal">
+          <Modal.Title id="login-modal" className="text-uppercase">
             Detailed Product Infomation
           </Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
           <div className="row justify-content-center form-group">
-            <div className='row -intro-y'>
-              <div className='col-4'>Id:</div>
-              <div>{product.productId}</div>
+            <div className='row -intro-y mb-3'>
+              <div className='col-5 text-uppercase'><strong>Id</strong></div>
+              <div className="col">{product.productId}</div>
             </div>
 
-            <div className='row -intro-y'>
-              <div className='col-4'>Name:</div>
-              <div>{product.name}</div>
+            <div className='row -intro-y mb-3'>
+              <div className='col-5 text-uppercase'><strong>Name</strong></div>
+              <div className="col">{product.name}</div>
             </div>
 
-            <div className='row -intro-y'>
-              <div className='col-4'>Color:</div>
-              <div>{product.color}</div>
+            <div className='row -intro-y mb-3'>
+              <div className='col-5 text-uppercase'><strong>Color</strong></div>
+              <div className="col">{product.color}</div>
             </div>
 
-            <div className='row -intro-y'>
-              <div className='col-4'>Listed Price:</div>
-              <div>{product.listedPrice}</div>
+            <div className='row -intro-y mb-3'>
+              <div className='col-5 text-uppercase'><strong>Listed Price</strong></div>
+              <div className="col">{product.listedPrice}</div>
             </div>
 
-            <div className='row -intro-y'>
-              <div className='col-4'>Selling Price:</div>
-              <div>{product.sellingPrice}</div>
+            <div className='row -intro-y mb-3'>
+              <div className='col-5 text-uppercase'><strong>Selling Price</strong></div>
+              <div className="col">{product.sellingPrice}</div>
             </div>
 
-            <div className='row -intro-y'>
-              <div className='col-4'>ProductModelId:</div>
-              <div>{product.productModelId}</div>
+            <div className='row -intro-y mb-3'>
+              <div className='col-5 text-uppercase'><strong>ProductModel Id</strong></div>
+              <div className="col">{product.productModelId}</div>
             </div>
 
-            <div className='row -intro-y'>
-              <div className='col-4'>Image:</div>
-              <div>
+            <div className='row -intro-y mb-3'>
+              <div className='col-5 text-uppercase'><strong>Image</strong></div>
+              <div className="col">
                 <img src={product.imagePath} className='object-center w-full rounded-md img-fluid' />
               </div>
             </div>

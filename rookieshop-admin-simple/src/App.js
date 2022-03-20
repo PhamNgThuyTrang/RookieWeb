@@ -5,10 +5,11 @@ import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import InLineLoader from "./shared-components/InlineLoader";
-import { BRAND, CATEGORY, PRODUCT, SUBCATEGORY, SIGNIN, SIGNOUT, SIGNINCALLBACK } from "./Constants/pages";
+import { BRAND, CATEGORY, PRODUCT, SUBCATEGORY, SIGNIN, SIGNOUT, SIGNINCALLBACK, USER } from "./Constants/pages";
 import { Signin } from "./components/Authentication/signin";
 import { SigninOidc } from "./components/Authentication/signin-oidc";
 import { Signout } from "./components/Authentication/signout";
+import { User } from "./components/User";
 
 const Brand = lazy(() => import('./components/Brand'));
 const Category = lazy(() => import('./components/Category'));
@@ -27,13 +28,6 @@ class App extends React.Component {
     bootcamp: "Rookies",
     homeClass: "",
   };
-
-  updateName() {
-    this.setState({
-      isShowHelloElement: !this.state.isShowHelloElement,
-      bootcamp: "sdfalsfjlsd",
-    });
-  }
 
   handleSearchKey(e) {
     console.log(e.target.value);
@@ -71,7 +65,9 @@ class App extends React.Component {
               <Route path={SIGNOUT}>
                 <Signout />
               </Route>
-              
+              <Route path={USER}>
+                <User />
+              </Route>
           </Switch>
          </SusspenseLoading>
          </div>

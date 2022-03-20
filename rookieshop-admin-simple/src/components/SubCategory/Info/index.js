@@ -10,31 +10,31 @@ const Info = ({ subcategory, handleClose }) => {
         dialogClassName="modal-90w"
       >
         <Modal.Header closeButton>
-          <Modal.Title id="login-modal">
+          <Modal.Title id="login-modal" className="text-uppercase">
             Detailed SubCategory Infomation
           </Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
           <div className="row justify-content-center form-group">
-            <div className='row -intro-y'>
-              <div className='col-4'>Id:</div>
-              <div>{subcategory.subcategoryId}</div>
+          <div className='row -intro-y mb-3'>
+              <div className='col-4 text-uppercase'><strong>Id</strong></div>
+              <div className='col'>{subcategory.subCategoryId}</div>
             </div>
 
-            <div className='row -intro-y'>
-              <div className='col-4'>Name:</div>
-              <div>{subcategory.name}</div>
+            <div className='row -intro-y mb-3'>
+              <div className='col-4 text-uppercase'><strong>Name</strong></div>
+              <div className='col'>{subcategory.name}</div>
             </div>
 
-            <div className='row -intro-y'>
-              <div className='col-4'>Category Id:</div>
-              <div>{subcategory.categoryId}</div>
+            <div className='row -intro-y mb-3'>
+              <div className='col-4 text-uppercase'><strong>Category Id</strong></div>
+              <div className='col'>{subcategory.category.name}</div>
             </div>
 
-            <div className='row -intro-y'>
-              <div className='col-4'>Image:</div>
-              <div>
+            <div className='row -intro-y mb-3'>
+              <div className='col-4 text-uppercase'><strong>Image</strong></div>
+              <div className='col'>
                 <img src={subcategory.imagePath} className='object-center w-full rounded-md img-fluid' />
               </div>
             </div>

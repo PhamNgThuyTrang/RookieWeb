@@ -20,6 +20,7 @@ const ListSubCategory = () => {
     sortColumn: DEFAULT_SUBCATEGORY_SORT_COLUMN_NAME
   });
   const [search, setSearch] = useState("");
+  const [canceled, setCanceled] = useState(false);
   const [subcategory, setSubCategory] = useState("");
 
   const handleChangeSearch = (e) => {
@@ -57,17 +58,19 @@ const ListSubCategory = () => {
     let data = await getSubCategoryRequest(query);
     console.log('fetchDataCallbackAsync');
     console.log(data);
-    setSubCategory(data);
+    await setSubCategory(data);
+    await setCanceled(false);
   }
 
   useEffect(() => {
     async function fetchDataAsync() {
       let result = await getSubCategoryRequest(query);
-      setSubCategory(result.data);
+      await setSubCategory(result.data);
+      await setCanceled(true);
     }
 
     fetchDataAsync();
-  }, [query]);
+  }, [query, canceled]);
 
   return (
     <>

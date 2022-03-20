@@ -14,8 +14,8 @@ export function createCategoryRequest(categoryForm) {
     return RequestService.axios.post(EndPoints.category, formData);
 }
 
-export function getCategoryRequest(query) {
-    return RequestService.axios.get(EndPoints.category, {
+export async function getCategoryRequest(query) {
+    return  RequestService.axios.get(EndPoints.category, {
         params: query,
         paramsSerializer: params => qs.stringify(params),
     });

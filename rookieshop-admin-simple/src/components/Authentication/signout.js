@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import userService from '../../services/userService';
+import {useCookies} from 'react-cookie'
 
 export function Signout() {
-  
+
+  const [cookies, removeCookie] = useCookies(['Token']);
+
   useEffect(() => {
-      userService.Signout();
+    removeCookie('Token');
+    userService.Signout();
   });
 
   return(<></>);

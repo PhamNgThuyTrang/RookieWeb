@@ -113,7 +113,8 @@ const CategoryTable = ({
           totalPage: category?.totalPages,
           handleChange: handlePage,
         }}
-        
+        fetchData={fetchData}
+
       >
         {category && category?.items?.map((data, index) => (
           <tr key={index} className="text-center" onClick={() => handleShowInfo(data.categoryId)}>
@@ -154,7 +155,7 @@ const CategoryTable = ({
             disableState.isDisable && (
               <div className="text-center mt-3">
                 <button
-                  className="btn btn-danger mr-3"
+                  className="btn btn-danger m-2"
                   onClick={handleConfirmDisable}
                   type="button"
                 >
@@ -162,7 +163,7 @@ const CategoryTable = ({
             </button>
 
                 <button
-                  className="btn btn-outline-secondary"
+                  className="btn btn-outline-secondary m-2"
                   onClick={handleCloseDisable}
                   type="button"
                 >

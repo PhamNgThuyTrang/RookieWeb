@@ -13,3 +13,6 @@ export const DEFAULT_SUBCATEGORY_SORT_COLUMN_NAME = "SubCategoryId";
 
 //Product
 export const DEFAULT_PRODUCT_SORT_COLUMN_NAME = "ProductId";
+
+//User
+export const DEFAULT_USER_SORT_COLUMN_NAME = "UserName";

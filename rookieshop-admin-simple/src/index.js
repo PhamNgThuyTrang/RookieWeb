@@ -3,13 +3,15 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { CookiesProvider } from "react-cookie";
 
 export const UserContext = React.createContext({ username: "Admin" });
 
 ReactDOM.render(
-  <UserContext.Provider value={{ username: "Admin" }}>
+  <CookiesProvider>
     <App />
-  </UserContext.Provider>,
+  </CookiesProvider>
+,
   document.getElementById("root")
 );
 

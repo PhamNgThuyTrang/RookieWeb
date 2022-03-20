@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { PencilFill, TicketDetailed, XCircle } from "react-bootstrap-icons";
+import { PencilFill, XCircle } from "react-bootstrap-icons";
 import { useHistory } from "react-router";
 import ButtonIcon from "../../../shared-components/ButtonIcon";
 import { NotificationManager } from 'react-notifications';
 
-import Table, { SortType } from "../../../shared-components/Table";
+import Table from "../../../shared-components/Table";
 import Info from "../Info";
-import { EDIT_PRODUCT_ID } from "../../../Constants/pages";
+import { EDIT_SUBCATEGORY_ID } from "../../../Constants/pages";
 import ConfirmModal from "../../../shared-components/ConfirmModal";
 import { DisableSubCategoryRequest } from "../Services/request"
 
@@ -34,7 +34,7 @@ const SubCategoryTable = ({
   });
 
   const handleShowInfo = (id) => {
-    const subcategoryInfo = subcategory?.items.find((item) => item.subcategoryId === id);
+    const subcategoryInfo = subcategory?.items.find((item) => item.subCategoryId === id);
 
     if (subcategoryInfo) {
       setSubCategoryDetail(subcategoryInfo);
@@ -94,9 +94,9 @@ const SubCategoryTable = ({
 
   const history = useHistory();
   const handleEdit = (id) => {
-    const existSubCategory = subcategory?.items.find(item => item.subcategoryId === Number(id));
+    const existSubCategory = subcategory?.items.find(item => item.subCategoryId === Number(id));
     history.push(
-      EDIT_PRODUCT_ID(id),
+      EDIT_SUBCATEGORY_ID(id),
       {
         existSubCategory: existSubCategory
       }
@@ -114,22 +114,23 @@ const SubCategoryTable = ({
           totalPage: subcategory?.totalPages,
           handleChange: handlePage,
         }}
-        
+        fetchData={fetchData}
+
       >
         {subcategory && subcategory?.items?.map((data, index) => (
-          <tr key={index} className="text-center" onClick={() => handleShowInfo(data.subcategoryId)}>
+          <tr key={index} className="text-center" onClick={() => handleShowInfo(data.subCategoryId)}>
             <td>{data.subCategoryId}</td>
             <td>{data.name}</td>
             <td>{data.category.name}</td>
             <td>
-              <button className="btn btn-primary" onClick={() => handleEdit(data.subcategoryId)}>
-                <ButtonIcon onClick={() => handleEdit(data.subcategoryId)}>
+              <button className="btn btn-primary" onClick={() => handleEdit(data.subCategoryId)}>
+                <ButtonIcon onClick={() => handleEdit(data.subCategoryId)}>
                   <PencilFill className="text-black" />
                 </ButtonIcon>
               </button>
               
-              <button className="btn btn-danger" onClick={() => handleShowDisable(data.subcategoryId)}>
-                <ButtonIcon onClick={() => handleShowDisable(data.subcategoryId)}>
+              <button className="btn btn-danger" onClick={() => handleShowDisable(data.subCategoryId)}>
+                <ButtonIcon onClick={() => handleShowDisable(data.subCategoryId)}>
                   <XCircle className="text-white" />
                 </ButtonIcon>
               </button>
@@ -154,7 +155,7 @@ const SubCategoryTable = ({
             disableState.isDisable && (
               <div className="text-center mt-3">
                 <button
-                  className="btn btn-danger mr-3"
+                  className="btn btn-danger m-2"
                   onClick={handleConfirmDisable}
                   type="button"
                 >
@@ -162,7 +163,7 @@ const SubCategoryTable = ({
                 </button>
 
                 <button
-                  className="btn btn-outline-secondary"
+                  className="btn btn-outline-secondary m-2"
                   onClick={handleCloseDisable}
                   type="button"
                 >

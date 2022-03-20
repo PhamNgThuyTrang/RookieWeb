@@ -24,7 +24,7 @@ const Table = ({ columns, children, page, sortState, handleSort }) => {
       <div className="table-container">
         <table className="table table-hover">
           <thead>
-            <tr>
+            <tr className="text center">
               {
                 columns.map((col, i) => (
                   <th key={i}>

@@ -82,6 +82,7 @@ namespace RookieShop.Backend.IdentityServer
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
                     RequireClientSecret = false,
+                    
 
                     RequireConsent = false,
                     // RequirePkce = true,
@@ -98,8 +99,8 @@ namespace RookieShop.Backend.IdentityServer
                     },
                     PostLogoutRedirectUris = new List<string>
                     {
+                        "http://localhost:3000/Authentication/signout-oidc",
                         "http://localhost:3000/unauthorized",
-                        "http://localhost:3000/authentication/logout-callback",
                         "http://localhost:3000/"
                     },
                     AllowedCorsOrigins = new List<string>

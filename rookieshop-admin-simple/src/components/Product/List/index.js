@@ -20,6 +20,7 @@ const ListProduct = () => {
     sortColumn: DEFAULT_PRODUCT_SORT_COLUMN_NAME
   });
   const [search, setSearch] = useState("");
+  const [canceled, setCanceled] = useState(false);
   const [product, setProduct] = useState("");
 
   const handleChangeSearch = (e) => {
@@ -57,17 +58,20 @@ const ListProduct = () => {
     let data = await getProductRequest(query);
     console.log('fetchDataCallbackAsync');
     console.log(data);
-    setProduct(data);
+    await setProduct(data);
+    await setCanceled(false);
+
   }
 
   useEffect(() => {
     async function fetchDataAsync() {
       let result = await getProductRequest(query);
-      setProduct(result.data);
+      await setProduct(result.data);
+      await setCanceled(true);
     }
 
     fetchDataAsync();
-  }, [query]);
+  }, [query, canceled]);
 
   return (
     <>

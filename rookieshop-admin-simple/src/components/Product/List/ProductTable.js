@@ -118,7 +118,8 @@ const ProductTable = ({
           totalPage: product?.totalPages,
           handleChange: handlePage,
         }}
-        
+        fetchData={fetchData}
+
       >
         {product && product?.items?.map((data, index) => (
           <tr key={index} className="" onClick={() => handleShowInfo(data.productId)}>
@@ -163,7 +164,7 @@ const ProductTable = ({
             disableState.isDisable && (
               <div className="text-center mt-3">
                 <button
-                  className="btn btn-danger mr-3"
+                  className="btn btn-danger m-2"
                   onClick={handleConfirmDisable}
                   type="button"
                 >
@@ -171,7 +172,7 @@ const ProductTable = ({
                 </button>
 
                 <button
-                  className="btn btn-outline-secondary"
+                  className="btn btn-outline-secondary m-2"
                   onClick={handleCloseDisable}
                   type="button"
                 >

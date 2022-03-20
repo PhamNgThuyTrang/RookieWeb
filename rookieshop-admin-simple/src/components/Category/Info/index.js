@@ -10,26 +10,26 @@ const Info = ({ category, handleClose }) => {
         dialogClassName="modal-90w"
       >
         <Modal.Header closeButton>
-          <Modal.Title id="login-modal">
+          <Modal.Title id="login-modal" className="text-uppercase">
             Detailed Category Infomation
           </Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
           <div>
-            <div className='row -intro-y'>
-              <div className='col-4'>Id:</div>
-              <div>{category.categoryId}</div>
+            <div className='row -intro-y mb-3'>
+              <div className='col-4 text-uppercase'><strong>Id</strong></div>
+              <div className="col">{category.categoryId}</div>
             </div>
 
-            <div className='row -intro-y'>
-              <div className='col-4'>Name:</div>
-              <div>{category.name}</div>
+            <div className='row -intro-y mb-3'>
+              <div className='col-4 text-uppercase'><strong>Name</strong></div>
+              <div className="col">{category.name}</div>
             </div>
 
-            <div className='row -intro-y'>
-              <div className='col-4'>Image:</div>
-              <div>
+            <div className='row -intro-y mb-3'>
+              <div className='col-4 text-uppercase'><strong>Image</strong></div>
+              <div className="col">
                 <img src={category.imagePath} className='object-center w-full rounded-md img-fluid' />
               </div>
             </div>

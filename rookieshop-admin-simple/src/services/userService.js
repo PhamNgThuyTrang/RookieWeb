@@ -1,22 +1,23 @@
 import { UserManager } from "oidc-client";
-import RequestService from './request';
+import {UrlBackEnd, RedirectUri, ClientId, PostLogoutRedirectUri, Scope,ResponseType} from '../Constants/oidc-config'
 
 const config = {
     // the URL of our identity server
-    authority: "https://localhost:44341", 
+    authority: UrlBackEnd, 
     // this ID maps to the client ID in the identity client configuration
-    client_id: "admin", 
+    client_id: ClientId, 
     // URL to redirect to after login
-    redirect_uri: "http://localhost:3000/Authentication/signin-oidc", 
-    response_type: "id_token token",
+    redirect_uri: RedirectUri, 
+    response_type: ResponseType,
     // the scopes or resources we would like access to
-    scope: "openid profile rookieshop.api", 
+    scope: Scope, 
     // URL to redirect to after logout
-    post_logout_redirect_uri: "http://localhost:3000/", 
-  };
-  
+    post_logout_redirect_uri: PostLogoutRedirectUri, 
+};
 
-class userService {
+
+
+class userService{
     userManager;
 
     constructor() {
@@ -35,17 +36,11 @@ class userService {
         });
     }
 
-    Signin() {
+    Signin(){
         this.userManager.signinRedirect();
     }
-
-    Api() {
-        this.userManager.getUser().then( (user) => {
-            RequestService.setAuthentication(user.access_token);
-        });
-    }
     
-    Signout() {
+    Signout(){
         this.userManager.signoutRedirect();
     }
 }

@@ -28,6 +28,7 @@ const BrandTable = ({
   handleSort,
   sortState,
   fetchData,
+  query
 }) => {
   const [showDetail, setShowDetail] = useState(false);
   const [brandDetail, setBrandDetail] = useState(null);
@@ -124,7 +125,7 @@ const BrandTable = ({
           totalPage: brands?.totalPages,
           handleChange: handlePage,
         }}
-        
+        fetchData={fetchData}
       >
         {brands && brands?.items?.map((data, index) => (
           <tr key={index} className="text-center" onClick={() => handleShowInfo(data.brandId)}>
@@ -166,7 +167,7 @@ const BrandTable = ({
             disableState.isDisable && (
               <div className="text-center mt-3">
                 <button
-                  className="btn btn-danger mr-3"
+                  className="btn btn-danger m-2"
                   onClick={handleConfirmDisable}
                   type="button"
                 >
@@ -174,7 +175,7 @@ const BrandTable = ({
             </button>
 
                 <button
-                  className="btn btn-outline-secondary"
+                  className="btn btn-outline-secondary m-2"
                   onClick={handleCloseDisable}
                   type="button"
                 >

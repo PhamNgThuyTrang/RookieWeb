@@ -10,7 +10,7 @@ const MessageModal = ({ title, isShow, onHide, children }) => {
             aria-labelledby="login-modal"
         >
             <Modal.Header closeButton>
-                <Modal.Title id="login-modal">
+                <Modal.Title id="login-modal" className="text-uppercase">
                     {title}
                 </Modal.Title>
             </Modal.Header>
