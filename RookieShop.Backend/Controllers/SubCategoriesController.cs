@@ -141,65 +141,90 @@ namespace RookieShop.Backend.Controllers
         [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult> PutSubCategory([FromRoute] int id, [FromForm] SubCategoryCreateRequest subCategoryCreateRequest)
         {
-            var subCategory = await _context.SubCategories.FindAsync(id);
+            if (ModelState.IsValid)
+                try
+                {
+                    var subCategory = await _context.SubCategories.FindAsync(id);
 
-            if (subCategory == null)
+                    if (subCategory == null)
+                    {
+                        return NotFound();
+                    }
+
+                    if (!string.IsNullOrEmpty(subCategoryCreateRequest.Name))
+                    {
+                        subCategory.Name = subCategoryCreateRequest.Name;
+                    }
+
+                    if (subCategoryCreateRequest.CategoryId != 0)
+                    {
+                        subCategory.CategoryId = subCategoryCreateRequest.CategoryId;
+                    }
+
+                    if (subCategoryCreateRequest.ImageFile != null)
+                    {
+                        subCategory.ImagePath = await _fileStorageService.SaveFileAsync(subCategoryCreateRequest.ImageFile);
+                    }
+
+                    _context.SubCategories.Update(subCategory);
+                    await _context.SaveChangesAsync();
+
+                    return Ok(subCategory);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            else
             {
-                return NotFound();
+                return null;
             }
-
-            if (!string.IsNullOrEmpty(subCategoryCreateRequest.Name))
-            {
-                subCategory.Name = subCategoryCreateRequest.Name;
-            }
-
-            if (subCategoryCreateRequest.CategoryId != 0)
-            {
-                subCategory.CategoryId = subCategoryCreateRequest.CategoryId;
-            }
-
-            if (subCategoryCreateRequest.ImageFile != null)
-            {
-                subCategory.ImagePath = await _fileStorageService.SaveFileAsync(subCategoryCreateRequest.ImageFile);
-            }
-
-            _context.SubCategories.Update(subCategory);
-            await _context.SaveChangesAsync();
-
-            return Ok(subCategory);
         }
 
         [HttpPost]
         [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult<BannerVm>> PostSubCategory([FromForm] SubCategoryCreateRequest subCategoryCreateRequest)
         {
-            var subCategory = new SubCategory
-            {
-                Name = subCategoryCreateRequest.Name,
-            };
+            if (ModelState.IsValid)
+                try
+                {
+                    var subCategory = new SubCategory
+                    {
+                        Name = subCategoryCreateRequest.Name,
+                    };
 
-            if (subCategoryCreateRequest.CategoryId != 0)
+                    if (subCategoryCreateRequest.CategoryId != 0)
+                    {
+                        subCategory.CategoryId = subCategoryCreateRequest.CategoryId;
+                    }
+
+                    if (subCategoryCreateRequest.ImageFile != null)
+                    {
+                        subCategory.ImagePath = await _fileStorageService.SaveFileAsync(subCategoryCreateRequest.ImageFile);
+                    }
+
+                    _context.SubCategories.Add(subCategory);
+                    await _context.SaveChangesAsync();
+
+                    return CreatedAtAction(
+                        "GetSubCategory",
+                        new { id = subCategory.SubCategoryId },
+                        new SubCategoryVm
+                        {
+                            SubCategoryId = subCategory.SubCategoryId,
+                            Name = subCategory.Name,
+                            ImagePath = subCategory.ImagePath,
+                            CategoryId = subCategory.CategoryId
+                        });
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            else
             {
-                subCategory.CategoryId = subCategoryCreateRequest.CategoryId;
+                return null;
             }
-
-            if (subCategoryCreateRequest.ImageFile != null)
-            {
-                subCategory.ImagePath = await _fileStorageService.SaveFileAsync(subCategoryCreateRequest.ImageFile);
-            }
-
-            _context.SubCategories.Add(subCategory);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(
-                "GetSubCategory", 
-                new { id = subCategory.SubCategoryId }, 
-                new SubCategoryVm { 
-                    SubCategoryId = subCategory.SubCategoryId, 
-                    Name = subCategory.Name, 
-                    ImagePath = subCategory.ImagePath, 
-                    CategoryId = subCategory.CategoryId
-                });
         }
 
         [HttpDelete("{id}")]

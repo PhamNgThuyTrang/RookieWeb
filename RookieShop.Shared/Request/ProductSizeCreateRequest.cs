@@ -8,6 +8,7 @@ namespace RookieShop.Shared.Request
     public class ProductSizeCreateRequest
     {
         [Required]
+        [MaxLength(100, ErrorMessage = "the size has max length is 10")]
         public string Size { get; set; }
         [Required]
         public int Quantity { get; set; }

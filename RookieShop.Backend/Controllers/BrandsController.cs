@@ -105,51 +105,81 @@ namespace RookieShop.Backend.Controllers
         [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult> PutBrand([FromRoute] int id, [FromForm] BrandCreateRequest brandCreateRequest)
         {
-            var brand = await _context.Brands.FindAsync(id);
+            if (ModelState.IsValid)
+                try
+                {
+                    var brand = await _context.Brands.FindAsync(id);
 
-            if (brand == null)
+                    if (brand == null)
+                    {
+                        return NotFound();
+                    }
+
+                    if (!string.IsNullOrEmpty(brandCreateRequest.Name))
+                    {
+                        brand.Name = brandCreateRequest.Name;
+                    }
+
+                    brand.Type = (int)brandCreateRequest.Type;
+
+                    if (brandCreateRequest.ImageFile != null)
+                    {
+                        brand.ImagePath = await _fileStorageService.SaveFileAsync(brandCreateRequest.ImageFile);
+                    }
+
+                    _context.Brands.Update(brand);
+                    await _context.SaveChangesAsync();
+
+                    return Ok(brand);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            else
             {
-                return NotFound();
+                return null;
             }
-
-            if (!string.IsNullOrEmpty(brandCreateRequest.Name))
-            {
-                brand.Name = brandCreateRequest.Name;
-            }
-
-            brand.Type = (int)brandCreateRequest.Type;
-
-            if (brandCreateRequest.ImageFile != null)
-            {
-                brand.ImagePath = await _fileStorageService.SaveFileAsync(brandCreateRequest.ImageFile);
-            }
-            
-            _context.Brands.Update(brand);
-            await _context.SaveChangesAsync();
-
-            return Ok(brand);
         }
 
         [HttpPost]
         [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult<BrandVm>> PostBrand([FromForm] BrandCreateRequest brandCreateRequest)
         {
-            var brand = new Brand
-            {
-                Name = brandCreateRequest.Name,
-                Type = (int)brandCreateRequest.Type,
-                ImagePath = string.Empty
-            };
+            if (ModelState.IsValid)
+                try
+                {
+                    var brand = new Brand
+                    {
+                        Name = brandCreateRequest.Name,
+                        Type = (int)brandCreateRequest.Type,
+                        ImagePath = string.Empty
+                    };
 
-            if (brandCreateRequest.ImageFile != null)
+                    if (brandCreateRequest.ImageFile != null)
+                    {
+                        brand.ImagePath = await _fileStorageService.SaveFileAsync(brandCreateRequest.ImageFile);
+                    }
+
+                    _context.Brands.Add(brand);
+                    await _context.SaveChangesAsync();
+
+                    return CreatedAtAction("GetBrand", 
+                        new { id = brand.BrandId }, 
+                        new BrandVm { 
+                            BrandId = brand.BrandId, 
+                            Name = brand.Name, 
+                            ImagePath = brand.ImagePath 
+                        });
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            else
             {
-                brand.ImagePath = await _fileStorageService.SaveFileAsync(brandCreateRequest.ImageFile);
+                return null;
             }
-
-            _context.Brands.Add(brand);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetBrand", new { id = brand.BrandId }, new BrandVm { BrandId = brand.BrandId, Name = brand.Name, ImagePath = brand.ImagePath });
         }
 
         [HttpDelete("{id}")]
