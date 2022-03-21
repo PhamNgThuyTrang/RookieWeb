@@ -11,6 +11,7 @@
     <div id="content">
         <div class="container">
             <div class="row">
+
                 <!-- breadcrumb-->
                 <div class="col-12">
                     <nav aria-label="breadcrumb">
@@ -21,8 +22,8 @@
                             </li>
                             <li class="breadcrumb-item">
                                 <a asp-area="ProductByCategory"
-                                    asp-page="./Index"
-                                    asp-route-subCategoryId="@Model.Product.ProductModel.SubCategory.Category.CategoryId">
+                                   asp-page="./Index"
+                                   asp-route-subCategoryId="@Model.Product.ProductModel.SubCategory.Category.CategoryId">
                                     @Model.Product.ProductModel.SubCategory.Name
                                 </a>
                             </li>
@@ -30,12 +31,14 @@
                         </ol>
                     </nav>
                 </div>
+                <!-- breadcrumb-->
+                }
 
                 <div class="col-12">
                     <!--ProductMain-->
                     <div id="productMain" class="row">
-                        <!--product_slider-->
-                        <div class="col-lg-8 col-md-6">
+                        <!--product slider-->
+                        <div class="col-lg-8 col-md-6 product-slider-color">
                             <div id="main-slider" class="owl-carousel owl-theme" itemprop="image">
                                 @foreach (var image in Model.ProductImage.Items)
                                 {
@@ -52,24 +55,25 @@
                             {
                                 <partial name="_RibbonNewPartial" />
                             }
-                            <!--product_color-->
-                            <div id="getcolor" class="d-flex justify-content-center flex-wrap">
 
-                                @if (Model.Color.Items.Count() > 1)
-                                {
+                            <!--product_color-->
+                            @if (Model.Color.Items.Count() > 1)
+                            {
+                                <div id="getcolor" class="d-flex justify-content-center flex-wrap box">
+
                                     <div>
                                         <h4>@Model.Color.Items.Count() colors available</h4>
                                     </div>
-                                    foreach (var color in Model.Color.Items)
+                                    @foreach (var color in Model.Color.Items)
                                     {
-                                        <div>
-                                            <a asp-area="ProductDetail" asp-page="./Index" asp-route-id="@color.ProductId">
-                                                <img src="@color.ImagePath" />
-                                            </a>
-                                        </div>
+                                    <div>
+                                        <a asp-area="ProductDetail" asp-page="./Index" asp-route-id="@color.ProductId">
+                                            <img src="@color.ImagePath" />
+                                        </a>
+                                    </div>
                                     }
-                                }
-                            </div>
+                                </div>
+                            }
                         </div>
 
                         <!--product_details-->
@@ -88,11 +92,10 @@
                             <p class="price-sale" itemprop="price">
                                 <text> @String.Format("{0:0,0}", Model.Product.SellingPrice) VNĐ </text>
                             </p>
-                            <div id="getsize" class="sizes">
-                                @if (Model.ProductSizes.Items != null)
-                                {
-                                    foreach (var sizes in Model.ProductSizes.Items)
-                                    {
+                            @if (Model.ProductSizes.Items != null)
+                            {
+                                <div id="getsize" class="sizes">
+                                    @foreach (var sizes in Model.ProductSizes.Items)
                                         if (sizes.Quantity > 0)
                                         {
                                             <div class="gl-label">
@@ -100,11 +103,9 @@
                                                 <span> @sizes.Size </span>
                                             </div>
                                         }
-                                    }
-                                }
-                            </div>
+                                </div>
+                            }
                             <p class="text-center buttons">
-                                
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add to cart</button>
                             </p>
                         </div>

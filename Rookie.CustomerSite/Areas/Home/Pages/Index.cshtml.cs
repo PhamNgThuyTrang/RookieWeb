@@ -15,7 +15,6 @@ namespace Rookie.CustomerSite.Pages.Home
     public class IndexModel : PageModel
     {
         private readonly IBannerService _bannerService;
-        private readonly IProductService _productService;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
@@ -26,13 +25,11 @@ namespace Rookie.CustomerSite.Pages.Home
             IMapper mapper)
         {
             _bannerService = bannerService;
-            _productService = productService;
             _config = config;
             _mapper = mapper;
         }
 
         public PagedResponseVM<BannerVm> Banners { get; set; }
-        public PagedResponseVM<ProductVm> Products { get; set; }
 
         public async Task OnGetAsync()
         {
@@ -43,14 +40,6 @@ namespace Rookie.CustomerSite.Pages.Home
             };
             var pagedbanners = await _bannerService.GetBannerAsync(bannerCriteriaDto);
             Banners = _mapper.Map<PagedResponseVM<BannerVm>>(pagedbanners);
-
-            var productCriteriaDto = new ProductCriteriaDto()
-            {
-                SortOrder = SortOrderEnum.Accsending,
-                Limit = int.Parse(_config[ConfigurationConstants.PAGING_LIMIT])
-            };
-            var pagedProducts = await _productService.GetProductAsync(productCriteriaDto);
-            Products = _mapper.Map<PagedResponseVM<ProductVm>>(pagedProducts);
         }
     }
 }
