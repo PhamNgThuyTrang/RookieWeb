@@ -105,81 +105,69 @@ namespace RookieShop.Backend.Controllers
         [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult> PutBrand([FromRoute] int id, [FromForm] BrandCreateRequest brandCreateRequest)
         {
-            if (ModelState.IsValid)
-                try
-                {
-                    var brand = await _context.Brands.FindAsync(id);
-
-                    if (brand == null)
-                    {
-                        return NotFound();
-                    }
-
-                    if (!string.IsNullOrEmpty(brandCreateRequest.Name))
-                    {
-                        brand.Name = brandCreateRequest.Name;
-                    }
-
-                    brand.Type = (int)brandCreateRequest.Type;
-
-                    if (brandCreateRequest.ImageFile != null)
-                    {
-                        brand.ImagePath = await _fileStorageService.SaveFileAsync(brandCreateRequest.ImageFile);
-                    }
-
-                    _context.Brands.Update(brand);
-                    await _context.SaveChangesAsync();
-
-                    return Ok(brand);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            else
+            if (!ModelState.IsValid)
             {
-                return null;
+                return BadRequest();
             }
+
+            var brand = await _context.Brands.FindAsync(id);
+
+            if (brand == null)
+            {
+                return NotFound();
+            }
+
+            if (!string.IsNullOrEmpty(brandCreateRequest.Name))
+            {
+                brand.Name = brandCreateRequest.Name;
+            }
+
+            brand.Type = (int)brandCreateRequest.Type;
+
+            if (brandCreateRequest.ImageFile != null)
+            {
+                brand.ImagePath = await _fileStorageService.SaveFileAsync(brandCreateRequest.ImageFile);
+            }
+
+            _context.Brands.Update(brand);
+            await _context.SaveChangesAsync();
+
+            return Ok(brand);
         }
+
 
         [HttpPost]
         [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult<BrandVm>> PostBrand([FromForm] BrandCreateRequest brandCreateRequest)
         {
-            if (ModelState.IsValid)
-                try
-                {
-                    var brand = new Brand
-                    {
-                        Name = brandCreateRequest.Name,
-                        Type = (int)brandCreateRequest.Type,
-                        ImagePath = string.Empty
-                    };
-
-                    if (brandCreateRequest.ImageFile != null)
-                    {
-                        brand.ImagePath = await _fileStorageService.SaveFileAsync(brandCreateRequest.ImageFile);
-                    }
-
-                    _context.Brands.Add(brand);
-                    await _context.SaveChangesAsync();
-
-                    return CreatedAtAction("GetBrand", 
-                        new { id = brand.BrandId }, 
-                        new BrandVm { 
-                            BrandId = brand.BrandId, 
-                            Name = brand.Name, 
-                            ImagePath = brand.ImagePath 
-                        });
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            else
+            if (!ModelState.IsValid)
             {
-                return null;
+                return BadRequest();
             }
+
+            var brand = new Brand
+            {
+                Name = brandCreateRequest.Name,
+                Type = (int)brandCreateRequest.Type,
+                ImagePath = string.Empty
+            };
+
+            if (brandCreateRequest.ImageFile != null)
+            {
+                brand.ImagePath = await _fileStorageService.SaveFileAsync(brandCreateRequest.ImageFile);
+            }
+
+            _context.Brands.Add(brand);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetBrand",
+                new { id = brand.BrandId },
+                new BrandVm
+                {
+                    BrandId = brand.BrandId,
+                    Name = brand.Name,
+                    ImagePath = brand.ImagePath
+                });
         }
 
         [HttpDelete("{id}")]

@@ -187,106 +187,92 @@ namespace RookieShop.Backend.Controllers
         [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult> PutProduct([FromRoute] int id, [FromForm] ProductEditRequest productCreateRequest)
         {
-            if (ModelState.IsValid)
-                try
-                {
-                    var product = await _context.Products.FindAsync(id);
-
-                    if (product == null)
-                    {
-                        return NotFound();
-                    }
-
-                    if (!string.IsNullOrEmpty(productCreateRequest.Name))
-                    {
-                        product.Name = productCreateRequest.Name;
-                    }
-
-                    if (!string.IsNullOrEmpty(productCreateRequest.Color))
-                    {
-                        product.Color = productCreateRequest.Color;
-                    }
-
-                    if (productCreateRequest.ListedPrice != null)
-                    {
-                        product.ListedPrice = (int)productCreateRequest.ListedPrice;
-                    }
-
-                    if (productCreateRequest.SellingPrice != null)
-                    {
-                        product.SellingPrice = (int)productCreateRequest.SellingPrice;
-                    }
-
-                    if (productCreateRequest.ProductModelId != null)
-                    {
-                        product.ProductModelId = (int)productCreateRequest.ProductModelId;
-                    }
-
-                    if (productCreateRequest.ImageFile != null)
-                    {
-                        product.ImagePath = await _fileStorageService.SaveFileAsync(productCreateRequest.ImageFile);
-                    }
-
-                    _context.Products.Update(product);
-                    await _context.SaveChangesAsync();
-
-                    return Ok(product);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            else
+            if (!ModelState.IsValid)
             {
-                return null;
+                return BadRequest();
             }
+
+            var product = await _context.Products.FindAsync(id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            if (!string.IsNullOrEmpty(productCreateRequest.Name))
+            {
+                product.Name = productCreateRequest.Name;
+            }
+
+            if (!string.IsNullOrEmpty(productCreateRequest.Color))
+            {
+                product.Color = productCreateRequest.Color;
+            }
+
+            if (productCreateRequest.ListedPrice != null)
+            {
+                product.ListedPrice = (int)productCreateRequest.ListedPrice;
+            }
+
+            if (productCreateRequest.SellingPrice != null)
+            {
+                product.SellingPrice = (int)productCreateRequest.SellingPrice;
+            }
+
+            if (productCreateRequest.ProductModelId != null)
+            {
+                product.ProductModelId = (int)productCreateRequest.ProductModelId;
+            }
+
+            if (productCreateRequest.ImageFile != null)
+            {
+                product.ImagePath = await _fileStorageService.SaveFileAsync(productCreateRequest.ImageFile);
+            }
+
+            _context.Products.Update(product);
+            await _context.SaveChangesAsync();
+
+            return Ok(product);
         }
 
         [HttpPost]
         [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult<BannerVm>> PostProduct([FromForm] ProductCreateRequest productCreateRequest)
         {
-            if (ModelState.IsValid)
-                try
-                {
-                    var product = new Product
-                    {
-                        Name = productCreateRequest.Name,
-                        Color = productCreateRequest.Color,
-                        ListedPrice = productCreateRequest.ListedPrice,
-                        SellingPrice = productCreateRequest.SellingPrice,
-                        ProductModelId = productCreateRequest.ProductModelId
-                    };
-
-                    if (productCreateRequest.ImageFile != null)
-                    {
-                        product.ImagePath = await _fileStorageService.SaveFileAsync(productCreateRequest.ImageFile);
-                    }
-
-                    _context.Products.Add(product);
-                    await _context.SaveChangesAsync();
-
-                    return CreatedAtAction("GetProduct", new { id = product.ProductId },
-                                            new ProductVm
-                                            {
-                                                ProductId = product.ProductId,
-                                                Name = product.Name,
-                                                Color = product.Color,
-                                                ListedPrice = product.ListedPrice,
-                                                SellingPrice = product.SellingPrice,
-                                                ProductModelId = product.ProductModelId,
-                                                ImagePath = product.ImagePath,
-                                                DateUpload = product.DateUpload
-                                            });
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            else
+            if (!ModelState.IsValid)
             {
-                return null;
+                return BadRequest();
             }
+
+            var product = new Product
+            {
+                Name = productCreateRequest.Name,
+                Color = productCreateRequest.Color,
+                ListedPrice = productCreateRequest.ListedPrice,
+                SellingPrice = productCreateRequest.SellingPrice,
+                ProductModelId = productCreateRequest.ProductModelId
+            };
+
+            if (productCreateRequest.ImageFile != null)
+            {
+                product.ImagePath = await _fileStorageService.SaveFileAsync(productCreateRequest.ImageFile);
+            }
+
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetProduct", new { id = product.ProductId },
+                                    new ProductVm
+                                    {
+                                        ProductId = product.ProductId,
+                                        Name = product.Name,
+                                        Color = product.Color,
+                                        ListedPrice = product.ListedPrice,
+                                        SellingPrice = product.SellingPrice,
+                                        ProductModelId = product.ProductModelId,
+                                        ImagePath = product.ImagePath,
+                                        DateUpload = product.DateUpload
+                                    });
         }
 
         [HttpDelete("{id}")]

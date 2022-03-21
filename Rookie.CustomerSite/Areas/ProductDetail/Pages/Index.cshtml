@@ -12,26 +12,24 @@
         <div class="container">
             <div class="row">
                 <!-- breadcrumb-->
-                @section breadcrumb{
-                    <div class="col-12" style="padding-right: 0">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a asp-area="Home">Home</a></li>
-                                <li class="breadcrumb-item">
-                                    @Model.Product.ProductModel.SubCategory.Category.Name
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a asp-area="ProductByCategory"
-                                       asp-page="./Index"
-                                       asp-route-subCategoryId="@Model.Product.ProductModel.SubCategory.Category.CategoryId">
-                                        @Model.Product.ProductModel.SubCategory.Name
-                                    </a>
-                                </li>
-                                <li aria-current="page" class="breadcrumb-item active">@Model.Product.Name</li>
-                            </ol>
-                        </nav>
-                    </div>
-                }
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a asp-area="Home">Home</a></li>
+                            <li class="breadcrumb-item">
+                                @Model.Product.ProductModel.SubCategory.Category.Name
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a asp-area="ProductByCategory"
+                                    asp-page="./Index"
+                                    asp-route-subCategoryId="@Model.Product.ProductModel.SubCategory.Category.CategoryId">
+                                    @Model.Product.ProductModel.SubCategory.Name
+                                </a>
+                            </li>
+                            <li aria-current="page" class="breadcrumb-item active">@Model.Product.Name</li>
+                        </ol>
+                    </nav>
+                </div>
 
                 <div class="col-12">
                     <!--ProductMain-->

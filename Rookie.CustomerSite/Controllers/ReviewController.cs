@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RookieShop.Shared.Dto.Review;
+using RookieShop.Shared.Request.Review;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,15 @@ namespace Rookie.CustomerSite.Controllers
             _reviewService = reviewService;
         }
 
-        public async Task<IActionResult> ProductReview([Bind("Stars, Content, ProductId")] ReviewDto review)
+        public async Task<IActionResult> ProductReview([Bind("Stars, Content, ProductId")] ReviewCreateRequest review)
         {
-            await _reviewService.PostReview(review);
-            return Redirect($"../ProductDetail?id={review.ProductId}");
-
+            if (ModelState.IsValid)
+            {
+                await _reviewService.PostReview(review);
+                return Redirect($"../ProductDetail?id={review.ProductId}");
+            }
+            else
+                return Redirect($"../ProductDetail?id={review.ProductId}");
         }
 
     }

@@ -1,0 +1,5 @@
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\RookieTest\obj\Debug\net5.0\RookieTest.csprojAssemblyReference.cache
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\RookieTest\obj\Debug\net5.0\RookieTest.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\RookieTest\obj\Debug\net5.0\RookieTest.AssemblyInfoInputs.cache
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\RookieTest\obj\Debug\net5.0\RookieTest.AssemblyInfo.cs
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\RookieTest\obj\Debug\net5.0\RookieTest.csproj.CoreCompileInputs.cache
