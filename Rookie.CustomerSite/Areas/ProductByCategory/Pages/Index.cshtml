@@ -10,136 +10,63 @@
     <div id="content">
         <div class="container">
             <div class="row">
-                @section breadcrumb{
-                    <div class="col-lg-12">
-                        @if (Model.Products.Items.Count() == 0)
-                        {
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a asp-controller="Home" asp-action="Index">Home</a>
-                                    </li>
-                                    <li class="breadcrumb-item">
-                                        Product Not Found
-                                    </li>
-                                </ol>
-                            </nav>
-                        }
+                <!-- breadcrumb-->
+                <div class="col-lg-12">
+                    @if (Model.Products.Items.Count() == 0)
+                    {
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Product Not Found
+                                </li>
+                            </ol>
+                        </nav>
+                    }
 
-                        else if (Model.Search != null)
-                        {
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a asp-controller="Home" asp-action="Index">Home</a>
-                                    </li>
-                                    <li class="breadcrumb-item">
-                                        Search = "@Model.Search"
-                                    </li>
-                                </ol>
-                            </nav>
-                        }
+                    else if (Model.Search != null)
+                    {
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    Search
+                                </li><li class="breadcrumb-item">
+                                    @Model.Search
+                                </li>
+                            </ol>
+                        </nav>
+                    }
 
-                        else
-                        {
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a asp-controller="Home" asp-action="Index">Home</a>
-                                    </li>
-                                    <li class="breadcrumb-item">
-                                        @Model.Products.Items.FirstOrDefault().ProductModel.SubCategory.Category.Name
-                                    </li>
-                                    <li class="breadcrumb-item">
-                                        <a asp-area="ProductByCategory"
-                                           asp-page="./Index"
-                                           asp-route-subCategoryId="@Model.Products.Items.FirstOrDefault().ProductModel.SubCategoryId">
-                                            @Model.Products.Items.FirstOrDefault().ProductModel.SubCategory.Name
-                                        </a>
-                                    </li>
-                                </ol>
-                            </nav>
-                        }
-                    </div>
-                }
+                    else
+                    {
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    @Model.Products.Items.FirstOrDefault().ProductModel.SubCategory.Category.Name
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a asp-area="ProductByCategory"
+                                       asp-page="./Index"
+                                       asp-route-subCategoryId="@Model.Products.Items.FirstOrDefault().ProductModel.SubCategoryId">
+                                        @Model.Products.Items.FirstOrDefault().ProductModel.SubCategory.Name
+                                    </a>
+                                </li>
+                            </ol>
+                        </nav>
+                    }
+                </div>
                 <!-- breadcrumb-->
                 <!--*** MENUS AND FILTERS ***-->
                 <div class="col-lg-3">
                     @await Component.InvokeAsync("CategorySidebar", Model.Search)
-                    <div class="card sidebar-menu mb-4">
-                        <div class="card-header">
-                            <h3 class="h4 card-title">
-                                Filter
-                                <a class="btn btn-sm btn-danger pull-right">
-                                    <i class="fa fa-times-circle"></i>
-                                    Clear
-                                </a>
-                            </h3>
-                        </div>
-                        <div class="card-body">
-                            <form asp-action="Categories" method="post">
-                                <div class="form-group">
-                                    <div class="form-header">
-                                        <h3 class="h4 card-title">
-                                            Brand
-                                        </h3>
-                                    </div>
-                                    <input name="Object" type="hidden" value="@ViewData["Object"]" />
-                                    <input name="name" type="hidden" value="@ViewData["name"]" />
-                                    <input name="search" type="hidden" value="@ViewData["search"]" />
-                                    <div class="zmdi-radio">
-                                        <label>
-                                            <input name="brand" type="radio" value="Adidas"> Adidas
-                                        </label>
-                                    </div>
-                                    <div class="zmdi-radio">
-                                        <label>
-                                            <input name="brand" type="radio" value="Nike"> Nike
-                                        </label>
-                                    </div>
-                                    <div class="zmdi-radio">
-                                        <label>
-                                            <input name="brand" type="radio" value="Puma"> Puma
-                                        </label>
-                                    </div>
-                                    <div class="zmdi-radio">
-                                        <label>
-                                            <input name="brand" type="radio" value="Reebok"> Reebok
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="form-header2">
-                                        <h3 class="h4 card-title">
-                                            Price
-                                        </h3>
-                                    </div>
-                                    <div class="zmdi-radio">
-                                        <label>
-                                            <input name="price" type="radio" value="0"> Less than 1.000.000
-                                        </label>
-                                    </div>
-                                    <div class="zmdi-radio">
-                                        <label>
-                                            <input name="price" type="radio" value="1000000"> 1.000.000 - 3.000.000
-                                        </label>
-                                    </div>
-                                    <div class="zmdi-radio">
-                                        <label>
-                                            <input name="price" type="radio" value="3000000"> 3.000.000 - 5.000.000
-                                        </label>
-                                    </div>
-                                    <div class="zmdi-radio">
-                                        <label>
-                                            <input name="price" type="radio" value="5000000"> More than 5.000.000
-                                        </label>
-                                    </div>
-                                </div>
-                                <button class="btn btn-default btn-sm btn-primary" type="submit"><i class="fa fa-filter"></i> Apply</button>
-                            </form>
-                        </div>
-                    </div>
                 </div>
                 <!-- *** MENUS AND FILTERS END ***-->
 
@@ -160,125 +87,12 @@
                                         @Html.Raw(showing);
                                     }
                                 </div>
-                                <div class="col-md-12 col-lg-7 products-number-sort">
-                                    <form class="form-inline d-block d-lg-flex justify-content-between flex-column flex-md-row">
-                                        <div class="products-number">
-                                        </div>
-                                        <div class="products-sort-by mt-2 mt-lg-0">
-                                            <a data-toggle="dropdown" data-hover="dropdown" data-delay="200" class="dropdown-toggle nav-link">
-                                                <strong>Sort by</strong>
-                                                <b class="caret"></b>
-                                            </a>
-                                            <ul class="dropdown-menu megamenu">
-                                                <li class="nav-item">
-                                                    <a class="nav-link-custom" asp-route-sort="A-Z">A - Z</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link-custom" asp-route-sort="Z-A">Z - A</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link-custom" asp-route-sort="Price(low-high)">Price (low-high)</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link-custom" asp-route-sort="Price(high-low)">Price (high-low)</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link-custom" asp-route-sort="New">New</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </form>
-                                </div>
                             </div>
                         </div>
-                        <div class="row ">
-                            @foreach (var product in Model.Products.Items)
-                            {
-                                <div class="col-lg-4 col-md-6 ">
-                                    <div class="product">
-                                        <div class="flip-container">
-                                            <div class="flipper">
-                                                <div class="front">
-                                                    <a asp-area="ProductDetail" asp-route-id="@product.ProductId">
-                                                        <img src="@product.ImagePath" alt="@product.Name)" class="img-fluid">
-                                                    </a>
-                                                </div>
-                                                <div class="back">
-                                                    <a asp-area="ProductDetail" asp-route-id="@product.ProductId">
-                                                        <img src="@product.ImagePath" alt="@product.Name)" class="img-fluid">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <a asp-area="ProductDetail" asp-route-id="@product.ProductId">
-                                            <img src="@product.ImagePath" alt="@product.Name)" class="img-fluid">
-                                        </a>
-                                        <div class="text">
-                                            <h3>
-                                                <a asp-area="ProductDetail" asp-route-id="@product.ProductId">
-                                                    @product.Name.ToUpper()
-                                                </a>
-                                            </h3>
-                                            @if (product.SellingPrice < product.ListedPrice)
-                                            {
-                                                <p class="price">
-                                                    <del>
-                                                        <text> @String.Format("{0:0,0}", product.ListedPrice) VNĐ </text>
-                                                    </del>
-                                                </p>
-                                            }
-                                            <p class="price-sale">
-                                                <text> @String.Format("{0:0,0}", product.SellingPrice) VNĐ </text>
-                                            </p>
-                                            <p class="buttons">
-                                                <a asp-area="ProductDetail" asp-route-id="@product.ProductId" class="btn btn-outline-secondary">View detail</a>
-                                            </p>
-                                        </div>
-                                        <!-- /.text-->
-                                        @if (product.SellingPrice < product.ListedPrice)
-                                        {
-                                            <partial name="_RibbonSalePartial" />
-                                        }
-                                        @if (product.DateUpload > DateTime.Today.AddDays(-14))
-                                        {
-                                            <partial name="_RibbonNewPartial" />
-                                        }
-                                    </div>
-                                    <!-- /.product-->
-                                </div>
-                                <!-- /.products-->
-                            }
-                        </div>
 
-                        @{ var prevDisabled = !Model.Products.HasPreviousPage ? "disabled" : "";
-                            var nextDisabled = !Model.Products.HasNextPage ? "disabled" : ""; }
-                        <div class="pages">
-                            <nav aria-label="Page navigation example" class="d-flex justify-content-center">
-                                <ul class="pagination">
-                                    <li class="page-item @prevDisabled">
-                                        <a asp-page="./Index"
-                                           asp-route-sortOrder="@Model.Products.SortOrder"
-                                           asp-route-pageIndex="@(Model.Products.Page - 1)"
-                                           asp-route-currentFilter="@Model.Products.Search"
-                                           aria-label="Previous"
-                                           class="page-link">
-                                            <span aria-hidden="true">«</span><span class="sr-only">Previous</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item active"><a href="#" class="page-link">@Model.Products.Page</a></li>
-                                    <li class="page-item @nextDisabled">
-                                        <a asp-page="./Index"
-                                           asp-route-sortOrder="@Model.Products.SortOrder"
-                                           asp-route-pageIndex="@(Model.Products.Page + 1)"
-                                           asp-route-currentFilter="@Model.Products.Search"
-                                           aria-label="Next"
-                                           class="page-link">
-                                            <span aria-hidden="true">»</span><span class="sr-only">Next</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
+                        @await Component.InvokeAsync("ListProduct", Model.Products)
+
+                        @await Component.InvokeAsync("Pagination", Model.Products)
                     </div>
                     <!-- /.col-lg-9-->
                 }

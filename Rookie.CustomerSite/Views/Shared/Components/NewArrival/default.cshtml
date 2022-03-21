@@ -1,0 +1,83 @@
+﻿@using Rookie.CustomerSite.ViewModel.Product
+@using Rookie.CustomerSite.ViewModel
+@model PagedResponseVM<ProductVm>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div id="hot">
+    <div class="box py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="mb-0"><strong>New Arrivals</strong></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="owl-carousel owl-theme">
+            @foreach (var newproduct in Model.Items.OrderBy(x => x.DateUpload).TakeLast(8))
+            {
+                <div class="item">
+                    <div class="product">
+                        <div class="flip-container">
+                            <div class="flipper">
+                                <div class="front">
+                                    <a asp-area="ProductDetail" asp-page="./Index" asp-route-id="@newproduct.ProductId">
+                                        <img src="@newproduct.ImagePath" alt="@newproduct.Name">
+                                    </a>
+                                </div>
+                                <div class="back">
+                                    <a asp-area="ProductDetail" asp-page="./Index" asp-route-id="@newproduct.ProductId">
+                                        <img src="@newproduct.ImagePath">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="invisible" asp-area="ProductDetail" asp-page="./Index" asp-route-id="@newproduct.ProductId">
+                            <img src="@newproduct.ImagePath" alt="@newproduct.Name">
+                        </a>
+                        <div class="text">
+                            <h3>
+                                <a asp-area="ProductDetail" asp-page="./Index" asp-route-id="@newproduct.ProductId">
+                                    @newproduct.Name.ToUpper()
+                                </a>
+                            </h3>
+
+                            @if (newproduct.SellingPrice < newproduct.ListedPrice)
+                            {
+                                <p class="price">
+                                    <del>
+                                        <text> @String.Format("{0:0,0}", newproduct.ListedPrice) VNĐ </text>
+
+                                    </del>
+                                </p>
+                            }
+                            <p class="price-sale">
+                                <text> @String.Format("{0:0,0}", newproduct.SellingPrice) VNĐ </text>
+                            </p>
+                            <p class="buttons">
+                                <a class="btn btn-outline-secondary" asp-area="ProductDetail" asp-page="./Index" asp-route-id="@newproduct.ProductId">
+                                    View detail
+                                </a>
+                            </p>
+                        </div>
+                        <!-- /.text-->
+                        <!-- /.ribbon-->
+                        <partial name="_RibbonNewPartial" />
+                        <!-- /.ribbon-->
+                        <!-- /.ribbon-->
+                        @if (newproduct.SellingPrice < newproduct.ListedPrice)
+                        {
+                            <partial name="_RibbonSalePartial" />
+                        }
+                        <!-- /.ribbon-->
+                    </div>
+                    <!-- /.product-->
+                </div>
+                <!-- /.products-->
+            }
+        </div>
+        <!-- /.product-slider-->
+    </div>
+    <!-- /#hot-->
+</div>
