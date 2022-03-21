@@ -68,7 +68,7 @@ namespace RookieShop.Backend.Controllers
                 Items = reviewDtos
             };
         }
-        
+
         [HttpGet("{productId}")]
         [AllowAnonymous]
         //[Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
@@ -109,9 +109,9 @@ namespace RookieShop.Backend.Controllers
         public async Task<ActionResult<ReviewVm>> GetReview(int id)
         {
             var review = await _context
-                                .Reviews
-                                .Where(x => !x.IsDeleted && x.ReviewId == id)
-                                .FirstOrDefaultAsync();
+                            .Reviews
+                            .Where(x => !x.IsDeleted && x.ReviewId == id)
+                            .FirstOrDefaultAsync();
 
             if (review == null)
             {
@@ -135,88 +135,75 @@ namespace RookieShop.Backend.Controllers
         [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult> PutReview([FromRoute] int id, [FromForm] ReviewEditRequest reviewEditRequest)
         {
-            if (ModelState.IsValid)
-                try
-                {
-                    var review = await _context.Reviews.FindAsync(id);
-
-                    if (review == null)
-                    {
-                        return NotFound();
-                    }
-
-                    if (reviewEditRequest.Stars != null)
-                    {
-                        review.Stars = reviewEditRequest.Stars;
-                    }
-                    if (!string.IsNullOrEmpty(reviewEditRequest.Content))
-                    {
-                        review.Content = reviewEditRequest.Content;
-                    }
-                    if (reviewEditRequest.ProductId != null)
-                    {
-                        review.ProductId = reviewEditRequest.ProductId;
-                    }
-                    if (!string.IsNullOrEmpty(reviewEditRequest.UserId))
-                    {
-                        review.UserId = reviewEditRequest.UserId;
-                    }
-
-                    _context.Reviews.Update(review);
-                    await _context.SaveChangesAsync();
-
-                    return Ok(review);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            else
+            if (!ModelState.IsValid)
             {
-                return null;
+                return BadRequest();
             }
+
+            var review = await _context.Reviews.FindAsync(id);
+
+            if (review == null)
+            {
+                return NotFound();
+            }
+
+            if (reviewEditRequest.Stars != null)
+            {
+                review.Stars = Int32.Parse(reviewEditRequest.Stars);
+            }
+            if (!string.IsNullOrEmpty(reviewEditRequest.Content))
+            {
+                review.Content = reviewEditRequest.Content;
+            }
+            if (reviewEditRequest.ProductId != null)
+            {
+                review.ProductId = Int32.Parse(reviewEditRequest.ProductId);
+            }
+            if (!string.IsNullOrEmpty(reviewEditRequest.UserId))
+            {
+                review.UserId = reviewEditRequest.UserId;
+            }
+
+            _context.Reviews.Update(review);
+            await _context.SaveChangesAsync();
+
+            return Ok(review);
         }
 
         [HttpPost]
         //[Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         [AllowAnonymous]
         public async Task<ActionResult<ReviewVm>> PostReview([FromForm] ReviewCreateRequest reviewCreateRequest)
+        {
+            if (!ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                    try
-                    {
-                        var review = new Review
-                        {
-                            Stars = Int32.Parse(reviewCreateRequest.Stars),
-                            Content = reviewCreateRequest.Content,
-                            ProductId = Int32.Parse(reviewCreateRequest.ProductId),
-                            UserId = reviewCreateRequest.UserId,
-                        };
-
-                        _context.Reviews.Add(review);
-                        await _context.SaveChangesAsync();
-
-                        return CreatedAtAction("GetReview", new { id = review.ReviewId },
-                            new ReviewVm {
-                                ReviewId = review.ReviewId,
-                                Stars = review.Stars,
-                                Content = review.Content,
-                                DateUpload = review.DateUpload,
-                                ProductId = review.ProductId,
-                                UserId = review.UserId
-                            });
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
-                else
-                {
-                    return null;
-                }
+                return BadRequest();
             }
 
-            [HttpDelete("{id}")]
+            var review = new Review
+            {
+                Stars = Int32.Parse(reviewCreateRequest.Stars),
+                Content = reviewCreateRequest.Content,
+                ProductId = Int32.Parse(reviewCreateRequest.ProductId),
+                UserId = reviewCreateRequest.UserId,
+            };
+
+            _context.Reviews.Add(review);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetReview", new { id = review.ReviewId },
+                new ReviewVm
+                {
+                    ReviewId = review.ReviewId,
+                    Stars = review.Stars,
+                    Content = review.Content,
+                    DateUpload = review.DateUpload,
+                    ProductId = review.ProductId,
+                    UserId = review.UserId
+                });
+        }
+
+        [HttpDelete("{id}")]
         [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<IActionResult> DeleteReview(int id)
         {

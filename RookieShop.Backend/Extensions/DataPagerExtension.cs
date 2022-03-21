@@ -35,12 +35,12 @@ namespace RookieShop.BackEnd.Extension
 
             var startRow = (paged.CurrentPage - 1) * paged.PageSize;
 
-            paged.Items = await query
-                        .Skip(startRow)
-                        .Take(paged.PageSize)
-                        .ToListAsync(cancellationToken);
+            paged.Items = await Task.FromResult(query
+                                                .Skip(startRow)
+                                                .Take(paged.PageSize)
+                                                .ToList());
 
-            paged.TotalItems = await query.CountAsync(cancellationToken);
+            paged.TotalItems = await Task.FromResult(query.Count());
             paged.TotalPages = (int)Math.Ceiling(paged.TotalItems / (double)paged.PageSize);
 
             return paged;

@@ -21,8 +21,8 @@
                                 @Model.Product.ProductModel.SubCategory.Category.Name
                             </li>
                             <li class="breadcrumb-item">
-                                <a asp-area="ProductByCategory"
-                                   asp-page="./Index"
+                                <a asp-controller="Products"
+                                   asp-action="ProductByCategory"
                                    asp-route-subCategoryId="@Model.Product.ProductModel.SubCategory.Category.CategoryId">
                                     @Model.Product.ProductModel.SubCategory.Name
                                 </a>

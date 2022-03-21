@@ -152,3 +152,4 @@ C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug
 C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Areas\ProductDetail\Pages\Shared\_StarReviewPartial.cshtml.g.cs
 C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\Shared\Components\Pagination\default.cshtml.g.cs
 C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\Shared\Components\ListProduct\default.cshtml.g.cs
+C:\Users\kayke\OneDrive\Documents\Rookie\RookieWeb\Rookie.CustomerSite\obj\Debug\net5.0\Razor\Views\Products\ProductByCategory.cshtml.g.cs

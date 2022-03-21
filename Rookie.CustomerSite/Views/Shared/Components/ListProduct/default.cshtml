@@ -1,6 +1,7 @@
 ﻿@using Rookie.CustomerSite.ViewModel
 @using Rookie.CustomerSite.ViewModel.Product
 @model PagedResponseVM<ProductVm>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <div class="row ">
     @foreach (var product in Model.Items)
@@ -10,23 +11,23 @@
                 <div class="flip-container">
                     <div class="flipper">
                         <div class="front">
-                            <a asp-area="ProductDetail" asp-route-id="@product.ProductId">
+                            <a asp-area="ProductDetail" asp-page="/Index" asp-route-id="@product.ProductId">
                                 <img src="@product.ImagePath" alt="@product.Name)" class="img-fluid">
                             </a>
                         </div>
                         <div class="back">
-                            <a asp-area="ProductDetail" asp-route-id="@product.ProductId">
+                            <a asp-area="ProductDetail" asp-page="/Index" asp-route-id="@product.ProductId">
                                 <img src="@product.ImagePath" alt="@product.Name)" class="img-fluid">
                             </a>
                         </div>
                     </div>
                 </div>
-                <a asp-area="ProductDetail" asp-route-id="@product.ProductId">
+                <a asp-area="ProductDetail" asp-page="/Index" asp-route-id="@product.ProductId">
                     <img src="@product.ImagePath" alt="@product.Name)" class="img-fluid">
                 </a>
                 <div class="text">
                     <h3>
-                        <a asp-area="ProductDetail" asp-route-id="@product.ProductId">
+                        <a asp-area="ProductDetail" asp-page="/Index" asp-route-id="@product.ProductId">
                             @product.Name.ToUpper()
                         </a>
                     </h3>
@@ -42,7 +43,7 @@
                         <text> @String.Format("{0:0,0}", product.SellingPrice) VNĐ </text>
                     </p>
                     <p class="buttons">
-                        <a asp-area="ProductDetail" asp-route-id="@product.ProductId" class="btn btn-outline-secondary">View detail</a>
+                        <a asp-area="ProductDetail" asp-page="/Index" asp-route-id="@product.ProductId" class="btn btn-outline-secondary">View detail</a>
                     </p>
                 </div>
                 <!-- /.text-->

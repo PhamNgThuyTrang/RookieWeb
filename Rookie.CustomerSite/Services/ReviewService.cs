@@ -52,21 +52,14 @@ public class ReviewService : IReviewService
         return review;
     }
 
-    public async Task<bool> PostReview(ReviewDto review)
+    public async Task<bool> PostReview(ReviewCreateRequest reviewCreateRequest)
     {
-        var reviewCreateRequest = new ReviewCreateRequest
-        {
-            Stars = review.Stars.ToString(),
-            Content = review.Content,
-            ProductId = review.ProductId.ToString(),
-        };
-
         var json = JsonConvert.SerializeObject(reviewCreateRequest);
         var data = new StringContent(json, Encoding.UTF8, "application/json");
         var content = new MultipartFormDataContent();
-        content.Add(new StringContent(review.Stars.ToString()), "Stars");
-        content.Add(new StringContent(review.Content), "Content");
-        content.Add(new StringContent(review.ProductId.ToString()), "ProductId");
+        content.Add(new StringContent(reviewCreateRequest.Stars), "Stars");
+        content.Add(new StringContent(reviewCreateRequest.Content), "Content");
+        content.Add(new StringContent(reviewCreateRequest.ProductId), "ProductId");
 
         var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
         var res = await client.PostAsync(

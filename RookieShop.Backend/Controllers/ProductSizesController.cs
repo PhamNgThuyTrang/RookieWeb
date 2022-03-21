@@ -105,69 +105,54 @@ namespace RookieShop.Backend.Controllers
                 [FromRoute] int id,
                 [FromForm] ProductSizeCreateRequest productSizeCreateRequest)
         {
-            if (ModelState.IsValid)
-                try
-                {
-                    var productSize = await _context.ProductSizes.FindAsync(id);
-
-                    if (productSize == null)
-                    {
-                        return NotFound();
-                    }
-
-                    productSize.Size = productSizeCreateRequest.Size;
-                    productSize.Quantity = productSizeCreateRequest.Quantity;
-                    productSize.ProductId = productSizeCreateRequest.ProductId;
-
-                    _context.ProductSizes.Update(productSize);
-                    await _context.SaveChangesAsync();
-
-                    return Ok(productSize);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            else
+            if (!ModelState.IsValid)
             {
-                return null;
+                return BadRequest();
             }
+            var productSize = await _context.ProductSizes.FindAsync(id);
+
+            if (productSize == null)
+            {
+                return NotFound();
+            }
+
+            productSize.Size = productSizeCreateRequest.Size;
+            productSize.Quantity = productSizeCreateRequest.Quantity;
+            productSize.ProductId = productSizeCreateRequest.ProductId;
+
+            _context.ProductSizes.Update(productSize);
+            await _context.SaveChangesAsync();
+
+            return Ok(productSize);
         }
 
         [HttpPost]
         [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult<BannerVm>> PostProductSize([FromForm] ProductSizeCreateRequest productSizeCreateRequest)
         {
-            if (ModelState.IsValid)
-                try
-                {
-                    var productSize = new ProductSize
-                    {
-                        Size = productSizeCreateRequest.Size,
-                        Quantity = productSizeCreateRequest.Quantity,
-                        ProductId = productSizeCreateRequest.ProductId
-                    };
-
-                    _context.ProductSizes.Add(productSize);
-                    await _context.SaveChangesAsync();
-
-                    return CreatedAtAction("GetProductSize", new { id = productSize.ProductId },
-                                            new ProductSizeVm
-                                            {
-                                                ProductSizeId = productSize.ProductSizeId,
-                                                Size = productSize.Size,
-                                                Quantity = productSize.Quantity,
-                                                ProductId = productSize.ProductId
-                                            });
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            else
+            if (!ModelState.IsValid)
             {
-                return null;
+                return BadRequest();
             }
+
+            var productSize = new ProductSize
+            {
+                Size = productSizeCreateRequest.Size,
+                Quantity = productSizeCreateRequest.Quantity,
+                ProductId = productSizeCreateRequest.ProductId
+            };
+
+            _context.ProductSizes.Add(productSize);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetProductSize", new { id = productSize.ProductId },
+                                    new ProductSizeVm
+                                    {
+                                        ProductSizeId = productSize.ProductSizeId,
+                                        Size = productSize.Size,
+                                        Quantity = productSize.Quantity,
+                                        ProductId = productSize.ProductId
+                                    });
         }
 
         [HttpDelete("{id}")]
