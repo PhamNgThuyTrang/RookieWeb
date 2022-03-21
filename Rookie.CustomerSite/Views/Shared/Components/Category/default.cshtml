@@ -1,6 +1,8 @@
 ﻿@using Rookie.CustomerSite.ViewModel.Category;
 @using Rookie.CustomerSite.ViewModel;
 @model PagedResponseVM<CategoryVm>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 @{
 }
 
@@ -12,7 +14,7 @@
             <li class="nav-item">
                 @foreach (var subcategory in category.SubCategories.Items)
                 {
-                    <a asp-area="ProductByCategory" asp-page="./Index" asp-route-subCategoryId="@subcategory.SubCategoryId" class="nav-link-custom">
+                    <a asp-controller="Products" asp-action="ProductByCategory" asp-route-subCategoryId="@subcategory.SubCategoryId" class="nav-link-custom">
                         @subcategory.Name
                     </a>
                 }

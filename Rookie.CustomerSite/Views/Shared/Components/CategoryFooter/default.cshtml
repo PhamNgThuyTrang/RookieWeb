@@ -13,7 +13,7 @@
         @foreach (var subcategory in category.SubCategories.Items)
         {
             <ul class="list-unstyled">
-                <li><a asp-area="ProductByCategory" asp-page="./Index" asp-route-subCategoryId="@subcategory.SubCategoryId">@subcategory.Name</a></li>
+                <li><a asp-controller="Products" asp-action="ProductByCategory" asp-route-subCategoryId="@subcategory.SubCategoryId">@subcategory.Name</a></li>
             </ul>
         }
     </div>

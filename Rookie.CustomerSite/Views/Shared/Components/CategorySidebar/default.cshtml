@@ -20,8 +20,8 @@
                     {
                         <ul class="list-unstyled">
                             <li>
-                                <a asp-area="ProductByCategory"
-                                   asp-page="./Index"
+                                <a asp-controller="Products"
+                                   asp-action="ProductByCategory"
                                    asp-route-subCategoryId="@subcategory.SubCategoryId"
                                    asp-route-search="@ViewData["Search"]">
                                     @subcategory.Name

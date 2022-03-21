@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RookieShop.Backend.Data;
+using RookieShop.Backend.Interface;
 using RookieShop.Backend.Models;
 using RookieShop.BackEnd.Extension;
 using RookieShop.BackEnd.Services;
@@ -27,16 +28,17 @@ namespace RookieShop.Backend.Controllers
     [Authorize("Bearer")]
     public class BrandsController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly IFileStorageService _fileStorageService;
+        private readonly IBrandRepository _brandRepository;
 
         public BrandsController(
-            ApplicationDbContext context,
-            IFileStorageService fileStorageService,
-            IMapper mapper)
+            IBrandRepository brandRepository,
+            IMapper mapper,
+            IFileStorageService fileStorageService
+            )
         {
-            _context = context;
+            _brandRepository = brandRepository;
             _mapper = mapper;
             _fileStorageService = fileStorageService;
         }
@@ -48,10 +50,7 @@ namespace RookieShop.Backend.Controllers
             [FromQuery]BrandCriteriaDto brandCriteriaDto,
             CancellationToken cancellationToken)
         {
-            var brands = _context
-                                .Brands
-                                .Where(x => !x.IsDeleted)
-                                .AsQueryable();
+            var brands = _brandRepository.GetAll();
             brands = BrandFilter(brands, brandCriteriaDto);
 
             var pagedBrands = await brands
@@ -76,10 +75,7 @@ namespace RookieShop.Backend.Controllers
         [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult<BrandVm>> GetBrand(int id)
         {
-            var brand = await _context
-                                .Brands
-                                .Where(x => !x.IsDeleted && x.BrandId == id)
-                                .FirstOrDefaultAsync();
+            var brand = _brandRepository.GetById(id); 
 
             if (brand == null)
             {
@@ -110,7 +106,7 @@ namespace RookieShop.Backend.Controllers
                 return BadRequest();
             }
 
-            var brand = await _context.Brands.FindAsync(id);
+            var brand = _brandRepository.FindById(id);
 
             if (brand == null)
             {
@@ -129,8 +125,7 @@ namespace RookieShop.Backend.Controllers
                 brand.ImagePath = await _fileStorageService.SaveFileAsync(brandCreateRequest.ImageFile);
             }
 
-            _context.Brands.Update(brand);
-            await _context.SaveChangesAsync();
+            _brandRepository.Put(brand);
 
             return Ok(brand);
         }
@@ -157,8 +152,7 @@ namespace RookieShop.Backend.Controllers
                 brand.ImagePath = await _fileStorageService.SaveFileAsync(brandCreateRequest.ImageFile);
             }
 
-            _context.Brands.Add(brand);
-            await _context.SaveChangesAsync();
+            _brandRepository.Post(brand);
 
             return CreatedAtAction("GetBrand",
                 new { id = brand.BrandId },
@@ -174,16 +168,13 @@ namespace RookieShop.Backend.Controllers
         [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<IActionResult> DeleteBrand(int id)
         {
-            var brand = await _context.Brands.FindAsync(id);
+            var brand = _brandRepository.FindById(id);
             if (brand == null)
             {
                 return NotFound();
             }
 
-            //_context.Brands.Remove(brand);
-            brand.IsDeleted = true;
-            _context.Brands.Update(brand);
-            await _context.SaveChangesAsync();
+            _brandRepository.Delete(brand);
 
             return Ok(true);
         }

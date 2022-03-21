@@ -1,6 +1,7 @@
 ﻿@using Rookie.CustomerSite.ViewModel
 @using Rookie.CustomerSite.ViewModel.Product
 @model PagedResponseVM<ProductVm>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 
 @{ var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
@@ -9,8 +10,7 @@
     <nav aria-label="Page navigation example" class="d-flex justify-content-center">
         <ul class="pagination">
             <li class="page-item @prevDisabled">
-                <a asp-page="./Index"
-                   asp-route-sortOrder="@Model.SortOrder"
+                <a asp-route-sortOrder="@Model.SortOrder"
                    asp-route-pageIndex="@(Model.Page - 1)"
                    asp-route-currentFilter="@Model.Search"
                    aria-label="Previous"
@@ -20,8 +20,7 @@
             </li>
             <li class="page-item active"><a href="#" class="page-link">@Model.Page</a></li>
             <li class="page-item @nextDisabled">
-                <a asp-page="./Index"
-                   asp-route-sortOrder="@Model.SortOrder"
+                <a asp-route-sortOrder="@Model.SortOrder"
                    asp-route-pageIndex="@(Model.Page + 1)"
                    asp-route-currentFilter="@Model.Search"
                    aria-label="Next"

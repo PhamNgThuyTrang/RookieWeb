@@ -38,61 +38,60 @@
                 </nav>
             }
 
-                    else
-                    {
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a asp-controller="Home" asp-action="Index">Home</a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    @Model.Products.Items.FirstOrDefault().ProductModel.SubCategory.Category.Name
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a asp-area="ProductByCategory"
-                                       asp-page="./Index"
-                                       asp-route-subCategoryId="@Model.Products.Items.FirstOrDefault().ProductModel.SubCategoryId">
-                                        @Model.Products.Items.FirstOrDefault().ProductModel.SubCategory.Name
-                                    </a>
-                                </li>
-                            </ol>
-                        </nav>
-                    }
-                </div>
-                <!-- breadcrumb-->
-                <!--*** MENUS AND FILTERS ***-->
-                <div class="col-lg-3">
-                    @await Component.InvokeAsync("CategorySidebar", Model.Search)
-                </div>
-                <!-- *** MENUS AND FILTERS END ***-->
-
-                @if (Model.Products.Items.Count() == 0)
-                {
-                    <partial name="_ProductNotFound" />
-                }
-                else
-                {
-                    <div class="col-lg-9">
-                        <div class="box info-bar">
-                            <div class="row">
-                                <div class="col-md-12 col-lg-4 products-showing">
-                                    @{
-                                        var showing = (Model.Products.Items.Count() > 9) ?
-                                            $"Showing <strong>9</strong> of <strong> {Model.Products.Items.Count()}</strong> products" :
-                                            $"Showing <strong>{Model.Products.Items.Count()}</strong> products";
-                                        @Html.Raw(showing);
-                                    }
-                                </div>
-                            </div>
-                        </div>
-
-                        @await Component.InvokeAsync("ListProduct", Model.Products)
-
-                        @await Component.InvokeAsync("Pagination", Model.Products)
-                    </div>
-                    <!-- /.col-lg-9-->
-                }
-            </div>
+            else
+            {
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            @Model.Products.Items.FirstOrDefault().ProductModel.SubCategory.Category.Name
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Products" 
+                               asp-action="ProductByCategory"
+                                asp-route-subCategoryId="@Model.Products.Items.FirstOrDefault().ProductModel.SubCategoryId">
+                                @Model.Products.Items.FirstOrDefault().ProductModel.SubCategory.Name
+                            </a>
+                        </li>
+                    </ol>
+                </nav>
+            }
         </div>
+        <!-- breadcrumb-->
+        <!--*** MENUS AND FILTERS ***-->
+        <div class="col-lg-3">
+            @await Component.InvokeAsync("CategorySidebar", Model.Search)
+        </div>
+        <!-- *** MENUS AND FILTERS END ***-->
+
+        @if (Model.Products.Items.Count() == 0)
+        {
+            <partial name="_ProductNotFound" />
+        }
+        else
+        {
+            <div class="col-lg-9">
+                <div class="box info-bar">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-4 products-showing">
+                            @{
+                                var showing = (Model.Products.Items.Count() > 9) ?
+                                    $"Showing <strong>9</strong> of <strong> {Model.Products.Items.Count()}</strong> products" :
+                                    $"Showing <strong>{Model.Products.Items.Count()}</strong> products";
+                                @Html.Raw(showing);
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                @await Component.InvokeAsync("ListProduct", Model.Products)
+
+                @await Component.InvokeAsync("Pagination", Model.Products)
+            </div>
+            <!-- /.col-lg-9-->
+        }
     </div>
 </div>
+    
